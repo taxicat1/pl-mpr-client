@@ -1,0 +1,32 @@
+#ifndef MPR_SPECIAL_RIBBONS_H
+#define MPR_SPECIAL_RIBBONS_H
+
+#include "savedata.h"
+
+typedef enum {
+	SPECIAL_RIBBON_HOENN_MARINE = 0,
+	SPECIAL_RIBBON_HOENN_LAND,
+	SPECIAL_RIBBON_HOENN_SKY,
+	SPECIAL_RIBBON_UNUSED_03,
+	SPECIAL_RIBBON_UNUSED_04,
+	SPECIAL_RIBBON_UNUSED_05,
+	SPECIAL_RIBBON_UNUSED_06,
+	SPECIAL_RIBBON_RED,
+	SPECIAL_RIBBON_GREEN,
+	SPECIAL_RIBBON_BLUE,
+	SPECIAL_RIBBON_FESTIVAL,
+	SPECIAL_RIBBON_CARNIVAL,
+	SPECIAL_RIBBON_CLASSIC,
+	SPECIAL_RIBBON_PREMIER,
+	SPECIAL_RIBBON_MAX
+} SpecialRibbon;
+
+typedef struct {
+	u8 receivedSpecialRibbons[SPECIAL_RIBBON_MAX];
+} SpecialRibbonsSave;
+
+int SpecialRibbons_GetSaveSize(void);
+void SpecialRibbons_Init(SpecialRibbonsSave* ribbons);
+SpecialRibbonsSave* SaveData_GetSpecialRibbons(SaveData* saveData);
+
+#endif /* MPR_SPECIAL_RIBBONS_H */

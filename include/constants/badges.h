@@ -1,0 +1,16 @@
+#ifndef MPR_CONSTANTS_BADGES_H
+#define MPR_CONSTANTS_BADGES_H
+
+typedef enum {
+	BADGE_ID_COAL   = 0,
+	BADGE_ID_FOREST = 1,
+	BADGE_ID_COBBLE = 2,
+	BADGE_ID_FEN    = 3,
+	BADGE_ID_RELIC  = 4,
+	BADGE_ID_MINE   = 5,
+	BADGE_ID_ICICLE = 6,
+	BADGE_ID_BEACON = 7,
+	MAX_BADGES      = 8
+} Badge;
+
+#endif /* MPR_CONSTANTS_BADGES_H */

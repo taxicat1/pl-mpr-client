@@ -1,0 +1,16 @@
+#ifndef MPR_CONSTANTS_EXP_RATES_H
+#define MPR_CONSTANTS_EXP_RATES_H
+
+typedef enum {
+	EXP_RATE_MEDIUM_FAST = 0,
+	EXP_RATE_ERRATIC     = 1,
+	EXP_RATE_FLUCTUATING = 2,
+	EXP_RATE_MEDIUM_SLOW = 3,
+	EXP_RATE_FAST        = 4,
+	EXP_RATE_SLOW        = 5,
+	EXP_RATE_6_UNUSED    = 6,
+	EXP_RATE_7_UNUSED    = 7,
+	EXP_RATE_MAX         = 8
+} ExpRate;
+
+#endif /* MPR_CONSTANTS_EXP_RATES_H */

@@ -1,0 +1,31 @@
+Arm9
+{
+	Static        build/main.sbin_LZ
+	OverlayDefs   build/main_defs.sbin_LZ
+	OverlayTable  build/main_table.sbin_LZ
+}
+
+Arm7
+{
+	Static       sub/ichneumon_sub.sbin
+	OverlayDefs  sub/ichneumon_sub_defs.sbin
+}
+
+Property
+{
+	RomHeaderTemplate  rom_header_template.sbin
+	TitleName          "POKEMON D"
+	MakerCode          01
+	RomVersion         00
+	RomSpeedType       1TROM
+	RomSize            1G
+	RomFootPadding     FALSE
+	
+	# ROM banner is not visible. It is recycled from Japanese Diamond
+	BannerFile         banner.bin
+}
+
+RomSpec
+{
+	Segment  All
+}

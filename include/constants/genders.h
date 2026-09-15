@@ -1,0 +1,10 @@
+#ifndef MPR_CONSTANTS_GENDER_H
+#define MPR_CONSTANTS_GENDER_H
+
+typedef enum {
+	GENDER_MALE,
+	GENDER_FEMALE,
+	GENDER_NONE
+} Gender;
+
+#endif /* MPR_CONSTANTS_GENDER_H */

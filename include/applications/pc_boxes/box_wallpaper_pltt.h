@@ -1,0 +1,8 @@
+#ifndef MPR_APPLICATIONS_PC_BOXES_BOX_WALLPAPER_PLTT_H
+#define MPR_APPLICATIONS_PC_BOXES_BOX_WALLPAPER_PLTT_H
+
+#include <nitro/types.h>
+
+extern const u8 gWallpaperPltt[];
+
+#endif /* MPR_APPLICATIONS_PC_BOXES_BOX_WALLPAPER_PLTT_H */

@@ -1,0 +1,3004 @@
+#ifndef MPR_ITEM_TABLES_DAT
+#define MPR_ITEM_TABLES_DAT
+
+#include "constants/items.h"
+#include "constants/gba_items.h"
+
+#include "fs/itemtool/itemdata/item_icon.naix"
+
+
+// List of berry items (unused)
+static const u16 sBerryItemIDs[] = {
+	ITEM_CHERI_BERRY,
+	ITEM_CHESTO_BERRY,
+	ITEM_PECHA_BERRY,
+	ITEM_RAWST_BERRY,
+	ITEM_ASPEAR_BERRY,
+	ITEM_LEPPA_BERRY,
+	ITEM_ORAN_BERRY,
+	ITEM_PERSIM_BERRY,
+	ITEM_LUM_BERRY,
+	ITEM_SITRUS_BERRY,
+	ITEM_FIGY_BERRY,
+	ITEM_WIKI_BERRY,
+	ITEM_MAGO_BERRY,
+	ITEM_AGUAV_BERRY,
+	ITEM_IAPAPA_BERRY,
+	ITEM_RAZZ_BERRY,
+	ITEM_BLUK_BERRY,
+	ITEM_NANAB_BERRY,
+	ITEM_WEPEAR_BERRY,
+	ITEM_PINAP_BERRY,
+	ITEM_POMEG_BERRY,
+	ITEM_KELPSY_BERRY,
+	ITEM_QUALOT_BERRY,
+	ITEM_HONDEW_BERRY,
+	ITEM_GREPA_BERRY,
+	ITEM_TAMATO_BERRY,
+	ITEM_CORNN_BERRY,
+	ITEM_MAGOST_BERRY,
+	ITEM_RABUTA_BERRY,
+	ITEM_NOMEL_BERRY,
+	ITEM_SPELON_BERRY,
+	ITEM_PAMTRE_BERRY,
+	ITEM_WATMEL_BERRY,
+	ITEM_DURIN_BERRY,
+	ITEM_BELUE_BERRY,
+	ITEM_OCCA_BERRY,
+	ITEM_PASSHO_BERRY,
+	ITEM_WACAN_BERRY,
+	ITEM_RINDO_BERRY,
+	ITEM_YACHE_BERRY,
+	ITEM_CHOPLE_BERRY,
+	ITEM_KEBIA_BERRY,
+	ITEM_SHUCA_BERRY,
+	ITEM_COBA_BERRY,
+	ITEM_PAYAPA_BERRY,
+	ITEM_TANGA_BERRY,
+	ITEM_CHARTI_BERRY,
+	ITEM_KASIB_BERRY,
+	ITEM_HABAN_BERRY,
+	ITEM_COLBUR_BERRY,
+	ITEM_BABIRI_BERRY,
+	ITEM_CHILAN_BERRY,
+	ITEM_LIECHI_BERRY,
+	ITEM_GANLON_BERRY,
+	ITEM_SALAC_BERRY,
+	ITEM_PETAYA_BERRY,
+	ITEM_APICOT_BERRY,
+	ITEM_LANSAT_BERRY,
+	ITEM_STARF_BERRY,
+	ITEM_ENIGMA_BERRY,
+	ITEM_MICLE_BERRY,
+	ITEM_CUSTAP_BERRY,
+	ITEM_JABOCA_BERRY,
+	ITEM_ROWAP_BERRY
+};
+
+
+// Map of NARC access parameters for item graphics (DP only)
+typedef struct {
+	u16  dataID;
+	u16  iconID;
+	u16  paletteID;
+	u16  gen3ID;
+} ItemArchiveIDs;
+
+static const ItemArchiveIDs sItemArchiveIDs[] = {
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 1,
+		.iconID = master_ball_NCGR,
+		.paletteID = master_ball_NCLR,
+		.gen3ID = GBA_ITEM_MASTER_BALL
+	},
+	{
+		.dataID = 2,
+		.iconID = ultra_ball_NCGR,
+		.paletteID = ultra_ball_NCLR,
+		.gen3ID = GBA_ITEM_ULTRA_BALL
+	},
+	{
+		.dataID = 3,
+		.iconID = great_ball_NCGR,
+		.paletteID = great_ball_NCLR,
+		.gen3ID = GBA_ITEM_GREAT_BALL
+	},
+	{
+		.dataID = 4,
+		.iconID = poke_ball_NCGR,
+		.paletteID = poke_ball_NCLR,
+		.gen3ID = GBA_ITEM_POKE_BALL
+	},
+	{
+		.dataID = 5,
+		.iconID = safari_ball_NCGR,
+		.paletteID = safari_ball_NCLR,
+		.gen3ID = GBA_ITEM_SAFARI_BALL
+	},
+	{
+		.dataID = 6,
+		.iconID = net_ball_NCGR,
+		.paletteID = net_ball_NCLR,
+		.gen3ID = GBA_ITEM_NET_BALL
+	},
+	{
+		.dataID = 7,
+		.iconID = dive_ball_NCGR,
+		.paletteID = dive_ball_NCLR,
+		.gen3ID = GBA_ITEM_DIVE_BALL
+	},
+	{
+		.dataID = 8,
+		.iconID = nest_ball_NCGR,
+		.paletteID = nest_ball_NCLR,
+		.gen3ID = GBA_ITEM_NEST_BALL
+	},
+	{
+		.dataID = 9,
+		.iconID = repeat_ball_NCGR,
+		.paletteID = repeat_ball_NCLR,
+		.gen3ID = GBA_ITEM_REPEAT_BALL
+	},
+	{
+		.dataID = 10,
+		.iconID = timer_ball_NCGR,
+		.paletteID = repeat_ball_NCLR,
+		.gen3ID = GBA_ITEM_TIMER_BALL
+	},
+	{
+		.dataID = 11,
+		.iconID = luxury_ball_NCGR,
+		.paletteID = luxury_ball_NCLR,
+		.gen3ID = GBA_ITEM_LUXURY_BALL
+	},
+	{
+		.dataID = 12,
+		.iconID = premier_ball_NCGR,
+		.paletteID = luxury_ball_NCLR,
+		.gen3ID = GBA_ITEM_PREMIER_BALL
+	},
+	{
+		.dataID = 13,
+		.iconID = dusk_ball_NCGR,
+		.paletteID = dusk_ball_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 14,
+		.iconID = heal_ball_NCGR,
+		.paletteID = heal_ball_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 15,
+		.iconID = quick_ball_NCGR,
+		.paletteID = quick_ball_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 16,
+		.iconID = cherish_ball_NCGR,
+		.paletteID = cherish_ball_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 17,
+		.iconID = potion_NCGR,
+		.paletteID = potion_NCLR,
+		.gen3ID = GBA_ITEM_POTION
+	},
+	{
+		.dataID = 18,
+		.iconID = antidote_NCGR,
+		.paletteID = antidote_NCLR,
+		.gen3ID = GBA_ITEM_ANTIDOTE
+	},
+	{
+		.dataID = 19,
+		.iconID = burn_heal_NCGR,
+		.paletteID = burn_heal_NCLR,
+		.gen3ID = GBA_ITEM_BURN_HEAL
+	},
+	{
+		.dataID = 20,
+		.iconID = burn_heal_NCGR,
+		.paletteID = ice_heal_NCLR,
+		.gen3ID = GBA_ITEM_ICE_HEAL
+	},
+	{
+		.dataID = 21,
+		.iconID = burn_heal_NCGR,
+		.paletteID = awakening_NCLR,
+		.gen3ID = GBA_ITEM_AWAKENING
+	},
+	{
+		.dataID = 22,
+		.iconID = burn_heal_NCGR,
+		.paletteID = parlyz_heal_NCLR,
+		.gen3ID = GBA_ITEM_PARALYZE_HEAL
+	},
+	{
+		.dataID = 23,
+		.iconID = full_restore_NCGR,
+		.paletteID = full_restore_NCLR,
+		.gen3ID = GBA_ITEM_FULL_RESTORE
+	},
+	{
+		.dataID = 24,
+		.iconID = full_restore_NCGR,
+		.paletteID = max_potion_NCLR,
+		.gen3ID = GBA_ITEM_MAX_POTION
+	},
+	{
+		.dataID = 25,
+		.iconID = potion_NCGR,
+		.paletteID = hyper_potion_NCLR,
+		.gen3ID = GBA_ITEM_HYPER_POTION
+	},
+	{
+		.dataID = 26,
+		.iconID = potion_NCGR,
+		.paletteID = super_potion_NCLR,
+		.gen3ID = GBA_ITEM_SUPER_POTION
+	},
+	{
+		.dataID = 27,
+		.iconID = full_heal_NCGR,
+		.paletteID = full_heal_NCLR,
+		.gen3ID = GBA_ITEM_FULL_HEAL
+	},
+	{
+		.dataID = 28,
+		.iconID = revive_NCGR,
+		.paletteID = revive_NCLR,
+		.gen3ID = GBA_ITEM_REVIVE
+	},
+	{
+		.dataID = 29,
+		.iconID = max_revive_NCGR,
+		.paletteID = revive_NCLR,
+		.gen3ID = GBA_ITEM_MAX_REVIVE
+	},
+	{
+		.dataID = 30,
+		.iconID = fresh_water_NCGR,
+		.paletteID = fresh_water_NCLR,
+		.gen3ID = GBA_ITEM_FRESH_WATER
+	},
+	{
+		.dataID = 31,
+		.iconID = soda_pop_NCGR,
+		.paletteID = soda_pop_NCLR,
+		.gen3ID = GBA_ITEM_SODA_POP
+	},
+	{
+		.dataID = 32,
+		.iconID = lemonade_NCGR,
+		.paletteID = lemonade_NCLR,
+		.gen3ID = GBA_ITEM_LEMONADE
+	},
+	{
+		.dataID = 33,
+		.iconID = moomoo_milk_NCGR,
+		.paletteID = moomoo_milk_NCLR,
+		.gen3ID = GBA_ITEM_MOOMOO_MILK
+	},
+	{
+		.dataID = 34,
+		.iconID = energypowder_NCGR,
+		.paletteID = energypowder_NCLR,
+		.gen3ID = GBA_ITEM_ENERGY_POWDER
+	},
+	{
+		.dataID = 35,
+		.iconID = energy_root_NCGR,
+		.paletteID = energy_root_NCLR,
+		.gen3ID = GBA_ITEM_ENERGY_ROOT
+	},
+	{
+		.dataID = 36,
+		.iconID = energypowder_NCGR,
+		.paletteID = heal_powder_NCLR,
+		.gen3ID = GBA_ITEM_HEAL_POWDER
+	},
+	{
+		.dataID = 37,
+		.iconID = revival_herb_NCGR,
+		.paletteID = revival_herb_NCLR,
+		.gen3ID = GBA_ITEM_REVIVAL_HERB
+	},
+	{
+		.dataID = 38,
+		.iconID = ether_NCGR,
+		.paletteID = ether_NCLR,
+		.gen3ID = GBA_ITEM_ETHER
+	},
+	{
+		.dataID = 39,
+		.iconID = ether_NCGR,
+		.paletteID = max_ether_NCLR,
+		.gen3ID = GBA_ITEM_MAX_ETHER
+	},
+	{
+		.dataID = 40,
+		.iconID = ether_NCGR,
+		.paletteID = elixir_NCLR,
+		.gen3ID = GBA_ITEM_ELIXIR
+	},
+	{
+		.dataID = 41,
+		.iconID = ether_NCGR,
+		.paletteID = max_elixir_NCLR,
+		.gen3ID = GBA_ITEM_MAX_ELIXIR
+	},
+	{
+		.dataID = 42,
+		.iconID = lava_cookie_NCGR,
+		.paletteID = lava_cookie_NCLR,
+		.gen3ID = GBA_ITEM_LAVA_COOKIE
+	},
+	{
+		.dataID = 43,
+		.iconID = berry_juice_NCGR,
+		.paletteID = berry_juice_NCLR,
+		.gen3ID = GBA_ITEM_BERRY_JUICE
+	},
+	{
+		.dataID = 44,
+		.iconID = sacred_ash_NCGR,
+		.paletteID = sacred_ash_NCLR,
+		.gen3ID = GBA_ITEM_SACRED_ASH
+	},
+	{
+		.dataID = 45,
+		.iconID = hp_up_NCGR,
+		.paletteID = hp_up_NCLR,
+		.gen3ID = GBA_ITEM_HP_UP
+	},
+	{
+		.dataID = 46,
+		.iconID = protein_NCGR,
+		.paletteID = protein_NCLR,
+		.gen3ID = GBA_ITEM_PROTEIN
+	},
+	{
+		.dataID = 47,
+		.iconID = protein_NCGR,
+		.paletteID = iron_NCLR,
+		.gen3ID = GBA_ITEM_IRON
+	},
+	{
+		.dataID = 48,
+		.iconID = protein_NCGR,
+		.paletteID = carbos_NCLR,
+		.gen3ID = GBA_ITEM_CARBOS
+	},
+	{
+		.dataID = 49,
+		.iconID = protein_NCGR,
+		.paletteID = calcium_NCLR,
+		.gen3ID = GBA_ITEM_CALCIUM
+	},
+	{
+		.dataID = 50,
+		.iconID = rare_candy_NCGR,
+		.paletteID = rare_candy_NCLR,
+		.gen3ID = GBA_ITEM_RARE_CANDY
+	},
+	{
+		.dataID = 51,
+		.iconID = pp_up_NCGR,
+		.paletteID = pp_up_NCLR,
+		.gen3ID = GBA_ITEM_PP_UP
+	},
+	{
+		.dataID = 52,
+		.iconID = protein_NCGR,
+		.paletteID = zinc_NCLR,
+		.gen3ID = GBA_ITEM_ZINC
+	},
+	{
+		.dataID = 53,
+		.iconID = pp_max_NCGR,
+		.paletteID = pp_max_NCLR,
+		.gen3ID = GBA_ITEM_PP_MAX
+	},
+	{
+		.dataID = 54,
+		.iconID = old_gateau_NCGR,
+		.paletteID = old_gateau_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 55,
+		.iconID = guard_spec_NCGR,
+		.paletteID = guard_spec_NCLR,
+		.gen3ID = GBA_ITEM_GUARD_SPEC
+	},
+	{
+		.dataID = 56,
+		.iconID = guard_spec_NCGR,
+		.paletteID = dire_hit_NCLR,
+		.gen3ID = GBA_ITEM_DIRE_HIT
+	},
+	{
+		.dataID = 57,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_attack_NCLR,
+		.gen3ID = GBA_ITEM_X_ATTACK
+	},
+	{
+		.dataID = 58,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_defense_NCLR,
+		.gen3ID = GBA_ITEM_X_DEFEND
+	},
+	{
+		.dataID = 59,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_speed_NCLR,
+		.gen3ID = GBA_ITEM_X_SPEED
+	},
+	{
+		.dataID = 60,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_accuracy_NCLR,
+		.gen3ID = GBA_ITEM_X_ACCURACY
+	},
+	{
+		.dataID = 61,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_special_NCLR,
+		.gen3ID = GBA_ITEM_X_SPECIAL
+	},
+	{
+		.dataID = 62,
+		.iconID = guard_spec_NCGR,
+		.paletteID = x_sp_def_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 63,
+		.iconID = poke_doll_NCGR,
+		.paletteID = poke_doll_NCLR,
+		.gen3ID = GBA_ITEM_POKE_DOLL
+	},
+	{
+		.dataID = 64,
+		.iconID = fluffy_tail_NCGR,
+		.paletteID = fluffy_tail_NCLR,
+		.gen3ID = GBA_ITEM_FLUFFY_TAIL
+	},
+	{
+		.dataID = 65,
+		.iconID = blue_flute_NCGR,
+		.paletteID = blue_flute_NCLR,
+		.gen3ID = GBA_ITEM_BLUE_FLUTE
+	},
+	{
+		.dataID = 66,
+		.iconID = blue_flute_NCGR,
+		.paletteID = yellow_flute_NCLR,
+		.gen3ID = GBA_ITEM_YELLOW_FLUTE
+	},
+	{
+		.dataID = 67,
+		.iconID = blue_flute_NCGR,
+		.paletteID = red_flute_NCLR,
+		.gen3ID = GBA_ITEM_RED_FLUTE
+	},
+	{
+		.dataID = 68,
+		.iconID = blue_flute_NCGR,
+		.paletteID = black_flute_NCLR,
+		.gen3ID = GBA_ITEM_BLACK_FLUTE
+	},
+	{
+		.dataID = 69,
+		.iconID = blue_flute_NCGR,
+		.paletteID = white_flute_NCLR,
+		.gen3ID = GBA_ITEM_WHITE_FLUTE
+	},
+	{
+		.dataID = 70,
+		.iconID = energypowder_NCGR,
+		.paletteID = shoal_salt_NCLR,
+		.gen3ID = GBA_ITEM_SHOAL_SALT
+	},
+	{
+		.dataID = 71,
+		.iconID = shoal_shell_NCGR,
+		.paletteID = shoal_shell_NCLR,
+		.gen3ID = GBA_ITEM_SHOAL_SHELL
+	},
+	{
+		.dataID = 72,
+		.iconID = red_shard_NCGR,
+		.paletteID = red_shard_NCLR,
+		.gen3ID = GBA_ITEM_RED_SHARD
+	},
+	{
+		.dataID = 73,
+		.iconID = red_shard_NCGR,
+		.paletteID = blue_shard_NCLR,
+		.gen3ID = GBA_ITEM_BLUE_SHARD
+	},
+	{
+		.dataID = 74,
+		.iconID = red_shard_NCGR,
+		.paletteID = yellow_shard_NCLR,
+		.gen3ID = GBA_ITEM_YELLOW_SHARD
+	},
+	{
+		.dataID = 75,
+		.iconID = red_shard_NCGR,
+		.paletteID = green_shard_NCLR,
+		.gen3ID = GBA_ITEM_GREEN_SHARD
+	},
+	{
+		.dataID = 76,
+		.iconID = repel_NCGR,
+		.paletteID = super_repel_NCLR,
+		.gen3ID = GBA_ITEM_SUPER_REPEL
+	},
+	{
+		.dataID = 77,
+		.iconID = repel_NCGR,
+		.paletteID = max_repel_NCLR,
+		.gen3ID = GBA_ITEM_MAX_REPEL
+	},
+	{
+		.dataID = 78,
+		.iconID = escape_rope_NCGR,
+		.paletteID = escape_rope_NCLR,
+		.gen3ID = GBA_ITEM_ESCAPE_ROPE
+	},
+	{
+		.dataID = 79,
+		.iconID = repel_NCGR,
+		.paletteID = repel_NCLR,
+		.gen3ID = GBA_ITEM_REPEL
+	},
+	{
+		.dataID = 80,
+		.iconID = sun_stone_NCGR,
+		.paletteID = sun_stone_NCLR,
+		.gen3ID = GBA_ITEM_SUN_STONE
+	},
+	{
+		.dataID = 81,
+		.iconID = moon_stone_NCGR,
+		.paletteID = moon_stone_NCLR,
+		.gen3ID = GBA_ITEM_MOON_STONE
+	},
+	{
+		.dataID = 82,
+		.iconID = fire_stone_NCGR,
+		.paletteID = fire_stone_NCLR,
+		.gen3ID = GBA_ITEM_FIRE_STONE
+	},
+	{
+		.dataID = 83,
+		.iconID = thunderstone_NCGR,
+		.paletteID = thunderstone_NCLR,
+		.gen3ID = GBA_ITEM_THUNDER_STONE
+	},
+	{
+		.dataID = 84,
+		.iconID = water_stone_NCGR,
+		.paletteID = water_stone_NCLR,
+		.gen3ID = GBA_ITEM_WATER_STONE
+	},
+	{
+		.dataID = 85,
+		.iconID = leaf_stone_NCGR,
+		.paletteID = leaf_stone_NCLR,
+		.gen3ID = GBA_ITEM_LEAF_STONE
+	},
+	{
+		.dataID = 86,
+		.iconID = tinymushroom_NCGR,
+		.paletteID = tinymushroom_NCLR,
+		.gen3ID = GBA_ITEM_TINY_MUSHROOM
+	},
+	{
+		.dataID = 87,
+		.iconID = big_mushroom_NCGR,
+		.paletteID = tinymushroom_NCLR,
+		.gen3ID = GBA_ITEM_BIG_MUSHROOM
+	},
+	{
+		.dataID = 88,
+		.iconID = pearl_NCGR,
+		.paletteID = pearl_NCLR,
+		.gen3ID = GBA_ITEM_PEARL
+	},
+	{
+		.dataID = 89,
+		.iconID = big_pearl_NCGR,
+		.paletteID = pearl_NCLR,
+		.gen3ID = GBA_ITEM_BIG_PEARL
+	},
+	{
+		.dataID = 90,
+		.iconID = stardust_NCGR,
+		.paletteID = stardust_NCLR,
+		.gen3ID = GBA_ITEM_STARDUST
+	},
+	{
+		.dataID = 91,
+		.iconID = star_piece_NCGR,
+		.paletteID = stardust_NCLR,
+		.gen3ID = GBA_ITEM_STAR_PIECE
+	},
+	{
+		.dataID = 92,
+		.iconID = nugget_NCGR,
+		.paletteID = nugget_NCLR,
+		.gen3ID = GBA_ITEM_NUGGET
+	},
+	{
+		.dataID = 93,
+		.iconID = heart_scale_NCGR,
+		.paletteID = heart_scale_NCLR,
+		.gen3ID = GBA_ITEM_HEART_SCALE
+	},
+	{
+		.dataID = 94,
+		.iconID = honey_NCGR,
+		.paletteID = honey_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 95,
+		.iconID = growth_mulch_NCGR,
+		.paletteID = growth_mulch_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 96,
+		.iconID = damp_mulch_NCGR,
+		.paletteID = damp_mulch_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 97,
+		.iconID = stable_mulch_NCGR,
+		.paletteID = stable_mulch_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 98,
+		.iconID = gooey_mulch_NCGR,
+		.paletteID = gooey_mulch_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 99,
+		.iconID = root_fossil_NCGR,
+		.paletteID = root_fossil_NCLR,
+		.gen3ID = GBA_ITEM_ROOT_FOSSIL
+	},
+	{
+		.dataID = 100,
+		.iconID = claw_fossil_NCGR,
+		.paletteID = root_fossil_NCLR,
+		.gen3ID = GBA_ITEM_CLAW_FOSSIL
+	},
+	{
+		.dataID = 101,
+		.iconID = helix_fossil_NCGR,
+		.paletteID = helix_fossil_NCLR,
+		.gen3ID = GBA_ITEM_HELIX_FOSSIL
+	},
+	{
+		.dataID = 102,
+		.iconID = dome_fossil_NCGR,
+		.paletteID = helix_fossil_NCLR,
+		.gen3ID = GBA_ITEM_DOME_FOSSIL
+	},
+	{
+		.dataID = 103,
+		.iconID = old_amber_NCGR,
+		.paletteID = old_amber_NCLR,
+		.gen3ID = GBA_ITEM_OLD_AMBER
+	},
+	{
+		.dataID = 104,
+		.iconID = armor_fossil_NCGR,
+		.paletteID = armor_fossil_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 105,
+		.iconID = skull_fossil_NCGR,
+		.paletteID = skull_fossil_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 106,
+		.iconID = rare_bone_NCGR,
+		.paletteID = rare_bone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 107,
+		.iconID = shiny_stone_NCGR,
+		.paletteID = shiny_stone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 108,
+		.iconID = dusk_stone_NCGR,
+		.paletteID = dusk_stone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 109,
+		.iconID = dawn_stone_NCGR,
+		.paletteID = dawn_stone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 110,
+		.iconID = oval_stone_NCGR,
+		.paletteID = oval_stone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 111,
+		.iconID = odd_keystone_NCGR,
+		.paletteID = odd_keystone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{ /* Griseous Orb in Pt */
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 0,
+		.iconID = none_NCGR,
+		.paletteID = none_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 112,
+		.iconID = adamant_orb_NCGR,
+		.paletteID = adamant_orb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 113,
+		.iconID = lustrous_orb_NCGR,
+		.paletteID = lustrous_orb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 114,
+		.iconID = grass_mail_NCGR,
+		.paletteID = grass_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 115,
+		.iconID = flame_mail_NCGR,
+		.paletteID = flame_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 116,
+		.iconID = bubble_mail_NCGR,
+		.paletteID = bubble_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 117,
+		.iconID = bloom_mail_NCGR,
+		.paletteID = bloom_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 118,
+		.iconID = tunnel_mail_NCGR,
+		.paletteID = tunnel_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 119,
+		.iconID = steel_mail_NCGR,
+		.paletteID = steel_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 120,
+		.iconID = heart_mail_NCGR,
+		.paletteID = heart_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 121,
+		.iconID = snow_mail_NCGR,
+		.paletteID = snow_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 122,
+		.iconID = space_mail_NCGR,
+		.paletteID = space_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 123,
+		.iconID = air_mail_NCGR,
+		.paletteID = air_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 124,
+		.iconID = mosaic_mail_NCGR,
+		.paletteID = mosaic_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 125,
+		.iconID = brick_mail_NCGR,
+		.paletteID = brick_mail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 126,
+		.iconID = cheri_berry_NCGR,
+		.paletteID = cheri_berry_NCLR,
+		.gen3ID = GBA_ITEM_CHERI_BERRY
+	},
+	{
+		.dataID = 127,
+		.iconID = chesto_berry_NCGR,
+		.paletteID = chesto_berry_NCLR,
+		.gen3ID = GBA_ITEM_CHESTO_BERRY
+	},
+	{
+		.dataID = 128,
+		.iconID = pecha_berry_NCGR,
+		.paletteID = pecha_berry_NCLR,
+		.gen3ID = GBA_ITEM_PECHA_BERRY
+	},
+	{
+		.dataID = 129,
+		.iconID = rawst_berry_NCGR,
+		.paletteID = rawst_berry_NCLR,
+		.gen3ID = GBA_ITEM_RAWST_BERRY
+	},
+	{
+		.dataID = 130,
+		.iconID = aspear_berry_NCGR,
+		.paletteID = aspear_berry_NCLR,
+		.gen3ID = GBA_ITEM_ASPEAR_BERRY
+	},
+	{
+		.dataID = 131,
+		.iconID = leppa_berry_NCGR,
+		.paletteID = leppa_berry_NCLR,
+		.gen3ID = GBA_ITEM_LEPPA_BERRY
+	},
+	{
+		.dataID = 132,
+		.iconID = oran_berry_NCGR,
+		.paletteID = oran_berry_NCLR,
+		.gen3ID = GBA_ITEM_ORAN_BERRY
+	},
+	{
+		.dataID = 133,
+		.iconID = persim_berry_NCGR,
+		.paletteID = persim_berry_NCLR,
+		.gen3ID = GBA_ITEM_PERSIM_BERRY
+	},
+	{
+		.dataID = 134,
+		.iconID = lum_berry_NCGR,
+		.paletteID = lum_berry_NCLR,
+		.gen3ID = GBA_ITEM_LUM_BERRY
+	},
+	{
+		.dataID = 135,
+		.iconID = sitrus_berry_NCGR,
+		.paletteID = sitrus_berry_NCLR,
+		.gen3ID = GBA_ITEM_SITRUS_BERRY
+	},
+	{
+		.dataID = 136,
+		.iconID = figy_berry_NCGR,
+		.paletteID = figy_berry_NCLR,
+		.gen3ID = GBA_ITEM_FIGY_BERRY
+	},
+	{
+		.dataID = 137,
+		.iconID = wiki_berry_NCGR,
+		.paletteID = wiki_berry_NCLR,
+		.gen3ID = GBA_ITEM_WIKI_BERRY
+	},
+	{
+		.dataID = 138,
+		.iconID = mago_berry_NCGR,
+		.paletteID = mago_berry_NCLR,
+		.gen3ID = GBA_ITEM_MAGO_BERRY
+	},
+	{
+		.dataID = 139,
+		.iconID = aguav_berry_NCGR,
+		.paletteID = aguav_berry_NCLR,
+		.gen3ID = GBA_ITEM_AGUAV_BERRY
+	},
+	{
+		.dataID = 140,
+		.iconID = iapapa_berry_NCGR,
+		.paletteID = iapapa_berry_NCLR,
+		.gen3ID = GBA_ITEM_IAPAPA_BERRY
+	},
+	{
+		.dataID = 141,
+		.iconID = razz_berry_NCGR,
+		.paletteID = razz_berry_NCLR,
+		.gen3ID = GBA_ITEM_RAZZ_BERRY
+	},
+	{
+		.dataID = 142,
+		.iconID = bluk_berry_NCGR,
+		.paletteID = bluk_berry_NCLR,
+		.gen3ID = GBA_ITEM_BLUK_BERRY
+	},
+	{
+		.dataID = 143,
+		.iconID = nanab_berry_NCGR,
+		.paletteID = nanab_berry_NCLR,
+		.gen3ID = GBA_ITEM_NANAB_BERRY
+	},
+	{
+		.dataID = 144,
+		.iconID = wepear_berry_NCGR,
+		.paletteID = wepear_berry_NCLR,
+		.gen3ID = GBA_ITEM_WEPEAR_BERRY
+	},
+	{
+		.dataID = 145,
+		.iconID = pinap_berry_NCGR,
+		.paletteID = pinap_berry_NCLR,
+		.gen3ID = GBA_ITEM_PINAP_BERRY
+	},
+	{
+		.dataID = 146,
+		.iconID = pomeg_berry_NCGR,
+		.paletteID = pomeg_berry_NCLR,
+		.gen3ID = GBA_ITEM_POMEG_BERRY
+	},
+	{
+		.dataID = 147,
+		.iconID = kelpsy_berry_NCGR,
+		.paletteID = kelpsy_berry_NCLR,
+		.gen3ID = GBA_ITEM_KELPSY_BERRY
+	},
+	{
+		.dataID = 148,
+		.iconID = qualot_berry_NCGR,
+		.paletteID = qualot_berry_NCLR,
+		.gen3ID = GBA_ITEM_QUALOT_BERRY
+	},
+	{
+		.dataID = 149,
+		.iconID = hondew_berry_NCGR,
+		.paletteID = hondew_berry_NCLR,
+		.gen3ID = GBA_ITEM_HONDEW_BERRY
+	},
+	{
+		.dataID = 150,
+		.iconID = grepa_berry_NCGR,
+		.paletteID = grepa_berry_NCLR,
+		.gen3ID = GBA_ITEM_GREPA_BERRY
+	},
+	{
+		.dataID = 151,
+		.iconID = tamato_berry_NCGR,
+		.paletteID = tamato_berry_NCLR,
+		.gen3ID = GBA_ITEM_TAMATO_BERRY
+	},
+	{
+		.dataID = 152,
+		.iconID = cornn_berry_NCGR,
+		.paletteID = cornn_berry_NCLR,
+		.gen3ID = GBA_ITEM_CORNN_BERRY
+	},
+	{
+		.dataID = 153,
+		.iconID = magost_berry_NCGR,
+		.paletteID = magost_berry_NCLR,
+		.gen3ID = GBA_ITEM_MAGOST_BERRY
+	},
+	{
+		.dataID = 154,
+		.iconID = rabuta_berry_NCGR,
+		.paletteID = rabuta_berry_NCLR,
+		.gen3ID = GBA_ITEM_RABUTA_BERRY
+	},
+	{
+		.dataID = 155,
+		.iconID = nomel_berry_NCGR,
+		.paletteID = nomel_berry_NCLR,
+		.gen3ID = GBA_ITEM_NOMEL_BERRY
+	},
+	{
+		.dataID = 156,
+		.iconID = spelon_berry_NCGR,
+		.paletteID = spelon_berry_NCLR,
+		.gen3ID = GBA_ITEM_SPELON_BERRY
+	},
+	{
+		.dataID = 157,
+		.iconID = pamtre_berry_NCGR,
+		.paletteID = pamtre_berry_NCLR,
+		.gen3ID = GBA_ITEM_PAMTRE_BERRY
+	},
+	{
+		.dataID = 158,
+		.iconID = watmel_berry_NCGR,
+		.paletteID = watmel_berry_NCLR,
+		.gen3ID = GBA_ITEM_WATMEL_BERRY
+	},
+	{
+		.dataID = 159,
+		.iconID = durin_berry_NCGR,
+		.paletteID = durin_berry_NCLR,
+		.gen3ID = GBA_ITEM_DURIN_BERRY
+	},
+	{
+		.dataID = 160,
+		.iconID = belue_berry_NCGR,
+		.paletteID = belue_berry_NCLR,
+		.gen3ID = GBA_ITEM_BELUE_BERRY
+	},
+	{
+		.dataID = 161,
+		.iconID = occa_berry_NCGR,
+		.paletteID = occa_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 162,
+		.iconID = passho_berry_NCGR,
+		.paletteID = passho_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 163,
+		.iconID = wacan_berry_NCGR,
+		.paletteID = wacan_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 164,
+		.iconID = rindo_berry_NCGR,
+		.paletteID = rindo_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 165,
+		.iconID = yache_berry_NCGR,
+		.paletteID = yache_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 166,
+		.iconID = chople_berry_NCGR,
+		.paletteID = chople_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 167,
+		.iconID = kebia_berry_NCGR,
+		.paletteID = kebia_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 168,
+		.iconID = shuca_berry_NCGR,
+		.paletteID = shuca_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 169,
+		.iconID = coba_berry_NCGR,
+		.paletteID = coba_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 170,
+		.iconID = payapa_berry_NCGR,
+		.paletteID = payapa_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 171,
+		.iconID = tanga_berry_NCGR,
+		.paletteID = tanga_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 172,
+		.iconID = charti_berry_NCGR,
+		.paletteID = charti_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 173,
+		.iconID = kasib_berry_NCGR,
+		.paletteID = kasib_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 174,
+		.iconID = haban_berry_NCGR,
+		.paletteID = haban_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 175,
+		.iconID = colbur_berry_NCGR,
+		.paletteID = colbur_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 176,
+		.iconID = babiri_berry_NCGR,
+		.paletteID = babiri_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 177,
+		.iconID = chilan_berry_NCGR,
+		.paletteID = chilan_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 178,
+		.iconID = liechi_berry_NCGR,
+		.paletteID = liechi_berry_NCLR,
+		.gen3ID = GBA_ITEM_LIECHI_BERRY
+	},
+	{
+		.dataID = 179,
+		.iconID = ganlon_berry_NCGR,
+		.paletteID = ganlon_berry_NCLR,
+		.gen3ID = GBA_ITEM_GANLON_BERRY
+	},
+	{
+		.dataID = 180,
+		.iconID = salac_berry_NCGR,
+		.paletteID = salac_berry_NCLR,
+		.gen3ID = GBA_ITEM_SALAC_BERRY
+	},
+	{
+		.dataID = 181,
+		.iconID = petaya_berry_NCGR,
+		.paletteID = petaya_berry_NCLR,
+		.gen3ID = GBA_ITEM_PETAYA_BERRY
+	},
+	{
+		.dataID = 182,
+		.iconID = apicot_berry_NCGR,
+		.paletteID = apicot_berry_NCLR,
+		.gen3ID = GBA_ITEM_APICOT_BERRY
+	},
+	{
+		.dataID = 183,
+		.iconID = lansat_berry_NCGR,
+		.paletteID = lansat_berry_NCLR,
+		.gen3ID = GBA_ITEM_LANSAT_BERRY
+	},
+	{
+		.dataID = 184,
+		.iconID = starf_berry_NCGR,
+		.paletteID = starf_berry_NCLR,
+		.gen3ID = GBA_ITEM_STARF_BERRY
+	},
+	{
+		.dataID = 185,
+		.iconID = enigma_berry_NCGR,
+		.paletteID = enigma_berry_NCLR,
+		.gen3ID = GBA_ITEM_ENIGMA_BERRY
+	},
+	{
+		.dataID = 186,
+		.iconID = micle_berry_NCGR,
+		.paletteID = micle_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 187,
+		.iconID = custap_berry_NCGR,
+		.paletteID = custap_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 188,
+		.iconID = jaboca_berry_NCGR,
+		.paletteID = jaboca_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 189,
+		.iconID = rowap_berry_NCGR,
+		.paletteID = rowap_berry_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 190,
+		.iconID = brightpowder_NCGR,
+		.paletteID = brightpowder_NCLR,
+		.gen3ID = GBA_ITEM_BRIGHT_POWDER
+	},
+	{
+		.dataID = 191,
+		.iconID = white_herb_NCGR,
+		.paletteID = white_herb_NCLR,
+		.gen3ID = GBA_ITEM_WHITE_HERB
+	},
+	{
+		.dataID = 192,
+		.iconID = macho_brace_NCGR,
+		.paletteID = macho_brace_NCLR,
+		.gen3ID = GBA_ITEM_MACHO_BRACE
+	},
+	{
+		.dataID = 193,
+		.iconID = exp_share_NCGR,
+		.paletteID = exp_share_NCLR,
+		.gen3ID = GBA_ITEM_EXP_SHARE
+	},
+	{
+		.dataID = 194,
+		.iconID = quick_claw_NCGR,
+		.paletteID = quick_claw_NCLR,
+		.gen3ID = GBA_ITEM_QUICK_CLAW
+	},
+	{
+		.dataID = 195,
+		.iconID = soothe_bell_NCGR,
+		.paletteID = soothe_bell_NCLR,
+		.gen3ID = GBA_ITEM_SOOTHE_BELL
+	},
+	{
+		.dataID = 196,
+		.iconID = white_herb_NCGR,
+		.paletteID = mental_herb_NCLR,
+		.gen3ID = GBA_ITEM_MENTAL_HERB
+	},
+	{
+		.dataID = 197,
+		.iconID = choice_band_NCGR,
+		.paletteID = choice_band_NCLR,
+		.gen3ID = GBA_ITEM_CHOICE_BAND
+	},
+	{
+		.dataID = 198,
+		.iconID = kings_rock_NCGR,
+		.paletteID = kings_rock_NCLR,
+		.gen3ID = GBA_ITEM_KINGS_ROCK
+	},
+	{
+		.dataID = 199,
+		.iconID = silverpowder_NCGR,
+		.paletteID = silverpowder_NCLR,
+		.gen3ID = GBA_ITEM_SILVER_POWDER
+	},
+	{
+		.dataID = 200,
+		.iconID = amulet_coin_NCGR,
+		.paletteID = amulet_coin_NCLR,
+		.gen3ID = GBA_ITEM_AMULET_COIN
+	},
+	{
+		.dataID = 201,
+		.iconID = cleanse_tag_NCGR,
+		.paletteID = cleanse_tag_NCLR,
+		.gen3ID = GBA_ITEM_CLEANSE_TAG
+	},
+	{
+		.dataID = 202,
+		.iconID = soul_dew_NCGR,
+		.paletteID = soul_dew_NCLR,
+		.gen3ID = GBA_ITEM_SOUL_DEW
+	},
+	{
+		.dataID = 203,
+		.iconID = deepseatooth_NCGR,
+		.paletteID = deepseatooth_NCLR,
+		.gen3ID = GBA_ITEM_DEEP_SEA_TOOTH
+	},
+	{
+		.dataID = 204,
+		.iconID = deepseascale_NCGR,
+		.paletteID = deepseascale_NCLR,
+		.gen3ID = GBA_ITEM_DEEP_SEA_SCALE
+	},
+	{
+		.dataID = 205,
+		.iconID = smoke_ball_NCGR,
+		.paletteID = smoke_ball_NCLR,
+		.gen3ID = GBA_ITEM_SMOKE_BALL
+	},
+	{
+		.dataID = 206,
+		.iconID = everstone_NCGR,
+		.paletteID = everstone_NCLR,
+		.gen3ID = GBA_ITEM_EVERSTONE
+	},
+	{
+		.dataID = 207,
+		.iconID = focus_band_NCGR,
+		.paletteID = focus_band_NCLR,
+		.gen3ID = GBA_ITEM_FOCUS_BAND
+	},
+	{
+		.dataID = 208,
+		.iconID = lucky_egg_NCGR,
+		.paletteID = lucky_egg_NCLR,
+		.gen3ID = GBA_ITEM_LUCKY_EGG
+	},
+	{
+		.dataID = 209,
+		.iconID = scope_lens_NCGR,
+		.paletteID = scope_lens_NCLR,
+		.gen3ID = GBA_ITEM_SCOPE_LENS
+	},
+	{
+		.dataID = 210,
+		.iconID = metal_coat_NCGR,
+		.paletteID = metal_coat_NCLR,
+		.gen3ID = GBA_ITEM_METAL_COAT
+	},
+	{
+		.dataID = 211,
+		.iconID = leftovers_NCGR,
+		.paletteID = leftovers_NCLR,
+		.gen3ID = GBA_ITEM_LEFTOVERS
+	},
+	{
+		.dataID = 212,
+		.iconID = dragon_scale_NCGR,
+		.paletteID = dragon_scale_NCLR,
+		.gen3ID = GBA_ITEM_DRAGON_SCALE
+	},
+	{
+		.dataID = 213,
+		.iconID = light_ball_NCGR,
+		.paletteID = light_ball_NCLR,
+		.gen3ID = GBA_ITEM_LIGHT_BALL
+	},
+	{
+		.dataID = 214,
+		.iconID = soft_sand_NCGR,
+		.paletteID = soft_sand_NCLR,
+		.gen3ID = GBA_ITEM_SOFT_SAND
+	},
+	{
+		.dataID = 215,
+		.iconID = hard_stone_NCGR,
+		.paletteID = hard_stone_NCLR,
+		.gen3ID = GBA_ITEM_HARD_STONE
+	},
+	{
+		.dataID = 216,
+		.iconID = miracle_seed_NCGR,
+		.paletteID = miracle_seed_NCLR,
+		.gen3ID = GBA_ITEM_MIRACLE_SEED
+	},
+	{
+		.dataID = 217,
+		.iconID = blackglasses_NCGR,
+		.paletteID = blackglasses_NCLR,
+		.gen3ID = GBA_ITEM_BLACK_GLASSES
+	},
+	{
+		.dataID = 218,
+		.iconID = black_belt_NCGR,
+		.paletteID = blackglasses_NCLR,
+		.gen3ID = GBA_ITEM_BLACK_BELT
+	},
+	{
+		.dataID = 219,
+		.iconID = magnet_NCGR,
+		.paletteID = magnet_NCLR,
+		.gen3ID = GBA_ITEM_MAGNET
+	},
+	{
+		.dataID = 220,
+		.iconID = mystic_water_NCGR,
+		.paletteID = mystic_water_NCLR,
+		.gen3ID = GBA_ITEM_MYSTIC_WATER
+	},
+	{
+		.dataID = 221,
+		.iconID = sharp_beak_NCGR,
+		.paletteID = sharp_beak_NCLR,
+		.gen3ID = GBA_ITEM_SHARP_BEAK
+	},
+	{
+		.dataID = 222,
+		.iconID = poison_barb_NCGR,
+		.paletteID = poison_barb_NCLR,
+		.gen3ID = GBA_ITEM_POISON_BARB
+	},
+	{
+		.dataID = 223,
+		.iconID = nevermeltice_NCGR,
+		.paletteID = nevermeltice_NCLR,
+		.gen3ID = GBA_ITEM_NEVER_MELT_ICE
+	},
+	{
+		.dataID = 224,
+		.iconID = spell_tag_NCGR,
+		.paletteID = spell_tag_NCLR,
+		.gen3ID = GBA_ITEM_SPELL_TAG
+	},
+	{
+		.dataID = 225,
+		.iconID = twistedspoon_NCGR,
+		.paletteID = twistedspoon_NCLR,
+		.gen3ID = GBA_ITEM_TWISTED_SPOON
+	},
+	{
+		.dataID = 226,
+		.iconID = charcoal_NCGR,
+		.paletteID = charcoal_NCLR,
+		.gen3ID = GBA_ITEM_CHARCOAL
+	},
+	{
+		.dataID = 227,
+		.iconID = dragon_fang_NCGR,
+		.paletteID = dragon_fang_NCLR,
+		.gen3ID = GBA_ITEM_DRAGON_FANG
+	},
+	{
+		.dataID = 228,
+		.iconID = silk_scarf_NCGR,
+		.paletteID = silk_scarf_NCLR,
+		.gen3ID = GBA_ITEM_SILK_SCARF
+	},
+	{
+		.dataID = 229,
+		.iconID = upgrade_NCGR,
+		.paletteID = upgrade_NCLR,
+		.gen3ID = GBA_ITEM_UP_GRADE
+	},
+	{
+		.dataID = 230,
+		.iconID = shell_bell_NCGR,
+		.paletteID = shoal_shell_NCLR,
+		.gen3ID = GBA_ITEM_SHELL_BELL
+	},
+	{
+		.dataID = 231,
+		.iconID = sea_incense_NCGR,
+		.paletteID = sea_incense_NCLR,
+		.gen3ID = GBA_ITEM_SEA_INCENSE
+	},
+	{
+		.dataID = 232,
+		.iconID = lax_incense_NCGR,
+		.paletteID = lax_incense_NCLR,
+		.gen3ID = GBA_ITEM_LAX_INCENSE
+	},
+	{
+		.dataID = 233,
+		.iconID = lucky_punch_NCGR,
+		.paletteID = lucky_punch_NCLR,
+		.gen3ID = GBA_ITEM_LUCKY_PUNCH
+	},
+	{
+		.dataID = 234,
+		.iconID = metal_powder_NCGR,
+		.paletteID = metal_powder_NCLR,
+		.gen3ID = GBA_ITEM_METAL_POWDER
+	},
+	{
+		.dataID = 235,
+		.iconID = rare_bone_NCGR,
+		.paletteID = rare_bone_NCLR,
+		.gen3ID = GBA_ITEM_THICK_CLUB
+	},
+	{
+		.dataID = 236,
+		.iconID = stick_NCGR,
+		.paletteID = stick_NCLR,
+		.gen3ID = GBA_ITEM_STICK
+	},
+	{
+		.dataID = 237,
+		.iconID = red_scarf_NCGR,
+		.paletteID = red_scarf_NCLR,
+		.gen3ID = GBA_ITEM_RED_SCARF
+	},
+	{
+		.dataID = 238,
+		.iconID = red_scarf_NCGR,
+		.paletteID = blue_scarf_NCLR,
+		.gen3ID = GBA_ITEM_BLUE_SCARF
+	},
+	{
+		.dataID = 239,
+		.iconID = red_scarf_NCGR,
+		.paletteID = pink_scarf_NCLR,
+		.gen3ID = GBA_ITEM_PINK_SCARF
+	},
+	{
+		.dataID = 240,
+		.iconID = red_scarf_NCGR,
+		.paletteID = green_scarf_NCLR,
+		.gen3ID = GBA_ITEM_GREEN_SCARF
+	},
+	{
+		.dataID = 241,
+		.iconID = red_scarf_NCGR,
+		.paletteID = yellow_scarf_NCLR,
+		.gen3ID = GBA_ITEM_YELLOW_SCARF
+	},
+	{
+		.dataID = 242,
+		.iconID = wide_lens_NCGR,
+		.paletteID = wide_lens_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 243,
+		.iconID = muscle_band_NCGR,
+		.paletteID = muscle_band_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 244,
+		.iconID = wise_glasses_NCGR,
+		.paletteID = wise_glasses_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 245,
+		.iconID = expert_belt_NCGR,
+		.paletteID = expert_belt_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 246,
+		.iconID = light_clay_NCGR,
+		.paletteID = light_clay_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 247,
+		.iconID = life_orb_NCGR,
+		.paletteID = life_orb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 248,
+		.iconID = power_herb_NCGR,
+		.paletteID = power_herb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 249,
+		.iconID = toxic_orb_NCGR,
+		.paletteID = toxic_orb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 250,
+		.iconID = flame_orb_NCGR,
+		.paletteID = flame_orb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 251,
+		.iconID = metal_powder_NCGR,
+		.paletteID = quick_powder_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 252,
+		.iconID = focus_sash_NCGR,
+		.paletteID = focus_sash_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 253,
+		.iconID = zoom_lens_NCGR,
+		.paletteID = zoom_lens_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 254,
+		.iconID = metronome_NCGR,
+		.paletteID = metronome_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 255,
+		.iconID = iron_ball_NCGR,
+		.paletteID = iron_ball_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 256,
+		.iconID = lagging_tail_NCGR,
+		.paletteID = lagging_tail_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 257,
+		.iconID = destiny_knot_NCGR,
+		.paletteID = destiny_knot_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 258,
+		.iconID = black_sludge_NCGR,
+		.paletteID = black_sludge_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 259,
+		.iconID = icy_rock_NCGR,
+		.paletteID = icy_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 260,
+		.iconID = smooth_rock_NCGR,
+		.paletteID = smooth_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 261,
+		.iconID = heat_rock_NCGR,
+		.paletteID = heat_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 262,
+		.iconID = damp_rock_NCGR,
+		.paletteID = damp_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 263,
+		.iconID = grip_claw_NCGR,
+		.paletteID = grip_claw_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 264,
+		.iconID = choice_scarf_NCGR,
+		.paletteID = choice_scarf_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 265,
+		.iconID = sticky_barb_NCGR,
+		.paletteID = sticky_barb_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 266,
+		.iconID = power_bracer_NCGR,
+		.paletteID = power_bracer_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 267,
+		.iconID = power_belt_NCGR,
+		.paletteID = power_belt_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 268,
+		.iconID = power_lens_NCGR,
+		.paletteID = power_lens_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 269,
+		.iconID = power_band_NCGR,
+		.paletteID = power_band_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 270,
+		.iconID = power_anklet_NCGR,
+		.paletteID = power_anklet_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 271,
+		.iconID = power_weight_NCGR,
+		.paletteID = power_weight_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 272,
+		.iconID = shed_shell_NCGR,
+		.paletteID = shed_shell_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 273,
+		.iconID = big_root_NCGR,
+		.paletteID = big_root_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 274,
+		.iconID = choice_specs_NCGR,
+		.paletteID = choice_specs_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 275,
+		.iconID = flame_plate_NCGR,
+		.paletteID = flame_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 276,
+		.iconID = flame_plate_NCGR,
+		.paletteID = splash_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 277,
+		.iconID = flame_plate_NCGR,
+		.paletteID = zap_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 278,
+		.iconID = flame_plate_NCGR,
+		.paletteID = meadow_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 279,
+		.iconID = flame_plate_NCGR,
+		.paletteID = icicle_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 280,
+		.iconID = flame_plate_NCGR,
+		.paletteID = fist_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 281,
+		.iconID = flame_plate_NCGR,
+		.paletteID = toxic_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 282,
+		.iconID = flame_plate_NCGR,
+		.paletteID = earth_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 283,
+		.iconID = flame_plate_NCGR,
+		.paletteID = sky_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 284,
+		.iconID = flame_plate_NCGR,
+		.paletteID = mind_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 285,
+		.iconID = flame_plate_NCGR,
+		.paletteID = insect_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 286,
+		.iconID = flame_plate_NCGR,
+		.paletteID = stone_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 287,
+		.iconID = flame_plate_NCGR,
+		.paletteID = spooky_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 288,
+		.iconID = flame_plate_NCGR,
+		.paletteID = draco_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 289,
+		.iconID = flame_plate_NCGR,
+		.paletteID = dread_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 290,
+		.iconID = flame_plate_NCGR,
+		.paletteID = iron_plate_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 291,
+		.iconID = odd_incense_NCGR,
+		.paletteID = odd_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 292,
+		.iconID = rock_incense_NCGR,
+		.paletteID = rock_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 293,
+		.iconID = full_incense_NCGR,
+		.paletteID = full_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 294,
+		.iconID = wave_incense_NCGR,
+		.paletteID = wave_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 295,
+		.iconID = rose_incense_NCGR,
+		.paletteID = rose_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 296,
+		.iconID = luck_incense_NCGR,
+		.paletteID = luck_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 297,
+		.iconID = pure_incense_NCGR,
+		.paletteID = pure_incense_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 298,
+		.iconID = protector_NCGR,
+		.paletteID = protector_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 299,
+		.iconID = electirizer_NCGR,
+		.paletteID = electirizer_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 300,
+		.iconID = magmarizer_NCGR,
+		.paletteID = magmarizer_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 301,
+		.iconID = dubious_disc_NCGR,
+		.paletteID = dubious_disc_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 302,
+		.iconID = reaper_cloth_NCGR,
+		.paletteID = reaper_cloth_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 303,
+		.iconID = razor_claw_NCGR,
+		.paletteID = razor_claw_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 304,
+		.iconID = razor_fang_NCGR,
+		.paletteID = razor_fang_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 305,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_TM01
+	},
+	{
+		.dataID = 306,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dragon_NCLR,
+		.gen3ID = GBA_ITEM_TM02
+	},
+	{
+		.dataID = 307,
+		.iconID = tm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_TM03
+	},
+	{
+		.dataID = 308,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM04
+	},
+	{
+		.dataID = 309,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM05
+	},
+	{
+		.dataID = 310,
+		.iconID = tm_NCGR,
+		.paletteID = tm_poison_NCLR,
+		.gen3ID = GBA_ITEM_TM06
+	},
+	{
+		.dataID = 311,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ice_NCLR,
+		.gen3ID = GBA_ITEM_TM07
+	},
+	{
+		.dataID = 312,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_TM08
+	},
+	{
+		.dataID = 313,
+		.iconID = tm_NCGR,
+		.paletteID = tm_grass_NCLR,
+		.gen3ID = GBA_ITEM_TM09
+	},
+	{
+		.dataID = 314,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM10
+	},
+	{
+		.dataID = 315,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fire_NCLR,
+		.gen3ID = GBA_ITEM_TM11
+	},
+	{
+		.dataID = 316,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_TM12
+	},
+	{
+		.dataID = 317,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ice_NCLR,
+		.gen3ID = GBA_ITEM_TM13
+	},
+	{
+		.dataID = 318,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ice_NCLR,
+		.gen3ID = GBA_ITEM_TM14
+	},
+	{
+		.dataID = 319,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM15
+	},
+	{
+		.dataID = 320,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM16
+	},
+	{
+		.dataID = 321,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM17
+	},
+	{
+		.dataID = 322,
+		.iconID = tm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_TM18
+	},
+	{
+		.dataID = 323,
+		.iconID = tm_NCGR,
+		.paletteID = tm_grass_NCLR,
+		.gen3ID = GBA_ITEM_TM19
+	},
+	{
+		.dataID = 324,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM20
+	},
+	{
+		.dataID = 325,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM21
+	},
+	{
+		.dataID = 326,
+		.iconID = tm_NCGR,
+		.paletteID = tm_grass_NCLR,
+		.gen3ID = GBA_ITEM_TM22
+	},
+	{
+		.dataID = 327,
+		.iconID = tm_NCGR,
+		.paletteID = tm_steel_NCLR,
+		.gen3ID = GBA_ITEM_TM23
+	},
+	{
+		.dataID = 328,
+		.iconID = tm_NCGR,
+		.paletteID = tm_electric_NCLR,
+		.gen3ID = GBA_ITEM_TM24
+	},
+	{
+		.dataID = 329,
+		.iconID = tm_NCGR,
+		.paletteID = tm_electric_NCLR,
+		.gen3ID = GBA_ITEM_TM25
+	},
+	{
+		.dataID = 330,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ground_NCLR,
+		.gen3ID = GBA_ITEM_TM26
+	},
+	{
+		.dataID = 331,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM27
+	},
+	{
+		.dataID = 332,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ground_NCLR,
+		.gen3ID = GBA_ITEM_TM28
+	},
+	{
+		.dataID = 333,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM29
+	},
+	{
+		.dataID = 334,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ghost_NCLR,
+		.gen3ID = GBA_ITEM_TM30
+	},
+	{
+		.dataID = 335,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_TM31
+	},
+	{
+		.dataID = 336,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM32
+	},
+	{
+		.dataID = 337,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM33
+	},
+	{
+		.dataID = 338,
+		.iconID = tm_NCGR,
+		.paletteID = tm_electric_NCLR,
+		.gen3ID = GBA_ITEM_TM34
+	},
+	{
+		.dataID = 339,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fire_NCLR,
+		.gen3ID = GBA_ITEM_TM35
+	},
+	{
+		.dataID = 340,
+		.iconID = tm_NCGR,
+		.paletteID = tm_poison_NCLR,
+		.gen3ID = GBA_ITEM_TM36
+	},
+	{
+		.dataID = 341,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_TM37
+	},
+	{
+		.dataID = 342,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fire_NCLR,
+		.gen3ID = GBA_ITEM_TM38
+	},
+	{
+		.dataID = 343,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_TM39
+	},
+	{
+		.dataID = 344,
+		.iconID = tm_NCGR,
+		.paletteID = tm_flying_NCLR,
+		.gen3ID = GBA_ITEM_TM40
+	},
+	{
+		.dataID = 345,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_TM41
+	},
+	{
+		.dataID = 346,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM42
+	},
+	{
+		.dataID = 347,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM43
+	},
+	{
+		.dataID = 348,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM44
+	},
+	{
+		.dataID = 349,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_TM45
+	},
+	{
+		.dataID = 350,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_TM46
+	},
+	{
+		.dataID = 351,
+		.iconID = tm_NCGR,
+		.paletteID = tm_steel_NCLR,
+		.gen3ID = GBA_ITEM_TM47
+	},
+	{
+		.dataID = 352,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_TM48
+	},
+	{
+		.dataID = 353,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_TM49
+	},
+	{
+		.dataID = 354,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fire_NCLR,
+		.gen3ID = GBA_ITEM_TM50
+	},
+	{
+		.dataID = 355,
+		.iconID = tm_NCGR,
+		.paletteID = tm_flying_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 356,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 357,
+		.iconID = tm_NCGR,
+		.paletteID = tm_grass_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 358,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 359,
+		.iconID = tm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 360,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 361,
+		.iconID = tm_NCGR,
+		.paletteID = tm_electric_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 362,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 363,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dragon_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 364,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 365,
+		.iconID = tm_NCGR,
+		.paletteID = tm_fire_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 366,
+		.iconID = tm_NCGR,
+		.paletteID = tm_bug_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 367,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 368,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 369,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ghost_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 370,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 371,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 372,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 373,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 374,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 375,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 376,
+		.iconID = tm_NCGR,
+		.paletteID = tm_ice_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 377,
+		.iconID = tm_NCGR,
+		.paletteID = tm_electric_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 378,
+		.iconID = tm_NCGR,
+		.paletteID = tm_steel_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 379,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 380,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 381,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 382,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 383,
+		.iconID = tm_NCGR,
+		.paletteID = tm_dark_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 384,
+		.iconID = tm_NCGR,
+		.paletteID = tm_rock_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 385,
+		.iconID = tm_NCGR,
+		.paletteID = tm_bug_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 386,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 387,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 388,
+		.iconID = tm_NCGR,
+		.paletteID = tm_poison_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 389,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 390,
+		.iconID = tm_NCGR,
+		.paletteID = tm_grass_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 391,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 392,
+		.iconID = tm_NCGR,
+		.paletteID = tm_flying_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 393,
+		.iconID = tm_NCGR,
+		.paletteID = tm_bug_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 394,
+		.iconID = tm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 395,
+		.iconID = tm_NCGR,
+		.paletteID = tm_steel_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 396,
+		.iconID = tm_NCGR,
+		.paletteID = tm_psychic_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 397,
+		.iconID = hm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_HM01
+	},
+	{
+		.dataID = 398,
+		.iconID = hm_NCGR,
+		.paletteID = tm_flying_NCLR,
+		.gen3ID = GBA_ITEM_HM02
+	},
+	{
+		.dataID = 399,
+		.iconID = hm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_HM03
+	},
+	{
+		.dataID = 400,
+		.iconID = hm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_HM04
+	},
+	{
+		.dataID = 401,
+		.iconID = hm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_HM05
+	},
+	{
+		.dataID = 402,
+		.iconID = hm_NCGR,
+		.paletteID = tm_fighting_NCLR,
+		.gen3ID = GBA_ITEM_HM06
+	},
+	{
+		.dataID = 403,
+		.iconID = hm_NCGR,
+		.paletteID = tm_water_NCLR,
+		.gen3ID = GBA_ITEM_HM07
+	},
+	{
+		.dataID = 404,
+		.iconID = hm_NCGR,
+		.paletteID = tm_normal_NCLR,
+		.gen3ID = GBA_ITEM_HM08
+	},
+	{
+		.dataID = 405,
+		.iconID = explorer_kit_NCGR,
+		.paletteID = explorer_kit_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 406,
+		.iconID = loot_sack_NCGR,
+		.paletteID = loot_sack_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 407,
+		.iconID = rule_book_NCGR,
+		.paletteID = rule_book_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 408,
+		.iconID = poke_radar_NCGR,
+		.paletteID = poke_radar_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 409,
+		.iconID = point_card_NCGR,
+		.paletteID = point_card_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 410,
+		.iconID = journal_NCGR,
+		.paletteID = journal_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 411,
+		.iconID = seal_case_NCGR,
+		.paletteID = seal_case_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 412,
+		.iconID = fashion_case_NCGR,
+		.paletteID = fashion_case_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 413,
+		.iconID = seal_bag_NCGR,
+		.paletteID = seal_bag_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 414,
+		.iconID = pal_pad_NCGR,
+		.paletteID = pal_pad_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 415,
+		.iconID = works_key_NCGR,
+		.paletteID = works_key_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 416,
+		.iconID = old_charm_NCGR,
+		.paletteID = old_charm_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 417,
+		.iconID = galactic_key_NCGR,
+		.paletteID = galactic_key_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 418,
+		.iconID = red_chain_NCGR,
+		.paletteID = red_chain_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 419,
+		.iconID = town_map_NCGR,
+		.paletteID = town_map_NCLR,
+		.gen3ID = GBA_ITEM_TOWN_MAP
+	},
+	{
+		.dataID = 420,
+		.iconID = vs_seeker_NCGR,
+		.paletteID = vs_seeker_NCLR,
+		.gen3ID = GBA_ITEM_VS_SEEKER
+	},
+	{
+		.dataID = 421,
+		.iconID = coin_case_NCGR,
+		.paletteID = coin_case_NCLR,
+		.gen3ID = GBA_ITEM_COIN_CASE
+	},
+	{
+		.dataID = 422,
+		.iconID = old_rod_NCGR,
+		.paletteID = old_rod_NCLR,
+		.gen3ID = GBA_ITEM_OLD_ROD
+	},
+	{
+		.dataID = 423,
+		.iconID = good_rod_NCGR,
+		.paletteID = good_rod_NCLR,
+		.gen3ID = GBA_ITEM_GOOD_ROD
+	},
+	{
+		.dataID = 424,
+		.iconID = super_rod_NCGR,
+		.paletteID = super_rod_NCLR,
+		.gen3ID = GBA_ITEM_SUPER_ROD
+	},
+	{
+		.dataID = 425,
+		.iconID = sprayduck_NCGR,
+		.paletteID = sprayduck_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 426,
+		.iconID = poffin_case_NCGR,
+		.paletteID = poffin_case_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 427,
+		.iconID = bicycle_NCGR,
+		.paletteID = bicycle_NCLR,
+		.gen3ID = GBA_ITEM_BICYCLE
+	},
+	{
+		.dataID = 428,
+		.iconID = suite_key_NCGR,
+		.paletteID = suite_key_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 429,
+		.iconID = oaks_letter_NCGR,
+		.paletteID = lava_cookie_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 430,
+		.iconID = lunar_wing_NCGR,
+		.paletteID = lunar_wing_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 431,
+		.iconID = member_card_NCGR,
+		.paletteID = member_card_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 432,
+		.iconID = azure_flute_NCGR,
+		.paletteID = azure_flute_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 433,
+		.iconID = s_s_ticket_NCGR,
+		.paletteID = s_s_ticket_NCLR,
+		.gen3ID = GBA_ITEM_SS_TICKET
+	},
+	{
+		.dataID = 434,
+		.iconID = contest_pass_NCGR,
+		.paletteID = contest_pass_NCLR,
+		.gen3ID = GBA_ITEM_CONTEST_PASS
+	},
+	{
+		.dataID = 435,
+		.iconID = magma_stone_NCGR,
+		.paletteID = magma_stone_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 436,
+		.iconID = parcel_NCGR,
+		.paletteID = parcel_NCLR,
+		.gen3ID = GBA_ITEM_OAKS_PARCEL
+	},
+	{
+		.dataID = 437,
+		.iconID = coupon_1_NCGR,
+		.paletteID = coupon_1_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 438,
+		.iconID = coupon_2_NCGR,
+		.paletteID = coupon_2_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 439,
+		.iconID = coupon_3_NCGR,
+		.paletteID = coupon_3_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	},
+	{
+		.dataID = 440,
+		.iconID = storage_key_NCGR,
+		.paletteID = storage_key_NCLR,
+		.gen3ID = GBA_ITEM_STORAGE_KEY
+	},
+	{
+		.dataID = 441,
+		.iconID = secretpotion_NCGR,
+		.paletteID = secretpotion_NCLR,
+		.gen3ID = GBA_ITEM_NONE
+	}
+	// Missing Pt items: Griseous Orb, VS Recorder, Gracidea, Secret Key
+};
+
+
+// List of mail items
+static const u16 sMailItemIDs[] = {
+	ITEM_GRASS_MAIL,
+	ITEM_FLAME_MAIL,
+	ITEM_BUBBLE_MAIL,
+	ITEM_BLOOM_MAIL,
+	ITEM_TUNNEL_MAIL,
+	ITEM_STEEL_MAIL,
+	ITEM_HEART_MAIL,
+	ITEM_SNOW_MAIL,
+	ITEM_SPACE_MAIL,
+	ITEM_AIR_MAIL,
+	ITEM_MOSAIC_MAIL,
+	ITEM_BRICK_MAIL
+};
+
+
+// List of TM moves
+static const u16 sTMHMMoves[] = {
+	MOVE_FOCUS_PUNCH,
+	MOVE_DRAGON_CLAW,
+	MOVE_WATER_PULSE,
+	MOVE_CALM_MIND,
+	MOVE_ROAR,
+	MOVE_TOXIC,
+	MOVE_HAIL,
+	MOVE_BULK_UP,
+	MOVE_BULLET_SEED,
+	MOVE_HIDDEN_POWER,
+	MOVE_SUNNY_DAY,
+	MOVE_TAUNT,
+	MOVE_ICE_BEAM,
+	MOVE_BLIZZARD,
+	MOVE_HYPER_BEAM,
+	MOVE_LIGHT_SCREEN,
+	MOVE_PROTECT,
+	MOVE_RAIN_DANCE,
+	MOVE_GIGA_DRAIN,
+	MOVE_SAFEGUARD,
+	MOVE_FRUSTRATION,
+	MOVE_SOLAR_BEAM,
+	MOVE_IRON_TAIL,
+	MOVE_THUNDERBOLT,
+	MOVE_THUNDER,
+	MOVE_EARTHQUAKE,
+	MOVE_RETURN,
+	MOVE_DIG,
+	MOVE_PSYCHIC,
+	MOVE_SHADOW_BALL,
+	MOVE_BRICK_BREAK,
+	MOVE_DOUBLE_TEAM,
+	MOVE_REFLECT,
+	MOVE_SHOCK_WAVE,
+	MOVE_FLAMETHROWER,
+	MOVE_SLUDGE_BOMB,
+	MOVE_SANDSTORM,
+	MOVE_FIRE_BLAST,
+	MOVE_ROCK_TOMB,
+	MOVE_AERIAL_ACE,
+	MOVE_TORMENT,
+	MOVE_FACADE,
+	MOVE_SECRET_POWER,
+	MOVE_REST,
+	MOVE_ATTRACT,
+	MOVE_THIEF,
+	MOVE_STEEL_WING,
+	MOVE_SKILL_SWAP,
+	MOVE_SNATCH,
+	MOVE_OVERHEAT,
+	MOVE_ROOST,
+	MOVE_FOCUS_BLAST,
+	MOVE_ENERGY_BALL,
+	MOVE_FALSE_SWIPE,
+	MOVE_BRINE,
+	MOVE_FLING,
+	MOVE_CHARGE_BEAM,
+	MOVE_ENDURE,
+	MOVE_DRAGON_PULSE,
+	MOVE_DRAIN_PUNCH,
+	MOVE_WILL_O_WISP,
+	MOVE_SILVER_WIND,
+	MOVE_EMBARGO,
+	MOVE_EXPLOSION,
+	MOVE_SHADOW_CLAW,
+	MOVE_PAYBACK,
+	MOVE_RECYCLE,
+	MOVE_GIGA_IMPACT,
+	MOVE_ROCK_POLISH,
+	MOVE_FLASH,
+	MOVE_STONE_EDGE,
+	MOVE_AVALANCHE,
+	MOVE_THUNDER_WAVE,
+	MOVE_GYRO_BALL,
+	MOVE_SWORDS_DANCE,
+	MOVE_STEALTH_ROCK,
+	MOVE_PSYCH_UP,
+	MOVE_CAPTIVATE,
+	MOVE_DARK_PULSE,
+	MOVE_ROCK_SLIDE,
+	MOVE_X_SCISSOR,
+	MOVE_SLEEP_TALK,
+	MOVE_NATURAL_GIFT,
+	MOVE_POISON_JAB,
+	MOVE_DREAM_EATER,
+	MOVE_GRASS_KNOT,
+	MOVE_SWAGGER,
+	MOVE_PLUCK,
+	MOVE_U_TURN,
+	MOVE_SUBSTITUTE,
+	MOVE_FLASH_CANNON,
+	MOVE_TRICK_ROOM,
+	MOVE_CUT,
+	MOVE_FLY,
+	MOVE_SURF,
+	MOVE_STRENGTH,
+	MOVE_DEFOG,
+	MOVE_ROCK_SMASH,
+	MOVE_WATERFALL,
+	MOVE_ROCK_CLIMB
+};
+
+
+#endif /* MPR_ITEM_TABLES_DAT */

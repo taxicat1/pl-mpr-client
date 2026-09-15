@@ -1,0 +1,11 @@
+#ifndef MPR_GGID_H
+#define MPR_GGID_H
+
+#define MPR_GGID_EN  0x00400702 
+#define MPR_GGID_JA  0x00000981
+#define MPR_GGID_FR  0x00800236 
+#define MPR_GGID_DE  0x00800237
+#define MPR_GGID_IT  0x00800238
+#define MPR_GGID_ES  0x00800239
+
+#endif /* MPR_GGID_H */
