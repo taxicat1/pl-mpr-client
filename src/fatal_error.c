@@ -11,6 +11,7 @@
 #include "font.h"
 #include "game_version.h"
 #include "graphics.h"
+#include "gx_gf.h"
 #include "gx_layers.h"
 #include "heap.h"
 #include "message.h"
@@ -148,15 +149,7 @@ void FatalError_PrintMessageAndShutdown(void) {
 	GXLayers_TurnBothDispOn();
 	ResetScreenMasterBrightness(DS_SCREEN_MAIN);
 	ResetScreenMasterBrightness(DS_SCREEN_SUB);
-	BrightnessController_SetScreenBrightness(
-		0,
-		GX_BLEND_PLANEMASK_BG0 |
-		GX_BLEND_PLANEMASK_BG1 |
-		GX_BLEND_PLANEMASK_BG2 |
-		GX_BLEND_PLANEMASK_BG3 |
-		GX_BLEND_PLANEMASK_OBJ |
-		GX_BLEND_PLANEMASK_BD,
-		BRIGHTNESS_BOTH_SCREENS);
+	BrightnessController_SetScreenBrightness(0, GX_BLEND_ALL, BRIGHTNESS_BOTH_SCREENS);
 	
 	while (TRUE) {
 		HandleConsoleFold();
@@ -164,7 +157,7 @@ void FatalError_PrintMessageAndShutdown(void) {
 			break;
 		}
 		
-		OS_WaitIrq(1, OS_IE_V_BLANK);
+		OS_WaitIrq(TRUE, OS_IE_V_BLANK);
 	}
 	
 	SetScreenColorBrightness(DS_SCREEN_MAIN, COLOR_WHITE);

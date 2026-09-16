@@ -15,6 +15,7 @@
 #include "common.h"
 #include "game_version.h"
 #include "graphics.h"
+#include "gx_gf.h"
 #include "heap.h"
 #include "math_util.h"
 #include "narc.h"
@@ -1495,7 +1496,7 @@ static void BoxTouchSelector_02037954(BoxTouchSelectorManager* param0) {
 
 
 static void BoxTouchSelector_02037960(BoxTouchSelectorManager* param0) {
-	G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3 | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD, 14, 2);
+	G2S_SetBlendAlpha(GX_BLEND_PLANEMASK_BG0, GX_BLEND_ALL, 14, 2);
 	Bg_ToggleLayer(BG_LAYER_SUB_0, TRUE);
 }
 
