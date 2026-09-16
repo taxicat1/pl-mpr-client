@@ -13,13 +13,13 @@
 #include "constants/graphics.h"
 #include "fs/graphic/winframe.naix"
 
-#define WAIT_DIAL_FRAME_WIDTH_TILES  2
-#define WAIT_DIAL_FRAME_HEIGHT_TILES 2
-#define WAIT_DIAL_TILES_PER_FRAME    (WAIT_DIAL_FRAME_WIDTH_TILES * WAIT_DIAL_FRAME_HEIGHT_TILES)
-#define WAIT_DIAL_FRAME_OFFSET(i)    (WAIT_DIAL_FRAME_SIZE * i)
-#define WAIT_DIAL_FRAME_COUNT        8
-#define WAIT_DIAL_FRAME_SIZE         (TILE_SIZE_4BPP * WAIT_DIAL_TILES_PER_FRAME)
-#define WAIT_DIAL_WHOLE_SIZE         (WAIT_DIAL_FRAME_SIZE * WAIT_DIAL_FRAME_COUNT)
+#define WAIT_DIAL_FRAME_WIDTH_TILES   2
+#define WAIT_DIAL_FRAME_HEIGHT_TILES  2
+#define WAIT_DIAL_TILES_PER_FRAME     (WAIT_DIAL_FRAME_WIDTH_TILES * WAIT_DIAL_FRAME_HEIGHT_TILES)
+#define WAIT_DIAL_FRAME_OFFSET(i)     (WAIT_DIAL_FRAME_SIZE * i)
+#define WAIT_DIAL_FRAME_COUNT         8
+#define WAIT_DIAL_FRAME_SIZE          (TILE_SIZE_4BPP * WAIT_DIAL_TILES_PER_FRAME)
+#define WAIT_DIAL_WHOLE_SIZE          (WAIT_DIAL_FRAME_SIZE * WAIT_DIAL_FRAME_COUNT)
 
 typedef enum {
 	DIAL_DRAW_MODE_LOAD_ONLY = 0,
@@ -33,7 +33,7 @@ typedef enum {
 	DIAL_DELETE_MODE_DESTROY,
 } WaitDialDeleteMode;
 
-typedef struct {
+struct WaitDial {
     Window*  window;
     u8       pixels[WAIT_DIAL_WHOLE_SIZE];
     u8       messageBoxPixels[WAIT_DIAL_FRAME_SIZE];
@@ -43,7 +43,7 @@ typedef struct {
     u8       bitpad1     : 1;
     u8       deleteMode  : 2;
     u8       bitpad2     : 6;
-} WaitDial;
+};
 
 static void DrawStandardWindowFrame(BgConfig* bgConfig, u8 bgLayer, u8 x, u8 y, u8 width, u8 height, u8 palette, u16 tile);
 static void DrawMessageBoxFrame(BgConfig* bgConfig, u8 bgLayer, u8 x, u8 y, u8 width, u8 height, u8 palette, u16 tile);
@@ -64,7 +64,6 @@ static void DrawMessageBoxScrollCursor(Window* window, u16 baseTile);
 static void DrawWaitDial(WaitDial* dial, u32 drawMode);
 static void SysTask_TickWaitDial(SysTask* task, void* data);
 static void SysTask_CleanupWaitDial(SysTask* task, void* data);
-void DestroyWaitDial(void* taskData);
 
 
 void LoadStandardWindowGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, u8 palOffset, u8 standardWindowType, u32 heapID) {
@@ -265,10 +264,8 @@ static void BlitRectToBitmap(
 
 
 static void DrawMessageBoxScrollCursor(Window* window, u16 baseTile) {
-	// must forward-declare these to match
 	u8* cursorTiles;
 	void* cursorCharPtr;
-	
 	u32 heapID = BgConfig_GetHeapID(window->bgConfig);
 	u8 bgLayer = Window_GetBgLayer(window);
 	u8* cursorBlit = Heap_Alloc(heapID, SCROLL_CURSOR_GRAPHICS_SIZE);
@@ -320,7 +317,7 @@ static void DrawMessageBoxScrollCursor(Window* window, u16 baseTile) {
 }
 
 
-void* Window_AddWaitDial(Window* window, u32 baseTile) {
+WaitDial* WaitDial_Create(Window* window, u32 baseTile) {
 	WaitDial* dial;
 	u32 heapID;
 	u8* bgCharPtr;
@@ -450,9 +447,7 @@ static void SysTask_CleanupWaitDial(SysTask* task, void* data) {
 }
 
 
-void DestroyWaitDial(void* taskData) {
-	WaitDial* dial = taskData;
-	
+void WaitDial_Destroy(WaitDial* dial) {
 	SysTask_ExecuteAfterVBlank(SysTask_CleanupWaitDial, dial, 0);
 	dial->deleteMode = DIAL_DELETE_MODE_CLEAR;
 }

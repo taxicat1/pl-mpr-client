@@ -47,7 +47,7 @@ typedef struct {
 	Window           textWindow;
 	Window           yesNoWindow;
 	int              frameCounter;
-	void*            waitDial;
+	WaitDial*        waitDial;
 	YesNoMenuOption  focusedOption;
 	MPRSaveAppState  state;
 	String*          string;
@@ -257,7 +257,7 @@ static inline int ScrollArrowIdx(int frameCounter) {
 
 static inline void TryDestroyWaitDial(MPRSaveMenu* menu) {
 	if (menu->waitDial != NULL) {
-		DestroyWaitDial(menu->waitDial);
+		WaitDial_Destroy(menu->waitDial);
 		menu->waitDial = NULL;
 	}
 }
@@ -349,7 +349,7 @@ BOOL MPRSaveApp_Main(ApplicationManager* appMan, int* state) {
 			} else if (MPRComm_ParentInSavingMode()) {
 				TryDestroyWaitDial(menu);
 				PrintMPRString(menu, MPR_TEXT_Saving);
-				menu->waitDial = Window_AddWaitDial(&menu->textWindow, MENU_DIAL_BASE_TILE);
+				menu->waitDial = WaitDial_Create(&menu->textWindow, MENU_DIAL_BASE_TILE);
 				
 				sSaveThreadCtx.state = THREAD_SAVE_MAIN;
 				OS_WakeupThreadDirect(&sSaveThread);
@@ -359,7 +359,7 @@ BOOL MPRSaveApp_Main(ApplicationManager* appMan, int* state) {
 				menu->frameCounter++;
 				if (menu->frameCounter == 60) {
 					PrintMPRString(menu, MPR_TEXT_WaitingForWii);
-					menu->waitDial = Window_AddWaitDial(&menu->textWindow, MENU_DIAL_BASE_TILE);
+					menu->waitDial = WaitDial_Create(&menu->textWindow, MENU_DIAL_BASE_TILE);
 				}
 			}
 			break;

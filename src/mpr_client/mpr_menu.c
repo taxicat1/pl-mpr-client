@@ -57,7 +57,7 @@ typedef struct {
 	u8                     drawnConnectedMessage;
 	int                    inputTimer;
 	int                    frameCounter;
-	void*                  waitDial;
+	WaitDial*              waitDial;
 	u8                     unk_84; // TODO what does this do?
 	u8                     unk_85; // TODO what does this do?
 	u8                     pad[2];
@@ -837,7 +837,7 @@ static BOOL MPRMenuApp_Init(ApplicationManager* appMan, int* state) {
 
 static inline void TryDestroyWaitDial(MPRMenuApp* mprMenu) {
 	if (mprMenu->waitDial != NULL) {
-		DestroyWaitDial(mprMenu->waitDial);
+		WaitDial_Destroy(mprMenu->waitDial);
 		mprMenu->waitDial = NULL;
 	}
 }
@@ -1064,7 +1064,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 				Bg_ToggleLayer(BG_LAYER_MAIN_1, FALSE);
 				PrintMPRString(mprMenu, MPR_TEXT_Connecting);
 				mprMenu->frameCounter = 0;
-				mprMenu->waitDial = Window_AddWaitDial(&mprMenu->window, 19);
+				mprMenu->waitDial = WaitDial_Create(&mprMenu->window, 19);
 				Bg_ToggleLayer(BG_LAYER_MAIN_1, TRUE);
 				*state = 6;
 			}
@@ -1093,7 +1093,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 				}
 				
 				if (shouldReset && mprMenu->frameCounter >= 90) {
-					DestroyWaitDial(mprMenu->waitDial);
+					WaitDial_Destroy(mprMenu->waitDial);
 					PrintMPRString(mprMenu, MPR_TEXT_FailedToConnect);
 					*state = 8;
 				}
@@ -1183,7 +1183,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 					PrintMPRString(mprMenu, MPR_TEXT_WaitingForWii);
 					
 					if (!mprMenu->unk_85) {
-						mprMenu->waitDial = Window_AddWaitDial(&mprMenu->window, 19);
+						mprMenu->waitDial = WaitDial_Create(&mprMenu->window, 19);
 					}
 					
 					*state = 14;
@@ -1241,7 +1241,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 				PrintMPRString(mprMenu, MPR_TEXT_WaitingForWii);
 				
 				GF_ASSERT(mprMenu->waitDial == NULL);
-				mprMenu->waitDial = Window_AddWaitDial(&mprMenu->window, 19);
+				mprMenu->waitDial = WaitDial_Create(&mprMenu->window, 19);
 			}
 			
 			if (MPRComm_ParentSyncSubMenu()) {
@@ -1293,7 +1293,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 					if (mprMenu->frameCounter == 30) {
 						PrintMPRString(mprMenu, MPR_TEXT_WaitingForWii);
 						GF_ASSERT(mprMenu->waitDial == NULL);
-						mprMenu->waitDial = Window_AddWaitDial(&mprMenu->window, 19);
+						mprMenu->waitDial = WaitDial_Create(&mprMenu->window, 19);
 					}
 				}
 			}

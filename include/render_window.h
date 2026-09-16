@@ -51,6 +51,8 @@ typedef enum {
 	STANDARD_WINDOW_UNDERGROUND
 } StandardWindowType;
 
+typedef struct WaitDial WaitDial;
+
 void LoadStandardWindowGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, u8 palOffset, u8 standardWindowType, u32 heapID);
 void Window_DrawStandardFrame(Window* window, u8 skipTransfer, u16 tile, u8 palette);
 u32 GetMessageBoxTilesNARCMember(u32 messageBoxFrame);
@@ -58,7 +60,7 @@ u32 GetMessageBoxPaletteNARCMember(u32 messageBoxFrame);
 void LoadMessageBoxGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, u8 palOffset, u8 messageBoxFrame, u32 heapID);
 void Window_DrawMessageBox(Window* window, u32 tile, u32 palette);
 void Window_DrawMessageBoxWithScrollCursor(Window* window, u8 skipTransfer, u16 tile, u8 palette);
-void* Window_AddWaitDial(Window* window, u32 baseTile);
-void DestroyWaitDial(void* taskData);
+WaitDial* WaitDial_Create(Window* window, u32 baseTile);
+void WaitDial_Destroy(WaitDial* dial);
 
 #endif /* MPR_RENDER_WINDOW_H */
