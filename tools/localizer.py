@@ -174,10 +174,6 @@ def pack_json(json_file, output):
 	# Write strings
 	for encoded_str in encoded_strs:
 		file_write_pokestring(output, encoded_str)
-	
-	# Pad to 0x1800
-	while output.tell() < 0x1800:
-		file_write_u16_le(output, 0xFFFF)
 
 
 def unpack_bin(bin_file, output):
