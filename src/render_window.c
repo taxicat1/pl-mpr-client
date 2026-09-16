@@ -24,13 +24,13 @@
 typedef enum {
 	DIAL_DRAW_MODE_LOAD_ONLY = 0,
 	DIAL_DRAW_MODE_LOAD_AND_DRAW,
-	DIAL_DRAW_MODE_CLEAR,
+	DIAL_DRAW_MODE_CLEAR
 } WaitDialDrawMode;
 
 typedef enum {
 	DIAL_DELETE_MODE_NONE = 0,
 	DIAL_DELETE_MODE_CLEAR,
-	DIAL_DELETE_MODE_DESTROY,
+	DIAL_DELETE_MODE_DESTROY
 } WaitDialDeleteMode;
 
 struct WaitDial {
@@ -81,7 +81,8 @@ void LoadStandardWindowGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, 
 		narc = NARC_INDEX_PL_GRAPHIC__PL_WINFRAME;
 	}
 	
-	Graphics_LoadTilesToBgLayer(narc,
+	Graphics_LoadTilesToBgLayer(
+		narc,
 		narcMemberIdx,
 		bgConfig,
 		bgLayer,
@@ -97,14 +98,16 @@ void LoadStandardWindowGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, 
 	}
 	
 	if (bgLayer < BG_LAYER_SUB_0) {
-		Graphics_LoadPalette(narc,
+		Graphics_LoadPalette(
+			narc,
 			narcMemberIdx,
 			PAL_LOAD_MAIN_BG,
 			palOffset * PALETTE_SIZE_BYTES,
 			PALETTE_SIZE_BYTES,
 			heapID);
 	} else {
-		Graphics_LoadPalette(narc,
+		Graphics_LoadPalette(
+			narc,
 			narcMemberIdx,
 			PAL_LOAD_SUB_BG,
 			palOffset * PALETTE_SIZE_BYTES,
@@ -127,7 +130,8 @@ static void DrawStandardWindowFrame(BgConfig* bgConfig, u8 bgLayer, u8 x, u8 y, 
 
 
 void Window_DrawStandardFrame(Window* window, u8 skipTransfer, u16 tile, u8 palette) {
-	DrawStandardWindowFrame(window->bgConfig,
+	DrawStandardWindowFrame(
+		window->bgConfig,
 		Window_GetBgLayer(window),
 		Window_GetXPos(window),
 		Window_GetYPos(window),
@@ -227,7 +231,7 @@ void Window_DrawMessageBox(Window* window, u32 tile, u32 palette) {
 void Window_DrawMessageBoxWithScrollCursor(Window* window, u8 skipTransfer, u16 tile, u8 palette) {
 	Window_DrawMessageBox(window, tile, palette);
 	
-	if (skipTransfer == FALSE) {
+	if (!skipTransfer) {
 		Window_CopyToVRAM(window);
 	}
 	
@@ -252,11 +256,11 @@ static void BlitRectToBitmap(
 	Bitmap src, dest;
 	
 	src.pixels = (u8*)srcPixels;
-	src.width = srcWidth;
+	src.width  = srcWidth;
 	src.height = srcHeight;
 	
 	dest.pixels = (u8*)destPixels;
-	dest.width = destWidth;
+	dest.width  = destWidth;
 	dest.height = destHeight;
 	
 	Bitmap_BlitRect4bpp(&src, &dest, srcX, srcY, destX, destY, blitWidth, blitHeight, 0);
@@ -279,7 +283,8 @@ static void DrawMessageBoxScrollCursor(Window* window, u16 baseTile) {
 	}
 	
 	NNSG2dCharacterData* cursorCharData;
-	cursorCharPtr = Graphics_GetCharData(narc,
+	cursorCharPtr = Graphics_GetCharData(
+		narc,
 		scroll_cursor_NCGR,
 		FALSE,
 		&cursorCharData,
@@ -297,7 +302,8 @@ static void DrawMessageBoxScrollCursor(Window* window, u16 baseTile) {
 		memcpy(&cursorBlit[frameOffset + SCROLL_CURSOR_TILE_OFFSET(3)], &bgGfx[(baseTile + 11) * TILE_SIZE_4BPP], TILE_SIZE_4BPP);
 	}
 	
-	BlitRectToBitmap(cursorTiles,
+	BlitRectToBitmap(
+		cursorTiles,
 		4,
 		0,
 		12,
@@ -354,14 +360,17 @@ WaitDial* WaitDial_Create(Window* window, u32 baseTile) {
 	} else {
 		narc = NARC_INDEX_PL_GRAPHIC__PL_WINFRAME;
 	}
-	dialTilesRaw = Graphics_GetCharData(narc,
+	dialTilesRaw = Graphics_GetCharData(
+		narc,
 		wait_dial_NCGR,
 		FALSE,
 		&dialCharData,
 		heapID);
+	
 	dialTiles = dialCharData->pRawData;
 	
-	BlitRectToBitmap(dialTiles,
+	BlitRectToBitmap(
+		dialTiles,
 		0,
 		0,
 		WAIT_DIAL_FRAME_WIDTH_TILES * 8,
@@ -373,6 +382,7 @@ WaitDial* WaitDial_Create(Window* window, u32 baseTile) {
 		0,
 		WAIT_DIAL_FRAME_WIDTH_TILES * 8,
 		(WAIT_DIAL_FRAME_HEIGHT_TILES * 8) * WAIT_DIAL_FRAME_COUNT);
+	
 	Heap_Free(dialTilesRaw);
 	
 	dial->window = window;
@@ -401,7 +411,6 @@ static void DrawWaitDial(WaitDial* dial, u32 drawMode) {
 		Bg_FillTilemapRect(dial->window->bgConfig, bgLayer, dial->messageBoxTile + 10, x + width + 1, y + 3, 1, 1, TILEMAP_FILL_VAL_KEEP_PALETTE);
 		Bg_FillTilemapRect(dial->window->bgConfig, bgLayer, dial->messageBoxTile + 11, x + width + 2, y + 3, 1, 1, TILEMAP_FILL_VAL_KEEP_PALETTE);
 		Bg_CopyTilemapBufferToVRAM(dial->window->bgConfig, bgLayer);
-		
 		return;
 	}
 	
@@ -410,7 +419,7 @@ static void DrawWaitDial(WaitDial* dial, u32 drawMode) {
 	if (drawMode == DIAL_DRAW_MODE_LOAD_ONLY) {
 		return;
 	}
-
+	
 	Bg_FillTilemapRect(dial->window->bgConfig, bgLayer, dial->messageBoxTile + 18, x + width + 1, y + 2, 1, 1, TILEMAP_FILL_VAL_KEEP_PALETTE);
 	Bg_FillTilemapRect(dial->window->bgConfig, bgLayer, dial->messageBoxTile + 19, x + width + 2, y + 2, 1, 1, TILEMAP_FILL_VAL_KEEP_PALETTE);
 	Bg_FillTilemapRect(dial->window->bgConfig, bgLayer, dial->messageBoxTile + 20, x + width + 1, y + 3, 1, 1, TILEMAP_FILL_VAL_KEEP_PALETTE);
