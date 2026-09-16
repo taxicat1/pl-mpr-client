@@ -111,7 +111,7 @@ static inline void DecodeString(charcode_t* str, u32 len, u32 entryID, u16 seed)
 
 
 static inline u8* EntryOffsetAddress(const MessageBank* bank, u32 bankIndex) {
-    return (u8*)bank + bankIndex;
+	return (u8*)bank + bankIndex;
 }
 
 
@@ -133,7 +133,6 @@ void MessageBank_Get(const MessageBank* bank, u32 entryID, charcode_t* dst) {
 		const charcode_t* str = (charcode_t*)EntryOffsetAddress(bank, entry.offset);
 		MemCopyEntry(dst, str, &entry);
 		DecodeString(dst, entry.length, entryID, bank->seed);
-		
 		return;
 	}
 	
@@ -143,8 +142,7 @@ void MessageBank_Get(const MessageBank* bank, u32 entryID, charcode_t* dst) {
 
 void MessageBank_GetFromNARC(NarcID narcID, u32 bankID, u32 entryID, HeapID heapID, charcode_t* dst) {
 	NARC* narc = NARC_ctor(narcID, heapID);
-	
-	if (narc) {
+	if (narc != NULL) {
 		MessageBank bank;
 		NARC_ReadFromMember(narc, bankID, 0, sizeof(MessageBank), &bank);
 		
@@ -174,7 +172,7 @@ void MessageBank_GetString(const MessageBank* bank, u32 entryID, String* string)
 		
 		u32 size = entry.length * sizeof(charcode_t);
 		charcode_t* cstr = Heap_AllocAtEnd(HEAP_ID_SYSTEM, size);
-		if (cstr) {
+		if (cstr != NULL) {
 			MI_CpuCopy16(EntryOffsetAddress(bank, entry.offset), cstr, size);
 			DecodeString(cstr, entry.length, entryID, bank->seed);
 			
@@ -198,7 +196,7 @@ String* MessageBank_GetNewString(const MessageBank* bank, u32 entryID, HeapID he
 		
 		u32 size = entry.length * sizeof(u16);
 		charcode_t* cstr = Heap_AllocAtEnd(heapID, size);
-		if (cstr) {
+		if (cstr != NULL) {
 			MI_CpuCopy16(EntryOffsetAddress(bank, entry.offset), cstr, size);
 			DecodeString(cstr, entry.length, entryID, bank->seed);
 			
@@ -230,7 +228,7 @@ void MessageBank_GetStringFromHandle(NARC* narc, u32 bankID, u32 entryID, HeapID
 		
 		u32 size = entry.length * sizeof(charcode_t);
 		charcode_t* cstr = Heap_AllocAtEnd(heapID, size);
-		if (cstr) {
+		if (cstr != NULL) {
 			NARC_ReadFromMember(narc, bankID, entry.offset, size, cstr);
 			DecodeString(cstr, entry.length, entryID, bank.seed);
 			
@@ -257,11 +255,10 @@ String* MessageBank_GetNewStringFromHandle(NARC* narc, u32 bankID, u32 entryID, 
 		DecodeEntry(&entry, entryID, bank.seed);
 		
 		String* string = String_Init(entry.length, heapID);
-		if (string) {
+		if (string != NULL) {
 			u32 size = entry.length * sizeof(charcode_t);
 			charcode_t* cstr = Heap_AllocAtEnd(heapID, size);
-			
-			if (cstr) {
+			if (cstr != NULL) {
 				NARC_ReadFromMember(narc, bankID, entry.offset, size, cstr);
 				DecodeString(cstr, entry.length, entryID, bank.seed);
 				
@@ -294,7 +291,7 @@ u32 MessageBank_NARCEntryCount(NarcID narcID, u32 bankID) {
 
 MessageLoader* MessageLoader_Init(MessageLoaderMode mode, NarcID narcID, u32 bankID, HeapID heapID) {
 	MessageLoader* loader = Heap_AllocAtEnd(heapID, sizeof(MessageLoader));
-	if (loader) {
+	if (loader != NULL) {
 		if (bankID >= TEXT_BANK_UNIFIED_START) {
 			GF_ASSERT(bankID > TEXT_BANK_UNIFIED_START && bankID < TEXT_BANK_UNIFIED_MAX);
 			
@@ -306,7 +303,7 @@ MessageLoader* MessageLoader_Init(MessageLoaderMode mode, NarcID narcID, u32 ban
 			}
 		}
 		
-		if (mode == 0) {
+		if (mode == MSG_LOADER_PRELOAD_ENTIRE_BANK) {
 			loader->bank = MessageBank_Load(narcID, bankID, heapID);
 			if (loader->bank == NULL) {
 				Heap_Free(loader);
@@ -327,11 +324,12 @@ MessageLoader* MessageLoader_Init(MessageLoaderMode mode, NarcID narcID, u32 ban
 
 
 void MessageLoader_Free(MessageLoader* loader) {
-	if (loader) {
+	if (loader != NULL) {
 		switch (loader->mode) {
 			case MSG_LOADER_PRELOAD_ENTIRE_BANK:
 				MessageBank_Free(loader->bank);
 				break;
+			
 			case MSG_LOADER_LOAD_ON_DEMAND:
 				NARC_dtor(loader->narc);
 				break;
@@ -347,6 +345,7 @@ void MessageLoader_GetString(const MessageLoader* loader, u32 entryID, String* s
 		case MSG_LOADER_PRELOAD_ENTIRE_BANK:
 			MessageBank_GetString(loader->bank, entryID, string);
 			break;
+		
 		case MSG_LOADER_LOAD_ON_DEMAND:
 			MessageBank_GetStringFromHandle(loader->narc, loader->bankID, entryID, loader->heapID, string);
 			break;
@@ -358,6 +357,7 @@ String* MessageLoader_GetNewString(const MessageLoader* loader, u32 entryID) {
 	switch (loader->mode) {
 		case MSG_LOADER_PRELOAD_ENTIRE_BANK:
 			return MessageBank_GetNewString(loader->bank, entryID, loader->heapID);
+		
 		case MSG_LOADER_LOAD_ON_DEMAND:
 			return MessageBank_GetNewStringFromHandle(loader->narc, loader->bankID, entryID, loader->heapID);
 	}
@@ -370,6 +370,7 @@ u32 MessageLoader_MessageCount(const MessageLoader* loader) {
 	switch (loader->mode) {
 		case MSG_LOADER_PRELOAD_ENTIRE_BANK:
 			return MessageBank_EntryCount(loader->bank);
+		
 		case MSG_LOADER_LOAD_ON_DEMAND:
 			return MessageBank_NARCEntryCount(loader->narcID, loader->bankID);
 	}
@@ -383,6 +384,7 @@ void MessageLoader_Get(const MessageLoader* loader, u32 entryID, charcode_t* dst
 		case MSG_LOADER_PRELOAD_ENTIRE_BANK:
 			MessageBank_Get(loader->bank, entryID, dst);
 			break;
+		
 		case MSG_LOADER_LOAD_ON_DEMAND:
 			MessageBank_GetFromNARC(loader->narcID, loader->bankID, entryID, loader->heapID, dst);
 			break;

@@ -31,7 +31,7 @@ typedef struct {
 
 typedef enum {
 	MSG_LOADER_PRELOAD_ENTIRE_BANK,
-	MSG_LOADER_LOAD_ON_DEMAND,
+	MSG_LOADER_LOAD_ON_DEMAND
 } MessageLoaderMode;
 
 /**
@@ -170,7 +170,7 @@ void MessageLoader_GetString(const MessageLoader* loader, u32 entryID, String* s
  * @param entryID   The entry to be loaded from the loader's target bank.
  * @return A newly-allocated String struct containing the loaded bank entry.
  */
-String *MessageLoader_GetNewString(const MessageLoader* loader, u32 entryID);
+String* MessageLoader_GetNewString(const MessageLoader* loader, u32 entryID);
 
 /**
  * @brief Get the number of entries in the loader's target message bank.
