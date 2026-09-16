@@ -47,9 +47,9 @@ typedef struct {
 	Window           textWindow;
 	Window           yesNoWindow;
 	int              frameCounter;
-    void*            waitDial;
+	void*            waitDial;
 	YesNoMenuOption  focusedOption;
-    MPRSaveAppState  state;
+	MPRSaveAppState  state;
 	String*          string;
 } MPRSaveMenu;
 
@@ -65,9 +65,9 @@ typedef enum {
 } SaveThreadState;
 
 typedef struct {
-    u32              timer;
-    SaveData*        saveData;
-    SaveThreadState  state;
+	u32              timer;
+	SaveData*        saveData;
+	SaveThreadState  state;
 } SaveThreadCtx;
 
 #define SAVE_FILE_THREAD_STACK_SIZE  (0x400)
@@ -465,61 +465,61 @@ BOOL MPRSaveApp_Exit(ApplicationManager* appMan, int* state) {
 
 
 static void SaveThreadFunc(void* saveData) {
-    sSaveThreadCtx.saveData = (SaveData*)saveData;
-    sSaveThreadCtx.state = THREAD_IDLE;
-    SaveResult saveResult;
-    
-    while (TRUE) {
-        switch (sSaveThreadCtx.state) {
-            case THREAD_IDLE:
-                break;
-            
-            case THREAD_SAVE_MAIN:
-                SaveData_SaveStateInit(sSaveThreadCtx.saveData, 2);
-                do {
-                    saveResult = SaveData_SaveStateMain(sSaveThreadCtx.saveData);
-                } while (saveResult == SAVE_RESULT_PROCEED);
-                
-                if (saveResult == SAVE_RESULT_PROCEED_FINAL) {
-                    sSaveThreadCtx.timer = OS_GetVBlankCount() + (LCRNG_Next() % 600);
-                    sSaveThreadCtx.state = THREAD_SAVE_MAIN_WAIT;
-                } else {
-                    sSaveThreadCtx.state = THREAD_SAVE_FAILED;
-                }
-                break;
-            
-            case THREAD_SAVE_MAIN_WAIT:
-                if (sSaveThreadCtx.timer < OS_GetVBlankCount()) {
-                    MPRComm_SetSavingFlag();
-                    sSaveThreadCtx.state = THREAD_SAVE_MAIN_OK;
-                }
-                break;
-            
-            case THREAD_SAVE_MAIN_OK:
-                break;
-            
-            case THREAD_SAVE_FINAL:
-                do {
-                    saveResult = SaveData_SaveStateMain(sSaveThreadCtx.saveData);
-                } while (saveResult == SAVE_RESULT_PROCEED);
-                
-                sSaveThreadCtx.timer = OS_GetVBlankCount() + 20 + (LCRNG_Next() % 40);
-                sSaveThreadCtx.state = THREAD_SAVE_FINAL_WAIT;
-                break;
-            
-            case THREAD_SAVE_FINAL_WAIT:
-                if (sSaveThreadCtx.timer <= OS_GetVBlankCount()) {
-                    if (saveResult == SAVE_RESULT_OK) {
-                        sSaveThreadCtx.state = THREAD_SAVE_FINAL_OK;
-                    } else {
-                        sSaveThreadCtx.state = THREAD_SAVE_FAILED;
-                    }
-                }
-                break;
-        }
-        
-        OS_SleepThread(NULL);
-    }
+	sSaveThreadCtx.saveData = (SaveData*)saveData;
+	sSaveThreadCtx.state = THREAD_IDLE;
+	SaveResult saveResult;
+	
+	while (TRUE) {
+		switch (sSaveThreadCtx.state) {
+			case THREAD_IDLE:
+				break;
+			
+			case THREAD_SAVE_MAIN:
+				SaveData_SaveStateInit(sSaveThreadCtx.saveData, 2);
+				do {
+					saveResult = SaveData_SaveStateMain(sSaveThreadCtx.saveData);
+				} while (saveResult == SAVE_RESULT_PROCEED);
+				
+				if (saveResult == SAVE_RESULT_PROCEED_FINAL) {
+					sSaveThreadCtx.timer = OS_GetVBlankCount() + (LCRNG_Next() % 600);
+					sSaveThreadCtx.state = THREAD_SAVE_MAIN_WAIT;
+				} else {
+					sSaveThreadCtx.state = THREAD_SAVE_FAILED;
+				}
+				break;
+			
+			case THREAD_SAVE_MAIN_WAIT:
+				if (sSaveThreadCtx.timer < OS_GetVBlankCount()) {
+					MPRComm_SetSavingFlag();
+					sSaveThreadCtx.state = THREAD_SAVE_MAIN_OK;
+				}
+				break;
+			
+			case THREAD_SAVE_MAIN_OK:
+				break;
+			
+			case THREAD_SAVE_FINAL:
+				do {
+					saveResult = SaveData_SaveStateMain(sSaveThreadCtx.saveData);
+				} while (saveResult == SAVE_RESULT_PROCEED);
+				
+				sSaveThreadCtx.timer = OS_GetVBlankCount() + 20 + (LCRNG_Next() % 40);
+				sSaveThreadCtx.state = THREAD_SAVE_FINAL_WAIT;
+				break;
+			
+			case THREAD_SAVE_FINAL_WAIT:
+				if (sSaveThreadCtx.timer <= OS_GetVBlankCount()) {
+					if (saveResult == SAVE_RESULT_OK) {
+						sSaveThreadCtx.state = THREAD_SAVE_FINAL_OK;
+					} else {
+						sSaveThreadCtx.state = THREAD_SAVE_FAILED;
+					}
+				}
+				break;
+		}
+		
+		OS_SleepThread(NULL);
+	}
 }
 
 
