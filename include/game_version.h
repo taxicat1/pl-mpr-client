@@ -9,6 +9,6 @@ extern const u8 gGameLanguage;
 extern BOOL gIsDiamondPearl;
 extern BOOL gIsPlatinum;
 
-void GameVersion_Set(u8 new_version);
+void GameVersion_Set(u8 newVersion);
 
 #endif /* MPR_GAME_VERSION_H */
