@@ -7,21 +7,12 @@
 
 #include "assert.h"
 #include "constants/graphics.h"
+#include "gx_gf.h"
 #include "hardware_window.h"
 #include "heap.h"
 #include "screen_fade.h"
 #include "sys_task.h"
 #include "sys_task_manager.h"
-
-enum {
-	GX_BLEND_BGALL = GX_BLEND_PLANEMASK_BG0 | GX_BLEND_PLANEMASK_BG1 | GX_BLEND_PLANEMASK_BG2 | GX_BLEND_PLANEMASK_BG3,
-	GX_BLEND_ALL = GX_BLEND_BGALL | GX_BLEND_PLANEMASK_OBJ | GX_BLEND_PLANEMASK_BD,
-};
-
-enum {
-	GX_WND_PLANEMASK_BGALL = GX_WND_PLANEMASK_BG0 | GX_WND_PLANEMASK_BG1 | GX_WND_PLANEMASK_BG2 | GX_WND_PLANEMASK_BG3,
-	GX_WND_PLANEMASK_ALL = GX_WND_PLANEMASK_BGALL | GX_WND_PLANEMASK_OBJ,
-};
 
 typedef struct {
 	int unk_00;
@@ -287,7 +278,6 @@ typedef struct {
 	u8 unk_387;
 } ScreenFadeFuncStruct30;
 
-// TODO rename these away from pokeplatinum addresses
 static fx32 ScreenFade_02009F50(int param0);
 static int ScreenFade_02009F6C(int param0, int param1);
 static void ScreenFade_02009F94(int param0, int* param1, int param2, int param3);
