@@ -103,8 +103,8 @@ void SaveReadError_ShowWindow(HeapID heapID) {
 	LoadStandardWindowGraphics(bgConfig, BG_LAYER_MAIN_0, 512 - 9, 2, 0, heapID);
 	Font_LoadTextPalette(PAL_LOAD_MAIN_BG, PLTT_OFFSET(1), heapID);
 	Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, heapID);
-	Bg_MaskPalette(BG_LAYER_MAIN_0, 0x6C21);
-	Bg_MaskPalette(BG_LAYER_SUB_0, 0x6C21);
+	Bg_MaskPalette(BG_LAYER_MAIN_0, GX_RGB(1, 1, 27));
+	Bg_MaskPalette(BG_LAYER_SUB_0, GX_RGB(1, 1, 27));
 	
 	NarcID narc;
 	if (gIsDiamondPearl) {
@@ -113,7 +113,7 @@ void SaveReadError_ShowWindow(HeapID heapID) {
 		narc = NARC_INDEX_PL_MSGDATA__PL_MSG;
 	}
 	messageLoader = MessageLoader_Init(MSG_LOADER_LOAD_ON_DEMAND, narc, TEXT_BANK_UNIFIED_SAVE_DATA_READ_ERROR, heapID);
-	errorString = String_Init(384, heapID);
+	errorString = String_Init(0x180, heapID);
 	
 	Text_ResetAllPrinters();
 	Window_AddFromTemplate(bgConfig, &window, &sWindowTemplate);

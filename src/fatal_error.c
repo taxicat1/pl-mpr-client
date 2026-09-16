@@ -132,8 +132,8 @@ void FatalError_PrintMessageAndShutdown(void) {
 	LoadStandardWindowGraphics(bgConfig, BG_LAYER_MAIN_0, 512 - 9, 2, 0, HEAP_ID_SYSTEM);
 	Font_LoadTextPalette(PAL_LOAD_MAIN_BG, PLTT_OFFSET(1), HEAP_ID_SYSTEM);
 	Bg_ClearTilesRange(BG_LAYER_MAIN_0, 32, 0, HEAP_ID_SYSTEM);
-	Bg_MaskPalette(BG_LAYER_MAIN_0, 0x6c21);
-	Bg_MaskPalette(BG_LAYER_SUB_0, 0x6c21);
+	Bg_MaskPalette(BG_LAYER_MAIN_0, GX_RGB(1, 1, 27));
+	Bg_MaskPalette(BG_LAYER_SUB_0, GX_RGB(1, 1, 27));
 	
 	errorString = String_Init(0x180, HEAP_ID_SYSTEM);
 

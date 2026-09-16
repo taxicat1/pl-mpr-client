@@ -277,8 +277,8 @@ static BOOL GameInit_Update(GameInitContext* ctx) {
 			break;
 		
 		case STATE_SAVE_ERROR_START:
-			Bg_MaskPalette(BG_LAYER_MAIN_0, 0x6C21);
-			Bg_MaskPalette(BG_LAYER_SUB_0, 0x6C21);
+			Bg_MaskPalette(BG_LAYER_MAIN_0, GX_RGB(1, 1, 27));
+			Bg_MaskPalette(BG_LAYER_SUB_0, GX_RGB(1, 1, 27));
 			StartScreenFade(FADE_BOTH_SCREENS, FADE_TYPE_BRIGHTNESS_IN, FADE_TYPE_BRIGHTNESS_IN, COLOR_BLACK, 6, 1, ctx->heapID);
 			ctx->state = STATE_SAVE_ERROR_FADE_IN;
 			break;
