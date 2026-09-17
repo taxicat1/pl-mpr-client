@@ -174,17 +174,17 @@ void NARC_ReadWholeMemberByIndexPair(void* dest, NarcID narcID, int memberIndex)
 
 
 void* NARC_AllocAndReadWholeMemberByIndexPair(NarcID narcID, int memberIndex, HeapID heapID) {
-    return AllocAndReadFromNarcMemberByPathAndIndex(NarcIDToFilePath(narcID), memberIndex, heapID, 0, 0, FALSE);
+	return AllocAndReadFromNarcMemberByPathAndIndex(NarcIDToFilePath(narcID), memberIndex, heapID, 0, 0, FALSE);
 }
 
 
 void* NARC_AllocAtEndAndReadWholeMemberByIndexPair(NarcID narcID, int memberIndex, HeapID heapID) {
-    return AllocAndReadFromNarcMemberByPathAndIndex(NarcIDToFilePath(narcID), memberIndex, heapID, 0, 0, TRUE);
+	return AllocAndReadFromNarcMemberByPathAndIndex(NarcIDToFilePath(narcID), memberIndex, heapID, 0, 0, TRUE);
 }
 
 
 void NARC_ReadFromMemberByIndexPair(void* dest, NarcID narcID, int memberIndex, int offset, int bytesToRead) {
-    ReadFromNarcMemberByPathAndIndex(dest, NarcIDToFilePath(narcID), memberIndex, offset, bytesToRead);
+	ReadFromNarcMemberByPathAndIndex(dest, NarcIDToFilePath(narcID), memberIndex, offset, bytesToRead);
 }
 
 
