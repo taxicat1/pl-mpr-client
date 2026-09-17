@@ -265,9 +265,8 @@ u32 NARC_GetMemberSizeByIndexPair(NarcID narcID, int memberIndex) {
 
 
 NARC* NARC_ctor(NarcID narcID, HeapID heapID) {
-	NARC *narc = Heap_Alloc(heapID, sizeof(NARC));
-	
-	if (narc) {
+	NARC* narc = Heap_Alloc(heapID, sizeof(NARC));
+	if (narc != NULL) {
 		u32 btnfStart;
 		u32 chunkSize;
 		
@@ -316,19 +315,19 @@ void NARC_ReadFromMember(NARC* narc, int memberIndex, u32 offset, u32 bytesToRea
 
 
 void NARC_SetVersion(u8 gameVersion) {
-    switch (gameVersion) {
-        case VERSION_DIAMOND:
-            sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal/personal.narc";
-            sNarcCurrentPaths = sNarcDPPaths;
-            break;
-        
-        case VERSION_PEARL:
-            sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal_pearl/personal.narc";
-            sNarcCurrentPaths = sNarcDPPaths;
-            break;
-        
-        case VERSION_PLATINUM:
-            sNarcCurrentPaths = sNarcPtPaths;
-            break;
-    }
+	switch (gameVersion) {
+		case VERSION_DIAMOND:
+			sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal/personal.narc";
+			sNarcCurrentPaths = sNarcDPPaths;
+			break;
+		
+		case VERSION_PEARL:
+			sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal_pearl/personal.narc";
+			sNarcCurrentPaths = sNarcDPPaths;
+			break;
+		
+		case VERSION_PLATINUM:
+			sNarcCurrentPaths = sNarcPtPaths;
+			break;
+	}
 }
