@@ -41,9 +41,6 @@
 #include "wifi_questions.h"
 #include "pc_boxes.h"
 
-typedef int (*SaveEntrySizeFunc)(void);
-typedef void (*SaveEntryInitFunc)(void*);
-
 const SaveTableEntry gSaveTable[] = {
 	{
 		SAVE_TABLE_ENTRY_SYSTEM,

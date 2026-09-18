@@ -10,7 +10,7 @@ typedef enum {
 	TASK_STATE_INACTIVE
 } TaskState;
 
-typedef struct SysTask {
+struct SysTask {
 	SysTaskManager*  manager;
 	SysTask*         prevTask;
 	SysTask*         nextTask;
@@ -18,9 +18,9 @@ typedef struct SysTask {
 	void*            param;
 	SysTaskFunc      callback;
 	TaskState        state;
-} SysTask;
+};
 
-typedef struct SysTaskManager {
+struct SysTaskManager {
 	u16        maxTasks;
 	u16        stackPointer;
 	SysTask    sentinelTask;
@@ -29,7 +29,7 @@ typedef struct SysTaskManager {
 	BOOL       locked;       // The task manager can't execute while a task is being added
 	SysTask*   currentTask;  // The task that is currently being executed
 	SysTask*   nextTask;     // The task that will be executed next
-} SysTaskManager;
+};
 
 u32 SysTaskManager_GetRequiredSize(u32 maxTasks);
 SysTaskManager* SysTaskManager_Init(u32 maxTasks, void* memory);

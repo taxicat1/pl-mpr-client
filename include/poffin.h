@@ -8,7 +8,7 @@
 
 typedef struct {
 	union {
-		struct PoffinInner {
+		struct {
 			u8 type;
 			u8 spiciness;
 			u8 dryness;
@@ -18,7 +18,7 @@ typedef struct {
 			u8 smoothness;
 			u8 dummy;
 		};
-		u8 attributes[sizeof(struct PoffinInner)];
+		u8 attributes[8];
 	};
 } Poffin;
 
