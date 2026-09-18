@@ -32,60 +32,66 @@ typedef struct {
 
 static const FontArchive sFontArchiveData[FONT_MAX] = {
 	[FONT_SYSTEM] = {
-		.arcFileIdx = font_system_NFGR,
-		.isMonospace = FALSE,
+		.arcFileIdx  = font_system_NFGR,
+		.isMonospace = FALSE
 	},
+	
 	[FONT_MESSAGE] = {
-		.arcFileIdx = font_message_NFGR,
-		.isMonospace = FALSE,
+		.arcFileIdx  = font_message_NFGR,
+		.isMonospace = FALSE
 	},
+	
 	[FONT_SUBSCREEN] = {
-		.arcFileIdx = font_subscreen_NFGR,
-		.isMonospace = FALSE,
+		.arcFileIdx  = font_subscreen_NFGR,
+		.isMonospace = FALSE
 	},
+	
 	[FONT_UNOWN] = {
-		.arcFileIdx = font_unown_NFGR,
-		.isMonospace = FALSE,
-	},
+		.arcFileIdx  = font_unown_NFGR,
+		.isMonospace = FALSE
+	}
 };
 
 static const FontAttributes sFontAttributes[FONT_MAX + 1] = {
 	[FONT_SYSTEM] = {
-		.maxLetterWidth = 11,
+		.maxLetterWidth  = 11,
 		.maxLetterHeight = 16,
-		.letterSpacing = 0,
-		.lineSpacing = 0,
-		.fgColor = 1,
-		.bgColor = 15,
-		.shadowColor = 2,
+		.letterSpacing   = 0,
+		.lineSpacing     = 0,
+		.fgColor         = 1,
+		.bgColor         = 15,
+		.shadowColor     = 2
 	},
+	
 	[FONT_MESSAGE] = {
-		.maxLetterWidth = 11,
+		.maxLetterWidth  = 11,
 		.maxLetterHeight = 16,
-		.letterSpacing = 0,
-		.lineSpacing = 0,
-		.fgColor = 1,
-		.bgColor = 15,
-		.shadowColor = 2,
+		.letterSpacing   = 0,
+		.lineSpacing     = 0,
+		.fgColor         = 1,
+		.bgColor         = 15,
+		.shadowColor     = 2
 	},
+	
 	[FONT_SUBSCREEN] = {
-		.maxLetterWidth = 11,
+		.maxLetterWidth  = 11,
 		.maxLetterHeight = 16,
-		.letterSpacing = 0,
-		.lineSpacing = 0,
-		.fgColor = 1,
-		.bgColor = 15,
-		.shadowColor = 2,
+		.letterSpacing   = 0,
+		.lineSpacing     = 0,
+		.fgColor         = 1,
+		.bgColor         = 15,
+		.shadowColor     = 2
 	},
+	
 	[FONT_UNOWN] = {
-		.maxLetterWidth = 11,
+		.maxLetterWidth  = 11,
 		.maxLetterHeight = 16,
-		.letterSpacing = 0,
-		.lineSpacing = 0,
-		.fgColor = 1,
-		.bgColor = 15,
-		.shadowColor = 2,
-	},
+		.letterSpacing   = 0,
+		.lineSpacing     = 0,
+		.fgColor         = 1,
+		.bgColor         = 15,
+		.shadowColor     = 2
+	}
 };
 
 static FontWork work;

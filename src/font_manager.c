@@ -42,8 +42,7 @@ static void (*const sFreeGlyphFuncs[])(FontManager* fontManager) = {
 
 FontManager* FontManager_New(NarcID narcID, u32 arcFileIdx, GlyphAccessMode glyphAccessMode, BOOL isMonospace, HeapID heapID) {
 	FontManager* fontManager = Heap_Alloc(heapID, sizeof(FontManager));
-	
-	if (fontManager) {
+	if (fontManager != NULL) {
 		FontManager_Init(fontManager, narcID, arcFileIdx, isMonospace, heapID);
 		FontManager_LoadGlyphs(fontManager, glyphAccessMode, heapID);
 	}
@@ -69,8 +68,7 @@ void FontManager_SwitchGlyphAccessMode(FontManager* fontManager, GlyphAccessMode
 
 static void FontManager_Init(FontManager* fontManager, NarcID narcID, u32 arcFileIdx, BOOL isMonospace, HeapID heapID) {
 	fontManager->narc = NARC_ctor(narcID, heapID);
-	
-	if (!fontManager->narc) {
+	if (fontManager->narc == NULL) {
 		return;
 	}
 	
@@ -100,11 +98,11 @@ static void FontManager_Init(FontManager* fontManager, NarcID narcID, u32 arcFil
 
 
 static void FontManager_FreeWidthsAndNARC(FontManager* fontManager) {
-	if (fontManager->glyphWidths) {
+	if (fontManager->glyphWidths != NULL) {
 		Heap_Free(fontManager->glyphWidths);
 	}
 	
-	if (fontManager->narc) {
+	if (fontManager->narc != NULL) {
 		NARC_dtor(fontManager->narc);
 	}
 }
@@ -189,7 +187,12 @@ static void DecompressGlyph_FromRAM(const FontManager* fontManager, charcode_t c
 
 
 static void DecompressGlyph_FromNARC(const FontManager* fontManager, charcode_t c, TextGlyph* outGlyph) {
-	NARC_ReadFromMember(fontManager->narc, fontManager->arcFileIdx, fontManager->header.size + c * fontManager->glyphSize, fontManager->glyphSize, fontManager->glyphBuf);
+	NARC_ReadFromMember(
+		fontManager->narc,
+		fontManager->arcFileIdx,
+		fontManager->header.size + c * fontManager->glyphSize,
+		fontManager->glyphSize,
+		fontManager->glyphBuf);
 	
 	switch (fontManager->glyphShape) {
 		case GLYPH_SHAPE_8x8:
