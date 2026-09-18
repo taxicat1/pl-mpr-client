@@ -709,11 +709,11 @@ static void BoxMPR_0203A06C(MPRBoxDisplay* mprDisplay) {
 
 
 BOOL BoxMPR_0203A1EC(const int* buckets, int listCount, int currentBucket) {
-    if (currentBucket < 9) {
-        return (buckets[currentBucket] < buckets[currentBucket + 1]);
-    } else {
-        return (buckets[currentBucket] < listCount);
-    }
+	if (currentBucket < 9) {
+		return (buckets[currentBucket] < buckets[currentBucket + 1]);
+	} else {
+		return (buckets[currentBucket] < listCount);
+	}
 }
 
 

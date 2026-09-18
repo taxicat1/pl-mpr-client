@@ -13,10 +13,10 @@
 #include "fs/poketool/pokegra/otherpoke.naix"
 #include "fs/poketool/pokegra/pl_otherpoke.naix"
 
-#define MAX_SPINDA_SPOTS	    4
+#define MAX_SPINDA_SPOTS        4
 #define SPINDA_SPOT_COORDS_END  0xFF
 
-#define MAX_MON_SHADOWS		     2
+#define MAX_MON_SHADOWS          2
 #define MAX_MON_SPRITE_PALETTES  (MAX_MON_SPRITES + MAX_MON_SHADOWS)
 
 #define MON_SPRITE_CHAR_BUF_TILES_W  32
@@ -26,7 +26,7 @@
 #define MON_SPRITE_PLTT_BUF_SIZE  (MAX_MON_SPRITE_PALETTES * PALETTE_SIZE_BYTES)
 
 #define NCGR_Y_OFFSET    0x50
-#define MAN_Y_OFFSET	 0x80
+#define MAN_Y_OFFSET     0x80
 #define MAN_CHAR_OFFSET  0x2800
 
 // the last mon sprite doesn't follow the pattern of char data offsets that the other three do
@@ -141,90 +141,90 @@ static const SpindaSpotCoords* sSpindaSpotCoords[MAX_SPINDA_SPOTS] = {
 };
 
 static const int sMonSpriteTextureCoords[MAX_MON_SPRITES][NUM_MON_SPRITE_FRAMES_H][4] = {
-    {
-        {
-            0,
-            0,
-            MON_SPRITE_FRAME_WIDTH,
-            MON_SPRITE_FRAME_HEIGHT,
-        },
-        {
-            MON_SPRITE_FRAME_WIDTH,
-            0,
-            MON_SPRITE_FRAME_WIDTH * 2,
-            MON_SPRITE_FRAME_HEIGHT,
-        },
-    },
-    {
-        {
-            0,
-            MON_SPRITE_FRAME_HEIGHT,
-            MON_SPRITE_FRAME_WIDTH,
-            MON_SPRITE_FRAME_HEIGHT * 2,
-        },
-        {
-            MON_SPRITE_FRAME_WIDTH,
-            MON_SPRITE_FRAME_HEIGHT,
-            MON_SPRITE_FRAME_WIDTH  * 2,
-            MON_SPRITE_FRAME_HEIGHT * 2,
-        },
-    },
-    {
-        {
-            0,
-            MON_SPRITE_FRAME_HEIGHT * 2,
-            MON_SPRITE_FRAME_WIDTH,
-            MON_SPRITE_FRAME_HEIGHT * 3,
-        },
-        {
-            MON_SPRITE_FRAME_WIDTH,
-            MON_SPRITE_FRAME_HEIGHT * 2,
-            MON_SPRITE_FRAME_WIDTH  * 2,
-            MON_SPRITE_FRAME_HEIGHT * 3,
-        },
-    },
-    {
-        {
-            MON_SPRITE_FRAME_WIDTH * 2,
-            0,
-            MON_SPRITE_FRAME_WIDTH * 3,
-            MON_SPRITE_FRAME_HEIGHT,
-        },
-        {
-            MON_SPRITE_FRAME_WIDTH  * 2,
-            MON_SPRITE_FRAME_HEIGHT,
-            MON_SPRITE_FRAME_WIDTH  * 3,
-            MON_SPRITE_FRAME_HEIGHT * 2,
-        },
-    },
+	{
+		{
+			0,
+			0,
+			MON_SPRITE_FRAME_WIDTH,
+			MON_SPRITE_FRAME_HEIGHT,
+		},
+		{
+			MON_SPRITE_FRAME_WIDTH,
+			0,
+			MON_SPRITE_FRAME_WIDTH * 2,
+			MON_SPRITE_FRAME_HEIGHT,
+		}
+	},
+	{
+		{
+			0,
+			MON_SPRITE_FRAME_HEIGHT,
+			MON_SPRITE_FRAME_WIDTH,
+			MON_SPRITE_FRAME_HEIGHT * 2,
+		},
+		{
+			MON_SPRITE_FRAME_WIDTH,
+			MON_SPRITE_FRAME_HEIGHT,
+			MON_SPRITE_FRAME_WIDTH  * 2,
+			MON_SPRITE_FRAME_HEIGHT * 2,
+		}
+	},
+	{
+		{
+			0,
+			MON_SPRITE_FRAME_HEIGHT * 2,
+			MON_SPRITE_FRAME_WIDTH,
+			MON_SPRITE_FRAME_HEIGHT * 3,
+		},
+		{
+			MON_SPRITE_FRAME_WIDTH,
+			MON_SPRITE_FRAME_HEIGHT * 2,
+			MON_SPRITE_FRAME_WIDTH  * 2,
+			MON_SPRITE_FRAME_HEIGHT * 3,
+		}
+	},
+	{
+		{
+			MON_SPRITE_FRAME_WIDTH * 2,
+			0,
+			MON_SPRITE_FRAME_WIDTH * 3,
+			MON_SPRITE_FRAME_HEIGHT,
+		},
+		{
+			MON_SPRITE_FRAME_WIDTH  * 2,
+			MON_SPRITE_FRAME_HEIGHT,
+			MON_SPRITE_FRAME_WIDTH  * 3,
+			MON_SPRITE_FRAME_HEIGHT * 2,
+		}
+	}
 };
 
 static const int sShadowTextureCoords[MAX_SHADOW_SIZES][4] = {
-    [SHADOW_SIZE_NONE] = {
-        // these values are essentially meaningless because the shadow is hidden
-        MON_SPRITE_FRAME_WIDTH * 2,
-        MON_SPRITE_FRAME_HEIGHT * 2,
-        MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
-    },
-    [SHADOW_SIZE_SMALL] = {
-        MON_SPRITE_FRAME_WIDTH * 2,
-        MON_SPRITE_FRAME_HEIGHT * 2,
-        MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
-    },
-    [SHADOW_SIZE_MEDIUM] = {
-        MON_SPRITE_FRAME_WIDTH * 2,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
-        MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 2,
-    },
-    [SHADOW_SIZE_LARGE] = {
-        MON_SPRITE_FRAME_WIDTH * 2,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 2,
-        MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
-        MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 3,
-    },
+	[SHADOW_SIZE_NONE] = {
+		// these values are essentially meaningless because the shadow is hidden
+		MON_SPRITE_FRAME_WIDTH * 2,
+		MON_SPRITE_FRAME_HEIGHT * 2,
+		MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
+	},
+	[SHADOW_SIZE_SMALL] = {
+		MON_SPRITE_FRAME_WIDTH * 2,
+		MON_SPRITE_FRAME_HEIGHT * 2,
+		MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
+	},
+	[SHADOW_SIZE_MEDIUM] = {
+		MON_SPRITE_FRAME_WIDTH * 2,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT,
+		MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 2,
+	},
+	[SHADOW_SIZE_LARGE] = {
+		MON_SPRITE_FRAME_WIDTH * 2,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 2,
+		MON_SPRITE_FRAME_WIDTH * 2 + SHADOW_SPRITE_FRAME_WIDTH,
+		MON_SPRITE_FRAME_HEIGHT * 2 + SHADOW_SPRITE_FRAME_HEIGHT * 3,
+	}
 };
 
 static void TickPokemonSpriteAnim(PokemonSprite* monSprite);
@@ -506,7 +506,7 @@ PokemonSprite* PokemonSpriteManager_CreateSpriteAtIndex(
 
 
 void PokemonSprite_Delete(PokemonSprite* monSprite) {
-    monSprite->active = FALSE;
+	monSprite->active = FALSE;
 }
 
 
@@ -515,149 +515,195 @@ void PokemonSprite_SetAttribute(PokemonSprite* monSprite, PokemonSpriteAttribute
 		case MON_SPRITE_X_CENTER:
 			monSprite->transforms.xCenter = value;
 			break;
+		
 		case MON_SPRITE_Y_CENTER:
 			monSprite->transforms.yCenter = value;
 			break;
+		
 		case MON_SPRITE_Z_CENTER:
 			monSprite->transforms.zCenter = value;
 			break;
+		
 		case MON_SPRITE_X_OFFSET:
 			monSprite->transforms.xOffset = value;
 			break;
+		
 		case MON_SPRITE_Y_OFFSET:
 			monSprite->transforms.yOffset = value;
 			break;
+		
 		case MON_SPRITE_Z_OFFSET:
 			monSprite->transforms.zOffset = value;
 			break;
+		
 		case MON_SPRITE_HIDE:
 			monSprite->transforms.hide = value;
 			break;
+		
 		case MON_SPRITE_ROTATION_X:
 			monSprite->transforms.rotationX = value;
 			break;
+		
 		case MON_SPRITE_ROTATION_Y:
 			monSprite->transforms.rotationY = value;
 			break;
+		
 		case MON_SPRITE_ROTATION_Z:
 			monSprite->transforms.rotationZ = value;
 			break;
+		
 		case MON_SPRITE_X_PIVOT:
 			monSprite->transforms.xPivot = value;
 			break;
+		
 		case MON_SPRITE_Y_PIVOT:
 			monSprite->transforms.yPivot = value;
 			break;
+		
 		case MON_SPRITE_SCALE_X:
 			monSprite->transforms.scaleX = value;
 			break;
+		
 		case MON_SPRITE_SCALE_Y:
 			monSprite->transforms.scaleY = value;
 			break;
+		
 		case MON_SPRITE_PARTIAL_DRAW:
 			monSprite->transforms.partialDraw = value;
 			break;
+		
 		case MON_SPRITE_DRAW_X_OFFSET:
 			monSprite->transforms.drawXOffset = value;
 			break;
+		
 		case MON_SPRITE_DRAW_Y_OFFSET:
 			monSprite->transforms.drawYOffset = value;
 			break;
+		
 		case MON_SPRITE_DRAW_WIDTH:
 			monSprite->transforms.drawWidth = value;
 			break;
+		
 		case MON_SPRITE_DRAW_HEIGHT:
 			monSprite->transforms.drawHeight = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_X:
 			monSprite->shadow.x = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_Y:
 			monSprite->shadow.y = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_X_OFFSET:
 			monSprite->shadow.xOffset = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_Y_OFFSET:
 			monSprite->shadow.yOffset = value;
 			break;
+		
 		case MON_SPRITE_ALPHA:
 			monSprite->transforms.alpha = value;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_R:
 			monSprite->transforms.diffuseR = value;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_G:
 			monSprite->transforms.diffuseG = value;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_B:
 			monSprite->transforms.diffuseB = value;
 			break;
+		
 		case MON_SPRITE_AMBIENT_R:
 			monSprite->transforms.ambientR = value;
 			break;
+		
 		case MON_SPRITE_AMBIENT_G:
 			monSprite->transforms.ambientG = value;
 			break;
+		
 		case MON_SPRITE_AMBIENT_B:
 			monSprite->transforms.ambientB = value;
 			break;
+		
 		case MON_SPRITE_FADE_ACTIVE:
 			monSprite->transforms.fadeActive = value;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_TARGET_COLOR:
 			monSprite->transforms.fadeTargetColor = value;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_INIT_ALPHA:
 			monSprite->transforms.fadeInitAlpha = value;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_TARGET_ALPHA:
 			monSprite->transforms.fadeTargetAlpha = value;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_DELAY_COUNTER:
 			monSprite->transforms.fadeDelayCounter = value;
 			break;
+		
 		case MON_SPRITE_FLIP_H:
 			monSprite->transforms.flipH = value;
 			monSprite->needReloadChar = TRUE;
 			break;
+		
 		case MON_SPRITE_FLIP_V:
 			monSprite->transforms.flipV = value;
 			monSprite->needReloadChar = TRUE;
 			break;
+		
 		case MON_SPRITE_HIDE_2:
 			monSprite->transforms.hide2 = value;
 			break;
+		
 		case MON_SPRITE_CURR_SPRITE_FRAME:
 			monSprite->currSpriteFrame = value;
 			break;
+		
 		case MON_SPRITE_MOSAIC_INTENSITY:
 			monSprite->transforms.mosaicIntensity = value;
 			monSprite->needReloadChar = TRUE;
 			break;
+		
 		case MON_SPRITE_SHADOW_HEIGHT:
 			monSprite->shadow.height = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_PLTT_SLOT:
 			monSprite->shadow.plttSlot = value;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_X:
 			monSprite->shadow.shouldFollowX = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_Y:
 			monSprite->shadow.shouldFollowY = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_IS_AFFINE:
 			monSprite->shadow.isAffine = value;
 			break;
+		
 		case MON_SPRITE_SHADOW_SIZE:
 			monSprite->shadow.size = value;
 			break;
+		
 		default:
 			break;
 	}
@@ -668,96 +714,142 @@ int PokemonSprite_GetAttribute(PokemonSprite* monSprite, PokemonSpriteAttribute 
 	switch (attribute) {
 		case MON_SPRITE_X_CENTER:
 			return monSprite->transforms.xCenter;
+		
 		case MON_SPRITE_Y_CENTER:
 			return monSprite->transforms.yCenter;
+		
 		case MON_SPRITE_Z_CENTER:
 			return monSprite->transforms.zCenter;
+		
 		case MON_SPRITE_X_OFFSET:
 			return monSprite->transforms.xOffset;
+		
 		case MON_SPRITE_Y_OFFSET:
 			return monSprite->transforms.yOffset;
+		
 		case MON_SPRITE_Z_OFFSET:
 			return monSprite->transforms.zOffset;
+		
 		case MON_SPRITE_HIDE:
 			return monSprite->transforms.hide;
+		
 		case MON_SPRITE_ROTATION_X:
 			return monSprite->transforms.rotationX;
+		
 		case MON_SPRITE_ROTATION_Y:
 			return monSprite->transforms.rotationY;
+		
 		case MON_SPRITE_ROTATION_Z:
 			return monSprite->transforms.rotationZ;
+		
 		case MON_SPRITE_X_PIVOT:
 			return monSprite->transforms.xPivot;
+		
 		case MON_SPRITE_Y_PIVOT:
 			return monSprite->transforms.yPivot;
+		
 		case MON_SPRITE_SCALE_X:
 			return monSprite->transforms.scaleX;
+		
 		case MON_SPRITE_SCALE_Y:
 			return monSprite->transforms.scaleY;
+		
 		case MON_SPRITE_PARTIAL_DRAW:
 			return monSprite->transforms.partialDraw;
+		
 		case MON_SPRITE_DRAW_X_OFFSET:
 			return monSprite->transforms.drawXOffset;
+		
 		case MON_SPRITE_DRAW_Y_OFFSET:
 			return monSprite->transforms.drawYOffset;
+		
 		case MON_SPRITE_DRAW_WIDTH:
 			return monSprite->transforms.drawWidth;
+		
 		case MON_SPRITE_DRAW_HEIGHT:
 			return monSprite->transforms.drawHeight;
+		
 		case MON_SPRITE_SHADOW_X:
 			return monSprite->shadow.x;
+		
 		case MON_SPRITE_SHADOW_Y:
 			return monSprite->shadow.y;
+		
 		case MON_SPRITE_SHADOW_X_OFFSET:
 			return monSprite->shadow.xOffset;
+		
 		case MON_SPRITE_SHADOW_Y_OFFSET:
 			return monSprite->shadow.yOffset;
+		
 		case MON_SPRITE_ALPHA:
 			return monSprite->transforms.alpha;
+		
 		case MON_SPRITE_DIFFUSE_R:
 			return monSprite->transforms.diffuseR;
+		
 		case MON_SPRITE_DIFFUSE_G:
 			return monSprite->transforms.diffuseG;
+		
 		case MON_SPRITE_DIFFUSE_B:
 			return monSprite->transforms.diffuseB;
+		
 		case MON_SPRITE_AMBIENT_R:
 			return monSprite->transforms.ambientR;
+		
 		case MON_SPRITE_AMBIENT_G:
 			return monSprite->transforms.ambientG;
+		
 		case MON_SPRITE_AMBIENT_B:
 			return monSprite->transforms.ambientB;
+		
 		case MON_SPRITE_FADE_ACTIVE:
 			return monSprite->transforms.fadeActive;
+		
 		case MON_SPRITE_FADE_TARGET_COLOR:
 			return monSprite->transforms.fadeTargetColor;
+		
 		case MON_SPRITE_FADE_INIT_ALPHA:
 			return monSprite->transforms.fadeInitAlpha;
+		
 		case MON_SPRITE_FADE_TARGET_ALPHA:
 			return monSprite->transforms.fadeTargetAlpha;
+		
 		case MON_SPRITE_FADE_DELAY_COUNTER:
 			return monSprite->transforms.fadeDelayCounter;
+		
 		case MON_SPRITE_FLIP_H:
 			return monSprite->transforms.flipH;
+		
 		case MON_SPRITE_FLIP_V:
 			return monSprite->transforms.flipV;
+		
 		case MON_SPRITE_HIDE_2:
 			return monSprite->transforms.hide2;
+		
 		case MON_SPRITE_CURR_SPRITE_FRAME:
 			return monSprite->currSpriteFrame;
+		
 		case MON_SPRITE_MOSAIC_INTENSITY:
 			return monSprite->transforms.mosaicIntensity;
+		
 		case MON_SPRITE_SHADOW_HEIGHT:
 			return monSprite->shadow.height;
+		
 		case MON_SPRITE_SHADOW_PLTT_SLOT:
 			return monSprite->shadow.plttSlot;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_X:
 			return monSprite->shadow.shouldFollowX;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_Y:
 			return monSprite->shadow.shouldFollowY;
+		
 		case MON_SPRITE_SHADOW_IS_AFFINE:
 			return monSprite->shadow.isAffine;
+		
 		case MON_SPRITE_SHADOW_SIZE:
 			return monSprite->shadow.size;
+		
 		default:
 			break;
 	}
@@ -772,112 +864,147 @@ void PokemonSprite_AddAttribute(PokemonSprite* monSprite, PokemonSpriteAttribute
 		case MON_SPRITE_X_CENTER:
 			monSprite->transforms.xCenter += delta;
 			break;
+		
 		case MON_SPRITE_Y_CENTER:
 			monSprite->transforms.yCenter += delta;
 			break;
+		
 		case MON_SPRITE_Z_CENTER:
 			monSprite->transforms.zCenter += delta;
 			break;
+		
 		case MON_SPRITE_X_OFFSET:
 			monSprite->transforms.xOffset += delta;
 			break;
+		
 		case MON_SPRITE_Y_OFFSET:
 			monSprite->transforms.yOffset += delta;
 			break;
+		
 		case MON_SPRITE_Z_OFFSET:
 			monSprite->transforms.zOffset += delta;
 			break;
+		
 		case MON_SPRITE_HIDE:
 			monSprite->transforms.hide += delta;
 			break;
+		
 		case MON_SPRITE_ROTATION_X:
 			monSprite->transforms.rotationX += delta;
 			break;
+		
 		case MON_SPRITE_ROTATION_Y:
 			monSprite->transforms.rotationY += delta;
 			break;
+		
 		case MON_SPRITE_ROTATION_Z:
 			monSprite->transforms.rotationZ += delta;
 			break;
+		
 		case MON_SPRITE_X_PIVOT:
 			monSprite->transforms.xPivot += delta;
 			break;
+		
 		case MON_SPRITE_Y_PIVOT:
 			monSprite->transforms.yPivot += delta;
 			break;
+		
 		case MON_SPRITE_SCALE_X:
 			monSprite->transforms.scaleX += delta;
 			break;
+		
 		case MON_SPRITE_SCALE_Y:
 			monSprite->transforms.scaleY += delta;
 			break;
+		
 		case MON_SPRITE_PARTIAL_DRAW:
 			monSprite->transforms.partialDraw += delta;
 			break;
+		
 		case MON_SPRITE_DRAW_X_OFFSET:
 			monSprite->transforms.drawXOffset += delta;
 			break;
+		
 		case MON_SPRITE_DRAW_Y_OFFSET:
 			monSprite->transforms.drawYOffset += delta;
 			break;
+		
 		case MON_SPRITE_DRAW_WIDTH:
 			monSprite->transforms.drawWidth += delta;
 			break;
+		
 		case MON_SPRITE_DRAW_HEIGHT:
 			monSprite->transforms.drawHeight += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_X:
 			monSprite->shadow.x += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_Y:
 			monSprite->shadow.y += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_X_OFFSET:
 			monSprite->shadow.xOffset += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_Y_OFFSET:
 			monSprite->shadow.yOffset += delta;
 			break;
+		
 		case MON_SPRITE_ALPHA:
 			monSprite->transforms.alpha += delta;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_R:
 			monSprite->transforms.diffuseR += delta;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_G:
 			monSprite->transforms.diffuseG += delta;
 			break;
+		
 		case MON_SPRITE_DIFFUSE_B:
 			monSprite->transforms.diffuseB += delta;
 			break;
+		
 		case MON_SPRITE_AMBIENT_R:
 			monSprite->transforms.ambientR += delta;
 			break;
+		
 		case MON_SPRITE_AMBIENT_G:
 			monSprite->transforms.ambientG += delta;
 			break;
+		
 		case MON_SPRITE_AMBIENT_B:
 			monSprite->transforms.ambientB += delta;
 			break;
+		
 		case MON_SPRITE_FADE_ACTIVE:
 			monSprite->transforms.fadeActive += delta;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_TARGET_COLOR:
 			monSprite->transforms.fadeTargetColor += delta;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_INIT_ALPHA:
 			monSprite->transforms.fadeInitAlpha += delta;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_TARGET_ALPHA:
 			monSprite->transforms.fadeTargetAlpha += delta;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_FADE_DELAY_COUNTER:
 			monSprite->transforms.fadeDelayCounter += delta;
 			break;
+		
 		case MON_SPRITE_FLIP_H:
 			monSprite->transforms.flipH += delta;
 			monSprite->needReloadChar = TRUE;
@@ -886,53 +1013,63 @@ void PokemonSprite_AddAttribute(PokemonSprite* monSprite, PokemonSpriteAttribute
 			monSprite->transforms.flipV += delta;
 			monSprite->needReloadChar = TRUE;
 			break;
+		
 		case MON_SPRITE_HIDE_2:
 			monSprite->transforms.hide2 += delta;
 			break;
+		
 		case MON_SPRITE_CURR_SPRITE_FRAME:
 			monSprite->currSpriteFrame += delta;
 			break;
+		
 		case MON_SPRITE_MOSAIC_INTENSITY:
 			monSprite->transforms.mosaicIntensity += delta;
 			monSprite->needReloadChar = TRUE;
 			break;
+		
 		case MON_SPRITE_SHADOW_HEIGHT:
 			monSprite->shadow.height += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_PLTT_SLOT:
 			monSprite->shadow.plttSlot += delta;
 			monSprite->needReloadPltt = TRUE;
 			break;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_X:
 			monSprite->shadow.shouldFollowX += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_SHOULD_FOLLOW_Y:
 			monSprite->shadow.shouldFollowY += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_IS_AFFINE:
 			monSprite->shadow.isAffine += delta;
 			break;
+		
 		case MON_SPRITE_SHADOW_SIZE:
 			monSprite->shadow.size += delta;
 			break;
+		
 		default:
 			break;
-    }
+	}
 }
 
 
 void PokemonSprite_StartFade(PokemonSprite* monSprite, int initAlpha, int targetAlpha, int delay, int color) {
-    monSprite->transforms.fadeActive = TRUE;
-    monSprite->transforms.fadeInitAlpha = initAlpha;
-    monSprite->transforms.fadeTargetAlpha = targetAlpha;
-    monSprite->transforms.fadeDelayCounter = 0;
-    monSprite->transforms.fadeDelayLength = delay;
-    monSprite->transforms.fadeTargetColor = color;
+	monSprite->transforms.fadeActive       = TRUE;
+	monSprite->transforms.fadeInitAlpha    = initAlpha;
+	monSprite->transforms.fadeTargetAlpha  = targetAlpha;
+	monSprite->transforms.fadeDelayCounter = 0;
+	monSprite->transforms.fadeDelayLength  = delay;
+	monSprite->transforms.fadeTargetColor  = color;
 }
 
 
 BOOL PokemonSprite_IsFadeActive(PokemonSprite* monSprite) {
-    return monSprite->transforms.fadeActive == TRUE;
+	return (monSprite->transforms.fadeActive == TRUE);
 }
 
 

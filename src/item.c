@@ -66,13 +66,13 @@ u16 Item_GetFileID(u16 item, ItemFileType type) {
 void* Item_Load(u16 item, ItemFileType type, HeapID heapID) {
 	// BUG: sItemArchiveIDs has DP-specific indices. Pt-exclusive items cannot have their graphics loaded.
 	
-    if (item > (ITEM_MAX - 1)) {
-        item = ITEM_NONE;
-    }
+	if (item > (ITEM_MAX - 1)) {
+		item = ITEM_NONE;
+	}
 	
 	NarcID narc;
 	
-    switch (type) {
+	switch (type) {
 		case ITEM_FILE_TYPE_DATA:
 			if (gIsDiamondPearl) {
 				narc = NARC_INDEX_DP_ITEMTOOL__ITEMDATA__ITEM_DATA;
@@ -102,7 +102,7 @@ void* Item_Load(u16 item, ItemFileType type, HeapID heapID) {
 		
 		default:
 			return NULL;
-    }
+	}
 }
 
 
@@ -114,9 +114,9 @@ void Item_LoadName(String* dst, u16 item, HeapID heapID) {
 		narc = NARC_INDEX_PL_MSGDATA__PL_MSG;
 	}
 	
-    MessageLoader* msgData = MessageLoader_Init(MSG_LOADER_LOAD_ON_DEMAND, narc, TEXT_BANK_UNIFIED_ITEM_NAMES, heapID);
-    MessageLoader_GetString(msgData, item, dst);
-    MessageLoader_Free(msgData);
+	MessageLoader* msgData = MessageLoader_Init(MSG_LOADER_LOAD_ON_DEMAND, narc, TEXT_BANK_UNIFIED_ITEM_NAMES, heapID);
+	MessageLoader_GetString(msgData, item, dst);
+	MessageLoader_Free(msgData);
 }
 
 

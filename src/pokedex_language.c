@@ -18,14 +18,14 @@ static const u8 sLanguageArray[] = {
 
 
 int PokedexLanguage_LanguageToIndex(int language) {
-    int languageIndex;
-    for (languageIndex = 0; languageIndex < NUM_LANGUAGES; languageIndex++) {
-        if (language == sLanguageArray[languageIndex]) {
-            break;
-        }
-    }
+	int languageIndex;
+	for (languageIndex = 0; languageIndex < NUM_LANGUAGES; languageIndex++) {
+		if (language == sLanguageArray[languageIndex]) {
+			break;
+		}
+	}
 	
-    return languageIndex;
+	return languageIndex;
 }
 
 
