@@ -27,5 +27,9 @@ Property
 
 RomSpec
 {
-	Segment  All
+	Segment   All
+	
+	# For testing with NitroFS dumped from DPPt
+	#HostRoot  fs_ext/
+	#File      *
 }

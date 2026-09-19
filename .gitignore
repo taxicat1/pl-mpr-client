@@ -1,4 +1,5 @@
 build
 tools/bin
 tools/mwccarm
+fs_ext
 .vscode
