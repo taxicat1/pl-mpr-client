@@ -9,10 +9,10 @@ int LinkContestRecords_GetSaveSize(void) {
 
 
 void LinkContestRecords_Init(LinkContestRecords* linkContestRecords) {
-    int placement, type;
-    for (type = 0; type < NUM_CONTEST_TYPES; type++) {
-        for (placement = 0; placement < NUM_CONTEST_PARTICIPANTS; placement++) {
-            linkContestRecords->contestPlacement[type][placement] = 0;
-        }
-    }
+	int placement, type;
+	for (type = 0; type < NUM_CONTEST_TYPES; type++) {
+		for (placement = 0; placement < NUM_CONTEST_PARTICIPANTS; placement++) {
+			linkContestRecords->contestPlacement[type][placement] = 0;
+		}
+	}
 }

@@ -362,25 +362,25 @@ void InitRNG(void) {
 
 void HandleConsoleFold(void) {
 	if (CARD_IsPulledOut()) {
-        PM_ForceToPowerOff();
-    }
-    
-    PMBackLightSwitch top, bottom;
-    
-    if (PAD_DetectFold()) {
-        if ((OS_GetIrqMask() & OS_IE_CARTRIDGE) && CTRDG_IsPulledOut()) {
-            PM_GoSleepMode(PM_TRIGGER_COVER_OPEN | PM_TRIGGER_CARD, PM_PAD_LOGIC_OR, 0);
-            PM_ForceToPowerOff();
-        }
-        
-        PM_GetBackLight(&top, &bottom);
-        if (top == PM_BACKLIGHT_ON) {
-            PM_SetBackLight(PM_LCD_ALL, PM_BACKLIGHT_OFF);
-        }
-    } else {
-        PM_GetBackLight(&top, &bottom);
-        if (top == PM_BACKLIGHT_OFF) {
-            PM_SetBackLight(PM_LCD_ALL, PM_BACKLIGHT_ON);
-        }
-    }
+		PM_ForceToPowerOff();
+	}
+	
+	PMBackLightSwitch top, bottom;
+	
+	if (PAD_DetectFold()) {
+		if ((OS_GetIrqMask() & OS_IE_CARTRIDGE) && CTRDG_IsPulledOut()) {
+			PM_GoSleepMode(PM_TRIGGER_COVER_OPEN | PM_TRIGGER_CARD, PM_PAD_LOGIC_OR, 0);
+			PM_ForceToPowerOff();
+		}
+		
+		PM_GetBackLight(&top, &bottom);
+		if (top == PM_BACKLIGHT_ON) {
+			PM_SetBackLight(PM_LCD_ALL, PM_BACKLIGHT_OFF);
+		}
+	} else {
+		PM_GetBackLight(&top, &bottom);
+		if (top == PM_BACKLIGHT_OFF) {
+			PM_SetBackLight(PM_LCD_ALL, PM_BACKLIGHT_ON);
+		}
+	}
 }
