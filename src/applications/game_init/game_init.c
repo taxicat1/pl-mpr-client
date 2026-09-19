@@ -341,7 +341,7 @@ static BOOL GameInit_UpdateSaveErrorWindow(GameInitContext* ctx, int messageID, 
 			break;
 		
 		case SAVE_ERROR_STATE_IDLE:
-			if (autoExit || (gSystem.pressedKeys & PAD_BUTTON_A)) {
+			if (autoExit || JOY_NEW(PAD_BUTTON_A)) {
 				ctx->saveErrorState = SAVE_ERROR_STATE_PRINT;
 				ret = TRUE;
 			}

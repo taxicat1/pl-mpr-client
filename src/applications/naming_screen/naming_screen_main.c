@@ -1276,10 +1276,12 @@ static BOOL NamingScreen_Main(ApplicationManager* appMan, int* state) {
 				namingScreen->charsPosition,
 				namingScreen->uiSprites,
 				namingScreen->charData->pRawData);
+			
 			NamingScreen_UpdateSpriteAnimations(
 				namingScreen->spritesToUpdate,
 				namingScreen->uiSprites,
 				namingScreen->currentCharsIdx);
+			
 			NamingScreen_PaletteGlowEffect(&namingScreen->plttGlowEffectAngle);
 			break;
 		
@@ -1298,7 +1300,7 @@ static BOOL NamingScreen_Main(ApplicationManager* appMan, int* state) {
 static NamingScreenAppState NamingScreen_ProcessInputs(NamingScreen* namingScreen, NamingScreenAppState appState) {
 	NamingScreen_ProcessDirectionInputs(namingScreen);
 	
-	if (gSystem.pressedKeys & PAD_BUTTON_SELECT) {
+	if (JOY_NEW(PAD_BUTTON_SELECT)) {
 		if (namingScreen->type != NAMING_SCREEN_TYPE_FRIEND_CODE) {
 			namingScreen->state.changeChars = CC_STATE_LOAD_GRAPHICS;
 			namingScreen->currentCharsIdx++;
@@ -1317,13 +1319,15 @@ static NamingScreenAppState NamingScreen_ProcessInputs(NamingScreen* namingScree
 		
 		NamingScreen_LoadKeyboardLayout(namingScreen->keyboardChars, namingScreen->currentCharsIdx);
 		Sound_PlayEffect(SEQ_SE_DP_SYU03);
-	} else if (gSystem.pressedKeys & PAD_BUTTON_A) {
+	
+	} else if (JOY_NEW(PAD_BUTTON_A)) {
 		appState = NamingScreen_ProcessCharacterInput(
 			namingScreen,
 			namingScreen->keyboardChars[namingScreen->keyboardCursor.y][namingScreen->keyboardCursor.x],
 			TRUE);
 		
 		namingScreen->keyboardCursor.hasCharacterBeenEntered = TRUE;
+	
 	} else if (namingScreen->isTouchInput == TRUE) {
 		appState = NamingScreen_ProcessCharacterInput(
 			namingScreen,
@@ -1331,13 +1335,14 @@ static NamingScreenAppState NamingScreen_ProcessInputs(NamingScreen* namingScree
 			FALSE);
 		
 		namingScreen->keyboardCursor.hasCharacterBeenEntered = FALSE;
-	} else if (gSystem.pressedKeys & PAD_BUTTON_B) {
+	
+	} else if (JOY_NEW(PAD_BUTTON_B)) {
 		appState = NamingScreen_ProcessCharacterInput(
 			namingScreen,
 			NMS_BUTTON_BACK,
 			TRUE);
 		
-	} else if (gSystem.pressedKeys & PAD_BUTTON_R) {
+	} else if (JOY_NEW(PAD_BUTTON_R)) {
 		appState = NamingScreen_ProcessCharacterInput(
 			namingScreen,
 			NMS_BUTTON_PAGE_JP_UNUSED_2,
@@ -2589,36 +2594,36 @@ static void NamingScreen_ProcessDirectionInputs(NamingScreen* namingScreen) {
 	int inputs = 0;
 	NamingScreenDpadMovement dpadMovement = NMS_DPAD_MOVEMENT_NONE;
 	
-	if (gSystem.pressedKeysRepeatable & PAD_KEY_UP) {
+	if (JOY_REPEAT(PAD_KEY_UP)) {
 		Sound_PlayEffect(SEQ_SE_DP_SELECT);
 		Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
 		dpadMovement = NMS_DPAD_MOVEMENT_UP;
 		inputs++;
 	}
 	
-	if (gSystem.pressedKeysRepeatable & PAD_KEY_DOWN) {
+	if (JOY_REPEAT(PAD_KEY_DOWN)) {
 		Sound_PlayEffect(SEQ_SE_DP_SELECT);
 		Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
 		dpadMovement = NMS_DPAD_MOVEMENT_DOWN;
 		inputs++;
 	}
 	
-	if (gSystem.pressedKeysRepeatable & PAD_KEY_LEFT) {
+	if (JOY_REPEAT(PAD_KEY_LEFT)) {
 		Sound_PlayEffect(SEQ_SE_DP_SELECT);
 		Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
 		dpadMovement = NMS_DPAD_MOVEMENT_LEFT;
 		inputs++;
 	}
 	
-	if (gSystem.pressedKeysRepeatable & PAD_KEY_RIGHT) {
+	if (JOY_REPEAT(PAD_KEY_RIGHT)) {
 		Sound_PlayEffect(SEQ_SE_DP_SELECT);
 		Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
 		dpadMovement = NMS_DPAD_MOVEMENT_RIGHT;
 		inputs++;
 	}
 	
-	// start counts as a direction input, because it moves the cursor.
-	if (gSystem.pressedKeys & PAD_BUTTON_START) {
+	// Start counts as a direction input, because it moves the cursor.
+	if (JOY_NEW(PAD_BUTTON_START)) {
 		Sound_PlayEffect(SEQ_SE_DP_SELECT);
 		Sprite_SetDrawFlag(namingScreen->uiSprites[NMS_SPRITE_CURSOR], TRUE);
 		namingScreen->keyboardCursor.x = 12;

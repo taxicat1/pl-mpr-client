@@ -3021,7 +3021,7 @@ static void BoxAppMan_ShiftMonAction(BoxApplicationManager* boxAppMan, u32* stat
 				break;
 			}
 			
-			if (gSystem.pressedKeys & (PAD_BUTTON_A | PAD_BUTTON_B)) {
+			if (JOY_NEW(PAD_BUTTON_A | PAD_BUTTON_B)) {
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
 				*state = SHIFT_END;
 			}
