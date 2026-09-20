@@ -6875,7 +6875,7 @@ const BoxCustomization* BoxApp_GetBoxCustomization(const BoxApplication* boxApp)
 
 
 PCBoxes* BoxApp_GetPCBoxes(const BoxApplication* boxApp) {
-	return (PCBoxes*)boxApp->pcBoxes;
+	return boxApp->pcBoxes;
 }
 
 
