@@ -26,21 +26,21 @@ static void SetTypeIcon(PokemonSummaryScreen* summaryScreen, u8 spriteIndex, u8 
 static void SetMonAndTypeIcons(PokemonSummaryScreen* summaryScreen);
 static void DrawConditionFlash(Sprite* sprite, u32 statValue, u32 highestValue, const s16* bounds);
 
-enum SummaryContestType {
+typedef enum {
 	SUMMARY_CONTEST_TYPE_COOL = 0,
 	SUMMARY_CONTEST_TYPE_BEAUTY,
 	SUMMARY_CONTEST_TYPE_CUTE,
 	SUMMARY_CONTEST_TYPE_SMART,
 	SUMMARY_CONTEST_TYPE_TOUGH
-};
+} SummaryContestType;
 
-enum ConditionFlashBounds {
+typedef enum {
 	FLASH_MAX_X = 0,
 	FLASH_MAX_Y,
 	FLASH_MIN_X,
 	FLASH_MIN_Y,
 	FLASH_BOUNDS_MAX
-};
+} ConditionFlashBounds;
 
 #define MAX_SHEEN_SPRITES            SUMMARY_SHEEN_SPRITES_END - SUMMARY_SHEEN_SPRITES_START + 1
 #define MAX_CONDITION_ARROW_SPRITES  SUMMARY_CONDITION_ARROW_SPRITES_END - SUMMARY_CONDITION_ARROW_SPRITES_START + 1
@@ -117,7 +117,7 @@ enum ConditionFlashBounds {
 
 #define TAP_CIRCLE_BASE_Y  192
 
-enum SpriteTemplateID {
+typedef enum {
 	PokemonSummaryScreen_Template_CaughtBall = 0,
 	
 	PokemonSummaryScreen_Template_Tabs,
@@ -178,7 +178,7 @@ enum SpriteTemplateID {
 	PokemonSummaryScreen_Template_ConditionFlash,
 	
 	PokemonSummaryScreen_Template_PokerusIcon
-};
+} SpriteTemplateID;
 
 static const SpriteTemplateFromResourceHeader sSummaryScreenSpriteTemplates[] = {
 	[SUMMARY_SPRITE_TAB_INFO] = {

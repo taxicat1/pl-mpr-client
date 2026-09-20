@@ -8,11 +8,11 @@
 #define MAX_JOURNAL_ONLINE_EVENTS    2
 
 typedef struct {
-    u32  year  : 7;
-    u32  month : 4;
-    u32  week  : 3;
-    u32  day   : 5;
-    u32  mapID : 13;
+	u32  year  : 7;
+	u32  month : 4;
+	u32  week  : 3;
+	u32  day   : 5;
+	u32  mapID : 13;
 } JournalEntryTitle;
 
 typedef struct {
@@ -29,7 +29,7 @@ typedef struct {
 	u16  mapID;
 } JournalEntryTrainer;
 
-typedef struct JournalEntry {
+typedef struct {
 	JournalEntryTitle    title;
 	u32                  locationEvents[MAX_JOURNAL_LOCATION_EVENTS];
 	JournalEntryMon      mon;

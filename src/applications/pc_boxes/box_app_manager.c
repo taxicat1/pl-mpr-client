@@ -3747,7 +3747,7 @@ static u32 sHeldItem;
 static u32 sPutAwayItem;
 
 static void BoxAppMan_MonItemHeldAction(BoxApplicationManager* boxAppMan, u32* state) {
-	enum ItemHeldState {
+	enum {
 		ITEM_HELD_START,
 		ITEM_HELD_YES_NO,
 		ITEM_HELD_ADD_TO_BAG,
@@ -5365,7 +5365,7 @@ static void BoxAppMan_TouchScreenBoxJump(BoxApplicationManager* boxAppMan, u32* 
 
 
 static void BoxAppMan_MarkingsFilterAction(BoxApplicationManager* boxAppMan, u32* state) {
-	enum TouchMarkingsState {
+	enum {
 		TOUCH_MARKINGS_START,
 		TOUCH_MARKINGS_WAIT_FOR_USER_INPUT,
 		TOUCH_MARKINGS_END_SCROLL,

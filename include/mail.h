@@ -32,7 +32,7 @@ typedef struct {
 	EasyChatSentence  sentences[MAIL_MAX_SENTENCES];
 } Mail;
 
-typedef struct Mailbox {
+typedef struct {
 	Mail mail[MAILBOX_SIZE];
 } Mailbox;
 

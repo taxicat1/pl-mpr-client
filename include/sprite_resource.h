@@ -26,12 +26,12 @@ typedef struct {
 	void*               data;
 } SpriteResource;
 
-typedef struct SpriteResourceCollection {
-	ResourceCollection* collection;
-	SpriteResource* resources;
-	int capacity;
-	int count;
-	SpriteResourceType type;
+typedef struct {
+	ResourceCollection*  collection;
+	SpriteResource*      resources;
+	int                  capacity;
+	int                  count;
+	SpriteResourceType   type;
 } SpriteResourceCollection;
 
 typedef struct {
@@ -59,9 +59,9 @@ typedef struct {
 
 // Fixed size, non-owning list of SpriteResource pointers
 typedef struct {
-	SpriteResource** resources;
-	int capacity;
-	int count;
+	SpriteResource**  resources;
+	int               capacity;
+	int               count;
 } SpriteResourceList;
 
 SpriteResourceCollection* SpriteResourceCollection_New(int capacity, SpriteResourceType type, HeapID heapID);

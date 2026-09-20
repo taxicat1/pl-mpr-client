@@ -3,7 +3,7 @@
 
 #include <nitro/wm.h>
 
-enum WirelessManagerState {
+typedef enum {
 	WH_SYSSTATE_STOP,
 	WH_SYSSTATE_IDLE,
 	WH_SYSSTATE_SCANNING,
@@ -16,9 +16,9 @@ enum WirelessManagerState {
 	WH_SYSSTATE_ERROR,
 	WH_SYSSTATE_FATAL,
 	WH_SYSSTATE_NUM
-};
+} WirelessManagerState;
 
-enum WirelessConnectionType {
+typedef enum {
 	WH_CONNECTMODE_MP_PARENT,
 	WH_CONNECTMODE_MP_CHILD,
 	WH_CONNECTMODE_KS_PARENT,
@@ -26,17 +26,17 @@ enum WirelessConnectionType {
 	WH_CONNECTMODE_DS_PARENT,
 	WH_CONNECTMODE_DS_CHILD,
 	WH_CONNECTMODE_NUM
-};
+} WirelessConnectionType;
 
 // Extension of the NitroSDK WMErrCode enum
-enum ExtendedWMErrCode {
+typedef enum {
 	WH_ERRCODE_DISCONNECTED = WM_ERRCODE_MAX, // =20
 	WH_ERRCODE_PARENT_NOT_FOUND,
 	WH_ERRCODE_NO_RADIO,
 	WH_ERRCODE_LOST_PARENT,
 	WH_ERRCODE_NOMORE_CHANNEL,
 	WH_ERRCODE_MAX
-};
+} ExtendedWMErrCode;
 
 typedef void (*WHStartScanCallbackFunc)(WMBssDesc*);
 typedef void (*WHSendCallbackFunc)(u16, BOOL);

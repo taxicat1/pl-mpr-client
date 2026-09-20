@@ -13,43 +13,43 @@
 #define CAMERA_DEFAULT_NEAR_CLIP  (FX32_ONE * 150)
 #define CAMERA_DEFAULT_FAR_CLIP   (FX32_ONE * 900)
 
-enum CameraProjection {
-    CAMERA_PROJECTION_PERSPECTIVE = 0,
-    CAMERA_PROJECTION_ORTHOGRAPHIC,
-    CAMERA_PROJECTION_COUNT
-};
+typedef enum {
+	CAMERA_PROJECTION_PERSPECTIVE = 0,
+	CAMERA_PROJECTION_ORTHOGRAPHIC,
+	CAMERA_PROJECTION_COUNT
+} CameraProjection;
 
-typedef struct CameraAngle {
-    u16  x;
-    u16  y;
-    u16  z;
-    u16  padding_06;
+typedef struct {
+	u16  x;
+	u16  y;
+	u16  z;
+	u16  padding_06;
 } CameraAngle;
 
-typedef struct CameraLookAt {
-    VecFx32  position;
-    VecFx32  target;
-    VecFx32  up;
+typedef struct {
+	VecFx32  position;
+	VecFx32  target;
+	VecFx32  up;
 } CameraLookAt;
 
-typedef struct CameraPerspectiveProjection {
-    fx32  sinFovY;
-    fx32  cosFovY;
-    fx32  aspectRatio;
-    fx32  nearClip;
-    fx32  farClip;
+typedef struct {
+	fx32  sinFovY;
+	fx32  cosFovY;
+	fx32  aspectRatio;
+	fx32  nearClip;
+	fx32  farClip;
 } CameraPerspectiveProjection;
 
-typedef struct CameraPositionHistory {
-    int       historySize;
-    int       currentHistoryIndex;
-    int       nextHistoryIndex;
-    int       delay;
-    BOOL      delayReached;
-    BOOL      delayX;
-    BOOL      delayY;
-    BOOL      delayZ;
-    VecFx32*  positions;
+typedef struct {
+	int       historySize;
+	int       currentHistoryIndex;
+	int       nextHistoryIndex;
+	int       delay;
+	BOOL      delayReached;
+	BOOL      delayX;
+	BOOL      delayY;
+	BOOL      delayZ;
+	VecFx32*  positions;
 } CameraPositionHistory;
 
 typedef struct Camera {

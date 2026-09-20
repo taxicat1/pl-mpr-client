@@ -6,7 +6,7 @@
 #include "assert.h"
 #include "heap.h"
 
-typedef struct VramTransferTaskManager {
+typedef struct {
 	u32  max;
 	u32  cur;
 	NNSGfdVramTransferTask* tasks;

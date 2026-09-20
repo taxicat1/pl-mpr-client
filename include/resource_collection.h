@@ -14,18 +14,18 @@ typedef enum {
 	TEX_RESOURCE_MODE_SEPARATED
 } TextureResourceMode;
 
-typedef struct Resource {
+typedef struct {
 	int    id;
 	void*  data;
 } Resource;
 
-typedef struct ResourceCollection {
+typedef struct {
 	Resource*  resources;
 	int        capacity;
 	int        count;
 } ResourceCollection;
 
-typedef struct TextureResource {
+typedef struct {
 	Resource*      resource;
 	NNSGfdTexKey   texKey;
 	NNSGfdTexKey   tex4x4Key;

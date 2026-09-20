@@ -11,31 +11,31 @@
 #define CHAR_RESOURCE_ID_NONE  -1
 #define CHAR_TRANSFER_SHIFT	 8
 
-enum CharTransferTaskState {
+typedef enum {
 	CTT_INIT = 0,
 	CTT_IN_PROGRESS,
 	CTT_WAITING_FOR_VRAM,
 	CTT_VRAM_READY,
-	CTT_VRAM_COPIED,
-};
+	CTT_VRAM_COPIED
+} CharTransferTaskState;
 
 typedef struct {
 	NNSG2dCharacterData*  data;
-	NNS_G2D_VRAM_TYPE	 vramType;
-	u8					done;
-	u32				   resourceID;
-	NNSG2dImageProxy	  imageProxy;
-	u32				   baseAddrMain;
-	u32				   baseAddrSub;
-	u8					state;
-	BOOL				  useHardwareMappingType;
-	BOOL				  atEnd;
-	BOOL				  hasRange;
-	u32				   regionSizeMain;
-	u32				   regionSizeSub;
+	NNS_G2D_VRAM_TYPE     vramType;
+	u8                    done;
+	u32                   resourceID;
+	NNSG2dImageProxy      imageProxy;
+	u32                   baseAddrMain;
+	u32                   baseAddrSub;
+	u8                    state;
+	BOOL                  useHardwareMappingType;
+	BOOL                  atEnd;
+	BOOL                  hasRange;
+	u32                   regionSizeMain;
+	u32                   regionSizeSub;
 } CharTransferTask;
 
-typedef struct CharTransferTaskManager {
+typedef struct {
 	CharTransferTask* tasks;
 	
 	int  capacity;

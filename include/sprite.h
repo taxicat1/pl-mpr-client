@@ -89,13 +89,13 @@ struct SpriteList {
 	BOOL active;
 };
 
-typedef struct SpriteListParams {
+typedef struct {
 	int                      maxElements;
 	NNSG2dRendererInstance*  renderer;
 	HeapID                   heapID;
 } SpriteListParams;
 
-typedef struct SpriteResourcesHeader {
+typedef struct {
 	const NNSG2dImageProxy*             imageProxy;
 	const NNSG2dCharacterData*          charData;
 	const NNSG2dImagePaletteProxy*      paletteProxy;
@@ -108,19 +108,19 @@ typedef struct SpriteResourcesHeader {
 	u8                                  padding_21[3];
 } SpriteResourcesHeader;
 
-typedef struct SpriteResourcesHeaderList {
+typedef struct {
 	SpriteResourcesHeader*  headers;
 	int                     length;
 } SpriteResourcesHeaderList;
 
-typedef struct ManagedSprite {
+typedef struct {
 	Sprite*                     sprite;
 	SpriteResourcesHeader*      resourceHeader;
 	SpriteResourcesHeaderList*  resourceHeaderList;
 	BOOL                        vramTransfer;
 } ManagedSprite;
 
-typedef struct SpriteListTemplate {
+typedef struct {
 	SpriteList*                   list;
 	const SpriteResourcesHeader*  resourceData;
 	VecFx32                       position;
@@ -129,7 +129,7 @@ typedef struct SpriteListTemplate {
 	HeapID                        heapID;
 } SpriteListTemplate;
 
-typedef struct AffineSpriteListTemplate {
+typedef struct {
 	SpriteList*                   list;
 	const SpriteResourcesHeader*  resourceData;
 	VecFx32                       position;

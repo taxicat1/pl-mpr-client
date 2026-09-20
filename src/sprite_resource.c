@@ -12,40 +12,40 @@
 #include "resource_collection.h"
 
 #define SPRITE_VRAM_TYPE_DEFAULT  NNS_G2D_VRAM_TYPE_3DMAIN
-#define NARC_INDEX_NONE		      0xFFFFFFFE
+#define NARC_INDEX_NONE           0xFFFFFFFE
 
-typedef struct TileResourceData {
+typedef struct {
 	NNSG2dCharacterData* tileData;
 	NNS_G2D_VRAM_TYPE vramType;
 } TileResourceData;
 
-typedef struct PaletteResourceData {
+typedef struct {
 	NNSG2dPaletteData* paletteData;
 	NNS_G2D_VRAM_TYPE vramType;
 	int paletteIndex;
 } PaletteResourceData;
 
-typedef struct SpriteResourceData {
+typedef struct {
 	NNSG2dCellDataBank* spriteBank;
 } SpriteResourceData;
 
-typedef struct SpriteAnimResourceData {
+typedef struct {
 	NNSG2dAnimBankData* animBank;
 } SpriteAnimResourceData;
 
-typedef struct MultiSpriteResourceData {
+typedef struct {
 	NNSG2dMultiCellDataBank* multiSpriteBank;
 } MultiSpriteResourceData;
 
-typedef struct MultiSpriteAnimResourceData {
+typedef struct {
 	NNSG2dAnimBankData* multiSpriteAnimBank;
 } MultiSpriteAnimResourceData;
 
-typedef struct SpriteResourceTableBinary {
+typedef struct {
 	SpriteResourceType type;
 	union {
-		SpriteResourceTableEntryFile fileEntries[1];
-		SpriteResourceTableEntryNARC narcEntries[1];
+		SpriteResourceTableEntryFile  fileEntries[1];
+		SpriteResourceTableEntryNARC  narcEntries[1];
 	};
 } SpriteResourceTableBinary;
 

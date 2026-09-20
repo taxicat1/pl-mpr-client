@@ -11,7 +11,7 @@
 #define COLOR_CACHE_IS_VALID(param)        (param >= COLOR_CACHE_OFFSET && param < COLOR_CACHE_MAX)
 #define CHAR_CONTROL_SET_COLOR_FROM_CACHE  0xFF
 
-typedef struct TextGlyph {
+typedef struct {
 	u8  gfx[128];
 	u8  width;
 	u8  height;
