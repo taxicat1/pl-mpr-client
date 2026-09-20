@@ -2569,7 +2569,7 @@ static void BoxAppMan_WallpaperMenu(BoxApplicationManager* boxAppMan, u32* state
 		WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_USER,
 		WALLPAPER_MENU_TRANSITION_WALLPAPER,
 		WALLPAPER_MENU_UNREACHABLE,
-		WALLPAPER_MENU_END,
+		WALLPAPER_MENU_END
 	};
 	
 	switch (*state) {
@@ -2685,7 +2685,7 @@ static void BoxAppMan_MarkAction(BoxApplicationManager* boxAppMan, u32* state) {
 		MARK_START,
 		MARK_PROCESS_USER_INPUT,
 		MARK_COMM_SYNC,
-		MARK_END,
+		MARK_END
 	};
 	
 	switch (*state) {
