@@ -240,10 +240,10 @@ BOOL BoxAppMan_Init(ApplicationManager* appMan, int* state) {
 	if (boxAppMan != NULL) {
 		BoxAppMan_Load(boxAppMan, ApplicationManager_GetArgs(appMan));
 		BoxGraphics_Load(&boxAppMan->display, &boxAppMan->boxApp, boxAppMan);
-
+		
 		boxAppMan->cursorLocationHandlerState = 0;
 		boxAppMan->cursorLocationInputHandler = BoxAppMan_GetCursorLocationInputHandler(boxAppMan);
-
+		
 		BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_LogInAction);
 	}
 	
@@ -2632,7 +2632,7 @@ static void BoxAppMan_WallpaperMenu(BoxApplicationManager* boxAppMan, u32* state
 			break;
 		default:
 			boxAppMan->menuItem = BoxMenu_GetSelectedMenuItem(&boxAppMan->boxApp);
-
+			
 			if (boxAppMan->menuItem >= BOX_MENU_FIRST_WALLPAPER && boxAppMan->menuItem <= BOX_MENU_LAST_WALLPAPER) {
 				PCBoxes_SetWallpaper(boxAppMan->pcBoxes, USE_CURRENT_BOX, boxAppMan->menuItem - BOX_MENU_FIRST_WALLPAPER);
 				BoxApp_LoadWallpaper(&boxAppMan->boxApp, boxAppMan->pcBoxes);
@@ -3267,7 +3267,7 @@ static BOOL BoxAppMan_OnLastAliveMon(BoxApplicationManager* boxAppMan) {
 		}
 		
 		Pokemon_ExitDecryptionContext(mon, reencrypt);
-
+		
 		if (count >= 2) {
 			return FALSE;
 		}
@@ -3552,7 +3552,7 @@ static void CheckLastMonWithReleaseBlockingMove(SysTask* task, void* releaseMonP
 		int partyCount = Party_GetCurrentCount(releaseMon->party);
 		for (monIndex = 0; monIndex < partyCount; monIndex++) {
 			boxMon = (BoxPokemon*)Party_GetPokemonBySlotIndex(releaseMon->party, monIndex);
-
+			
 			for (i = 0; i < NUM_RELEASE_BLOCKING_MOVES; i++) {
 				if (BoxPokemon_HasMove(boxMon, sReleaseBlockingMoves[i])) {
 					releaseMon->monsWithReleaseBlockingMoveCount[i]++;
@@ -5422,19 +5422,19 @@ static void BoxAppMan_MarkingsFilterAction(BoxApplicationManager* boxAppMan, u32
 				case TOUCH_DIAL_SCROLLING:
 					{
 						int scrollAmount = TouchDial_CalcScrollAmount(&boxAppMan->touchDial);
-
+						
 						if (scrollAmount != boxAppMan->touchDialScrollAmount) {
 							int scrollDelta = scrollAmount - boxAppMan->touchDialScrollAmount;
 							int newOffset = BoxApp_GetTouchDialOffset(&boxAppMan->boxApp) + scrollDelta;
-
+							
 							if (newOffset < 0) {
 								newOffset += PC_MARKINGS_BUTTON_TYPES;
 							} else if (newOffset >= PC_MARKINGS_BUTTON_TYPES) {
 								newOffset -= PC_MARKINGS_BUTTON_TYPES;
 							}
-
+							
 							boxAppMan->touchDialScrollAmount = scrollAmount;
-
+							
 							BoxApp_SetTouchDialOffset(&boxAppMan->boxApp, newOffset);
 							BoxApp_SetMarkingsButtonsScrollOffset(&boxAppMan->boxApp, newOffset);
 							BoxApp_SetTouchDialScrollDelta(&boxAppMan->boxApp, scrollDelta);
@@ -5669,7 +5669,7 @@ static void BoxAppMan_InitCursor(BoxApplicationManager* boxAppMan) {
 	
 	cursor->posInParty = 0;
 	cursor->prevCursorLocation = CURSOR_IN_PARTY;
-
+	
 	switch (boxApp->boxSettings.boxMode) {
 		case PC_MODE_DEPOSIT:
 			cursor->cursorLocation = CURSOR_IN_PARTY;
@@ -5899,7 +5899,7 @@ static BOOL BoxApp_TryMoveCursor(BoxApplication* boxApp, int colChange, int rowC
 						cursor->posInParty = 5;
 					} else {
 						cursor->posInParty -= 2;
-
+						
 						if (cursor->posInParty < 0) {
 							cursor->posInParty = MAX_PARTY_SIZE;
 						}
@@ -5909,7 +5909,7 @@ static BOOL BoxApp_TryMoveCursor(BoxApplication* boxApp, int colChange, int rowC
 						cursor->posInParty = 0;
 					} else {
 						cursor->posInParty += 2;
-
+						
 						if (cursor->posInParty >= MAX_PARTY_SIZE) {
 							cursor->posInParty = MAX_PARTY_SIZE;
 						}
@@ -6011,7 +6011,7 @@ static CursorMovementState BoxApp_TryMoveSelection(BoxApplication* boxApp, int c
 				} else {
 					selectionBottomRow += selection->selectionStartRow - selection->selectionEndRow;
 				}
-
+				
 				if (selectionTopRow < 0 || selectionBottomRow >= MAX_PC_ROWS) {
 					return CURSOR_STOP;
 				}
@@ -7056,7 +7056,7 @@ static u32 BoxApp_GetPreviewedMonValue(BoxApplication* boxApp, PokemonDataParam 
 		}
 	} else {
 		BoxMonSelection* selection = &boxApp->selection;
-
+		
 		if (selection->cursorMonIsPartyMon == FALSE) {
 			return BoxPokemon_GetValue(boxApp->pcMonPreview.mon, value, dest);
 		}
