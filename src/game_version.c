@@ -8,5 +8,5 @@ const u8 gGameLanguage = LANGUAGE_JAPANESE;
 
 void GameVersion_Set(u8 newVersion) {
 	// gGameVersion is in .rodata, must do this to override it
-    *(u8*)&gGameVersion = newVersion;
+	*(u8*)&gGameVersion = newVersion;
 }

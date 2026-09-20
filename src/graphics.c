@@ -54,14 +54,14 @@ void Graphics_LoadPalette(NarcID narcID, u32 narcMemberIdx, PaletteLoadLocation 
 
 
 static void (*const sPaletteLoadFuncs[])(const void*, u32, u32) = {
-    GX_LoadBGPltt,
-    GX_LoadOBJPltt,
-    GX_LoadBGExtPltt,
-    GX_LoadOBJExtPltt,
-    GXS_LoadBGPltt,
-    GXS_LoadOBJPltt,
-    GXS_LoadBGExtPltt,
-    GXS_LoadOBJExtPltt
+	GX_LoadBGPltt,
+	GX_LoadOBJPltt,
+	GX_LoadBGExtPltt,
+	GX_LoadOBJExtPltt,
+	GXS_LoadBGPltt,
+	GXS_LoadOBJPltt,
+	GXS_LoadBGExtPltt,
+	GXS_LoadOBJExtPltt
 };
 
 void Graphics_LoadPaletteWithSrcOffset(NarcID narcID, u32 narcMemberIdx, PaletteLoadLocation loadLocation, u32 srcOffset, u32 palOffset, u32 size, HeapID heapID) {
@@ -114,8 +114,8 @@ void Graphics_LoadPaletteWithSrcOffset(NarcID narcID, u32 narcMemberIdx, Palette
 
 
 static void (*const sDisplayObjectLoadFunc[])(const void*, u32, u32) = {
-    GX_LoadOBJ,
-    GXS_LoadOBJ
+	GX_LoadOBJ,
+	GXS_LoadOBJ
 };
 
 u32 Graphics_LoadObjectTiles(NarcID narcID, u32 narcMemberIdx, DSScreen display, u32 offset, u32 size, BOOL compressed, HeapID heapID) {
@@ -159,8 +159,8 @@ void Graphics_LoadPartialPalette(NarcID narcID, u32 narcMemberIdx, NNS_G2D_VRAM_
 
 
 static void (*const sImageLayoutLoadFuncs[])(const NNSG2dCharacterData*, u32, NNS_G2D_VRAM_TYPE, NNSG2dImageProxy*) = {
-    NNS_G2dLoadImage1DMapping,
-    NNS_G2dLoadImage2DMapping
+	NNS_G2dLoadImage1DMapping,
+	NNS_G2dLoadImage2DMapping
 };
 
 u32 Graphics_LoadImageMapping(NarcID narcID, u32 narcMemberIdx, BOOL compressed, ImageMappingLayout layout, u32 size, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, HeapID heapID, NNSG2dImageProxy* imageProxy) {
@@ -185,8 +185,8 @@ u32 Graphics_LoadImageMapping(NarcID narcID, u32 narcMemberIdx, BOOL compressed,
 
 
 static void (*const sImageLayoutLoadFuncs2[])(const NNSG2dCharacterData*, u32, NNS_G2D_VRAM_TYPE, NNSG2dImageProxy*) = {
-    NNS_G2dLoadImage1DMapping,
-    NNS_G2dLoadImage2DMapping
+	NNS_G2dLoadImage1DMapping,
+	NNS_G2dLoadImage2DMapping
 };
 
 void Graphics_LoadImageMappingAndSetVramMode(NarcID narcID, u32 narcMemberIdx, BOOL compressed, ImageMappingLayout layout, u32 size, NNS_G2D_VRAM_TYPE vramType, u32 baseAddr, HeapID heapID, NNSG2dImageProxy* imageProxy) {

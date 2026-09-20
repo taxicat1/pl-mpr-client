@@ -99,12 +99,12 @@ static inline void SetBit_3Forms(u8* array, u8 value, u16 bitIndex) {
 
 
 static inline void Write_SeenSpecies(PokedexCommon *pokedexData, u16 species) {
-    ActivateBit_2Forms((u8*)pokedexData->seenPokemon, species);
+	ActivateBit_2Forms((u8*)pokedexData->seenPokemon, species);
 }
 
 
 static inline void Write_CaughtSpecies(PokedexCommon *pokedexData, u16 species) {
-    ActivateBit_2Forms((u8*)pokedexData->caughtPokemon, species);
+	ActivateBit_2Forms((u8*)pokedexData->caughtPokemon, species);
 }
 
 
@@ -264,7 +264,7 @@ static BOOL FormSeen_TwoForms(const PokedexCommon* pokedexData, u32 species, u8 
 	
 	for (u32 formIndex = 0; formIndex < numFormsSeen; formIndex++) {
 		u32 currentForm = ReadBit_2Forms(formArray, formIndex + 1);
-
+		
 		if (currentForm == form) {
 			return TRUE;
 		}
@@ -317,7 +317,7 @@ static int NumFormsSeen_ThreeForms(const PokedexCommon* pokedexData, u32 species
 	int formIndex;
 	for (formIndex = 0; formIndex < 3; formIndex++) {
 		u32 currentForm = ReadBit_3Forms(formArray, formIndex);
-
+		
 		if (currentForm == 3) {
 			break;
 		}
@@ -343,7 +343,7 @@ static BOOL FormSeen_ThreeForms(const PokedexCommon* pokedexData, u32 species, u
 	
 	for (int formIndex = 0; formIndex < 3; formIndex++) {
 		u32 currentForm = ReadBit_3Forms(formArray, formIndex);
-
+		
 		if (currentForm == form) {
 			return TRUE;
 		}
@@ -527,7 +527,7 @@ void Pokedex_Capture(PokedexCommon* pokedexData, Pokemon* mon) {
 		UpdateGender(pokedexData, gender, FALSE, species);
 	} else {
 		u32 displayedGender = GetGender(pokedexData, species, 0);
-
+		
 		if (displayedGender != gender) {
 			UpdateGender(pokedexData, gender, TRUE, species);
 		}

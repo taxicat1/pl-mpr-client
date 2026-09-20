@@ -14,7 +14,7 @@ int FieldOverworldSave_GetSaveSize(void) {
 
 
 void FieldOverworldSave_Init(FieldOverworldSave* fieldSave) {
-    MI_CpuClear32(fieldSave, sizeof(FieldOverworldSave));
+	MI_CpuClear32(fieldSave, sizeof(FieldOverworldSave));
 }
 
 

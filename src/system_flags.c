@@ -6,7 +6,7 @@ static BOOL CheckFlag(VarsFlags* varsFlags, u16 flagID);
 
 
 static BOOL CheckFlag(VarsFlags* varsFlags, u16 flagID) {
-    return VarsFlags_CheckFlag(varsFlags, flagID);
+	return VarsFlags_CheckFlag(varsFlags, flagID);
 }
 
 

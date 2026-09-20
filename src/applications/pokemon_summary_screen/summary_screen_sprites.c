@@ -27,19 +27,19 @@ static void SetMonAndTypeIcons(PokemonSummaryScreen* summaryScreen);
 static void DrawConditionFlash(Sprite* sprite, u32 statValue, u32 highestValue, const s16* bounds);
 
 enum SummaryContestType {
-    SUMMARY_CONTEST_TYPE_COOL = 0,
-    SUMMARY_CONTEST_TYPE_BEAUTY,
-    SUMMARY_CONTEST_TYPE_CUTE,
-    SUMMARY_CONTEST_TYPE_SMART,
-    SUMMARY_CONTEST_TYPE_TOUGH
+	SUMMARY_CONTEST_TYPE_COOL = 0,
+	SUMMARY_CONTEST_TYPE_BEAUTY,
+	SUMMARY_CONTEST_TYPE_CUTE,
+	SUMMARY_CONTEST_TYPE_SMART,
+	SUMMARY_CONTEST_TYPE_TOUGH
 };
 
 enum ConditionFlashBounds {
-    FLASH_MAX_X = 0,
-    FLASH_MAX_Y,
-    FLASH_MIN_X,
-    FLASH_MIN_Y,
-    FLASH_BOUNDS_MAX
+	FLASH_MAX_X = 0,
+	FLASH_MAX_Y,
+	FLASH_MIN_X,
+	FLASH_MIN_Y,
+	FLASH_BOUNDS_MAX
 };
 
 #define MAX_SHEEN_SPRITES            SUMMARY_SHEEN_SPRITES_END - SUMMARY_SHEEN_SPRITES_START + 1
@@ -970,7 +970,7 @@ static const u8 sBallIDToPaletteNum[] = {
 	[ITEM_DUSK_BALL]    = 3,
 	[ITEM_HEAL_BALL]    = 3,
 	[ITEM_QUICK_BALL]   = 2,
-	[ITEM_CHERISH_BALL] = 0,
+	[ITEM_CHERISH_BALL] = 0
 };
 
 
@@ -990,7 +990,7 @@ void PokemonSummaryScreen_InitSpriteResources(PokemonSummaryScreen* summaryScree
 		.subOamStart        = 0,
 		.subOamCount        = 128,
 		.subAffineOamStart  = 0,
-		.subAffineOamCount  = 32,
+		.subAffineOamCount  = 32
 	};
 	
 	CharTransferTemplateWithModes charTransferTemplate = {

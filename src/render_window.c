@@ -34,15 +34,15 @@ typedef enum {
 } WaitDialDeleteMode;
 
 struct WaitDial {
-    Window*  window;
-    u8       pixels[WAIT_DIAL_WHOLE_SIZE];
-    u8       messageBoxPixels[WAIT_DIAL_FRAME_SIZE];
-    u16      messageBoxTile;
-    u8       counter;
-    u8       curFrame    : 7;
-    u8       bitpad1     : 1;
-    u8       deleteMode  : 2;
-    u8       bitpad2     : 6;
+	Window*  window;
+	u8       pixels[WAIT_DIAL_WHOLE_SIZE];
+	u8       messageBoxPixels[WAIT_DIAL_FRAME_SIZE];
+	u16      messageBoxTile;
+	u8       counter;
+	u8       curFrame    : 7;
+	u8       bitpad1     : 1;
+	u8       deleteMode  : 2;
+	u8       bitpad2     : 6;
 };
 
 static void DrawStandardWindowFrame(BgConfig* bgConfig, u8 bgLayer, u8 x, u8 y, u8 width, u8 height, u8 palette, u16 tile);

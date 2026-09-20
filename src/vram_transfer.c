@@ -7,9 +7,9 @@
 #include "heap.h"
 
 typedef struct VramTransferTaskManager {
-    u32  max;
-    u32  cur;
-    NNSGfdVramTransferTask* tasks;
+	u32  max;
+	u32  cur;
+	NNSGfdVramTransferTask* tasks;
 } VramTransferTaskManager;
 
 static VramTransferTaskManager* sTransferTaskManager;

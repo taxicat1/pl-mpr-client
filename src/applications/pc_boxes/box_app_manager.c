@@ -1409,7 +1409,7 @@ static int BoxAppMan_CursorOnHeaderInputHandler(BoxApplicationManager* boxAppMan
 	enum {
 		CURSOR_ON_HEADER_WAIT_FOR_INPUT,
 		CURSOR_ON_HEADER_WAIT_FOR_MOVE_CURSOR,
-        CURSOR_ON_HEADER_WAIT_FOR_EXIT
+		CURSOR_ON_HEADER_WAIT_FOR_EXIT
 	};
 	
 	switch (boxAppMan->cursorLocationHandlerState) {
@@ -1428,7 +1428,7 @@ static int BoxAppMan_CursorOnHeaderInputHandler(BoxApplicationManager* boxAppMan
 				}
 				
 				if (JOY_NEW(PAD_BUTTON_A)) {
-                    (void)BoxApp_GetBoxMode(&boxAppMan->boxApp); /* Unused */
+					(void)BoxApp_GetBoxMode(&boxAppMan->boxApp); /* Unused */
 					BoxAppMan_RegisterBoxApplicationAction(boxAppMan, BoxAppMan_BoxHeaderMenuAction);
 					break;
 				}

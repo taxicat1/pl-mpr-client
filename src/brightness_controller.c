@@ -16,14 +16,14 @@ typedef struct {
 } TransitionData;
 
 typedef struct {
-    TransitionData  data;
-    s8              direction;
-    s16             brightnessDelta;
-    s16             stepDelta;
-    u16             stepRemainder;
-    u16             accumulator;
-    s16             brightness;
-    BOOL            isActive;
+	TransitionData  data;
+	s8              direction;
+	s16             brightnessDelta;
+	s16             stepDelta;
+	u16             stepRemainder;
+	u16             accumulator;
+	s16             brightness;
+	BOOL            isActive;
 } TransitionController;
 
 static TransitionController controllerMain;  // Top Screen

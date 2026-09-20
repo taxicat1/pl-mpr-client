@@ -6,12 +6,12 @@
 #include "game_version.h"
 
 static const PoketchMapPosition sDefaultMapMarkers[POKETCH_MAPMARKER_COUNT] = {
-    { 104, 152 },
-    { 120, 152 },
-    { 136, 152 },
-    { 152, 152 },
-    { 168, 152 },
-    { 184, 152 }
+	{ 104, 152 },
+	{ 120, 152 },
+	{ 136, 152 },
+	{ 152, 152 },
+	{ 168, 152 },
+	{ 184, 152 }
 };
 
 
