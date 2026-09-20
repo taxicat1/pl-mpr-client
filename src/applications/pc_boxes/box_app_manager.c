@@ -2573,91 +2573,109 @@ static void BoxAppMan_WallpaperMenu(BoxApplicationManager* boxAppMan, u32* state
 	};
 	
 	switch (*state) {
-	case WALLPAPER_MENU_START:
-		boxAppMan->menuItem = BOX_MENU_SCENERY_1;
-		*state = WALLPAPER_MENU_PICK_THEME_INIT;
-	case WALLPAPER_MENU_PICK_THEME_INIT:
-		BoxApp_SetBoxMessage(&boxAppMan->boxApp, BOX_MESSAGE_PickTheme);
-		BoxMenu_FillWallpaperMenu(&boxAppMan->boxApp, boxAppMan->menuItem);
-		BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_ShowMenu);
-		*state = WALLPAPER_MENU_PICK_THEME_WAIT_FOR_TASK;
-		break;
-	case WALLPAPER_MENU_PICK_THEME_WAIT_FOR_TASK:
-		if (BoxGraphics_IsSysTaskDone(boxAppMan->display, FUNC_BoxGraphics_ShowMenu) == FALSE) {
+		case WALLPAPER_MENU_START:
+			boxAppMan->menuItem = BOX_MENU_SCENERY_1;
+			*state = WALLPAPER_MENU_PICK_THEME_INIT;
+			// Fall through
+		
+		case WALLPAPER_MENU_PICK_THEME_INIT:
+			BoxApp_SetBoxMessage(&boxAppMan->boxApp, BOX_MESSAGE_PickTheme);
+			BoxMenu_FillWallpaperMenu(&boxAppMan->boxApp, boxAppMan->menuItem);
+			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_ShowMenu);
+			*state = WALLPAPER_MENU_PICK_THEME_WAIT_FOR_TASK;
 			break;
-		}
-		*state = WALLPAPER_MENU_PICK_THEME_WAIT_FOR_USER;
-	case WALLPAPER_MENU_PICK_THEME_WAIT_FOR_USER:
-		switch (BoxMenu_GetMenuNavigation(&boxAppMan->boxApp)) {
-		case BOX_MENU_NAVIGATION_NONE:
+		
+		case WALLPAPER_MENU_PICK_THEME_WAIT_FOR_TASK:
+			if (BoxGraphics_IsSysTaskDone(boxAppMan->display, FUNC_BoxGraphics_ShowMenu) == FALSE) {
+				break;
+			}
+			*state = WALLPAPER_MENU_PICK_THEME_WAIT_FOR_USER;
+			// Fall through
+		
+		case WALLPAPER_MENU_PICK_THEME_WAIT_FOR_USER:
+			switch (BoxMenu_GetMenuNavigation(&boxAppMan->boxApp)) {
+				case BOX_MENU_NAVIGATION_NONE:
+					break;
+				
+				case BOX_MENU_NAVIGATION_UP_DOWN:
+					BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_UpdateMenuCursor);
+					break;
+				
+				case BOX_MENU_NAVIGATION_B:
+				case BOX_MENU_HEADER_CANCEL:
+				default:
+					BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
+					*state = WALLPAPER_MENU_END;
+					break;
+				
+				case BOX_MENU_SCENERY_1:
+				case BOX_MENU_SCENERY_2:
+				case BOX_MENU_SCENERY_3:
+				case BOX_MENU_ETCETERA:
+				case BOX_MENU_FRIENDS_1:
+				case BOX_MENU_FRIENDS_2:
+					boxAppMan->menuItem = BoxMenu_GetSelectedMenuItem(&boxAppMan->boxApp);
+					BoxApp_SetBoxMessage(&boxAppMan->boxApp, BOX_MESSAGE_Wallpaper);
+					BoxMenu_FillWallpaperSelectionMenu(&boxAppMan->boxApp, boxAppMan->menuItem);
+					BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_ShowMenu);
+					*state = WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_TASK;
+					break;
+			}
 			break;
-		case BOX_MENU_NAVIGATION_UP_DOWN:
-			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_UpdateMenuCursor);
+		
+		case WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_TASK:
+			if (BoxGraphics_IsSysTaskDone(boxAppMan->display, FUNC_BoxGraphics_ShowMenu) == FALSE) {
+				break;
+			}
+			*state = WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_USER;
+			// Fall through
+		
+		case WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_USER:
+			switch (BoxMenu_GetMenuNavigation(&boxAppMan->boxApp)) {
+				case BOX_MENU_NAVIGATION_NONE:
+					break;
+				
+				case BOX_MENU_NAVIGATION_UP_DOWN:
+					BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_UpdateMenuCursor);
+					break;
+				
+				case BOX_MENU_NAVIGATION_B:
+				case BOX_MENU_HEADER_CANCEL:
+					*state = WALLPAPER_MENU_PICK_THEME_INIT;
+					break;
+				
+				default:
+					boxAppMan->menuItem = BoxMenu_GetSelectedMenuItem(&boxAppMan->boxApp);
+					
+					if (boxAppMan->menuItem >= BOX_MENU_FIRST_WALLPAPER && boxAppMan->menuItem <= BOX_MENU_LAST_WALLPAPER) {
+						PCBoxes_SetWallpaper(boxAppMan->pcBoxes, USE_CURRENT_BOX, boxAppMan->menuItem - BOX_MENU_FIRST_WALLPAPER);
+						BoxApp_LoadWallpaper(&boxAppMan->boxApp, boxAppMan->pcBoxes);
+						BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
+						*state = WALLPAPER_MENU_TRANSITION_WALLPAPER;
+					} else {
+						GF_ASSERT(FALSE);
+						*state = WALLPAPER_MENU_PICK_THEME_INIT;
+					}
+					break;
+			}
 			break;
-		case BOX_MENU_NAVIGATION_B:
-		case BOX_MENU_HEADER_CANCEL:
-		default:
-			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
+		
+		case WALLPAPER_MENU_TRANSITION_WALLPAPER:
+			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_TransitionWallpaper);
 			*state = WALLPAPER_MENU_END;
 			break;
-		case BOX_MENU_SCENERY_1:
-		case BOX_MENU_SCENERY_2:
-		case BOX_MENU_SCENERY_3:
-		case BOX_MENU_ETCETERA:
-		case BOX_MENU_FRIENDS_1:
-		case BOX_MENU_FRIENDS_2:
-			boxAppMan->menuItem = BoxMenu_GetSelectedMenuItem(&boxAppMan->boxApp);
-			BoxApp_SetBoxMessage(&boxAppMan->boxApp, BOX_MESSAGE_Wallpaper);
-			BoxMenu_FillWallpaperSelectionMenu(&boxAppMan->boxApp, boxAppMan->menuItem);
-			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_ShowMenu);
-			*state = WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_TASK;
-			break;
-		}
-		break;
-	case WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_TASK:
-		if (BoxGraphics_IsSysTaskDone(boxAppMan->display, FUNC_BoxGraphics_ShowMenu) == FALSE) {
-			break;
-		}
-		*state = WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_USER;
-	case WALLPAPER_MENU_PICK_WALLPAPER_WAIT_FOR_USER:
-		switch (BoxMenu_GetMenuNavigation(&boxAppMan->boxApp)) {
-		case BOX_MENU_NAVIGATION_NONE:
-			break;
-		case BOX_MENU_NAVIGATION_UP_DOWN:
-			BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_UpdateMenuCursor);
-			break;
-		case BOX_MENU_NAVIGATION_B:
-		case BOX_MENU_HEADER_CANCEL:
-			*state = WALLPAPER_MENU_PICK_THEME_INIT;
-			break;
-		default:
-			boxAppMan->menuItem = BoxMenu_GetSelectedMenuItem(&boxAppMan->boxApp);
-			
-			if (boxAppMan->menuItem >= BOX_MENU_FIRST_WALLPAPER && boxAppMan->menuItem <= BOX_MENU_LAST_WALLPAPER) {
-				PCBoxes_SetWallpaper(boxAppMan->pcBoxes, USE_CURRENT_BOX, boxAppMan->menuItem - BOX_MENU_FIRST_WALLPAPER);
-				BoxApp_LoadWallpaper(&boxAppMan->boxApp, boxAppMan->pcBoxes);
-				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
-				*state = WALLPAPER_MENU_TRANSITION_WALLPAPER;
-			} else {
-				GF_ASSERT(FALSE);
+		
+		case WALLPAPER_MENU_UNREACHABLE:
+			if (BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
 				*state = WALLPAPER_MENU_PICK_THEME_INIT;
 			}
-		}
-		break;
-	case WALLPAPER_MENU_TRANSITION_WALLPAPER:
-		BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_TransitionWallpaper);
-		*state = WALLPAPER_MENU_END;
-		break;
-	case WALLPAPER_MENU_UNREACHABLE:
-		if (BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
-			*state = WALLPAPER_MENU_PICK_THEME_INIT;
-		}
-		break;
-	case WALLPAPER_MENU_END:
-		if (BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
-			BoxAppMan_ClearBoxApplicationAction(boxAppMan);
-		}
-		break;
+			break;
+		
+		case WALLPAPER_MENU_END:
+			if (BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
+				BoxAppMan_ClearBoxApplicationAction(boxAppMan);
+			}
+			break;
 	}
 }
 
