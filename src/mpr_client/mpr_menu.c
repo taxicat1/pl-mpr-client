@@ -1284,7 +1284,7 @@ static BOOL MPRMenuApp_Main(ApplicationManager* appMan, int* state) {
 				
 				if (syncedWithWii) {
 					if (mprMenu->activeSubApplication == SUB_APP_WITHDRAW && MPRComm_IsConnected()) {
-						MPRComm_0203C3A4(0, 0, MPRComm_GetBoxBuffer(0));
+						MPRComm_SetPeekRanchBox(0, 0, MPRComm_GetBoxBuffer(0));
 					}
 					
 					*state = 19;

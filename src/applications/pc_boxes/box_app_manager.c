@@ -373,8 +373,8 @@ void BoxAppMan_LogInAction(BoxApplicationManager* boxAppMan, u32* state) {
 	switch (*state) {
 		case 0:
 			if (BoxApp_GetBoxMode(&boxAppMan->boxApp) == PC_MODE_RANCH_WITHDRAW && MPRComm_IsConnected()) {
-				if (MPRComm_0203C404()) {
-					MPRComm_0203C3A4(1, 0, (BoxPokemon*)boxAppMan->mprFilter.unk_80);
+				if (MPRComm_IsNotPeekingRanchBox()) {
+					MPRComm_SetPeekRanchBox(1, 0, boxAppMan->mprFilter.unk_80);
 					(*state)++;
 				}
 			} else if (BoxApp_GetBoxMode(&boxAppMan->boxApp) == PC_MODE_RANCH_DEPOSIT && MPRComm_IsConnected()) {
@@ -391,7 +391,7 @@ void BoxAppMan_LogInAction(BoxApplicationManager* boxAppMan, u32* state) {
 			break;
 		
 		case 1:
-			if (MPRComm_0203C404()) {
+			if (MPRComm_IsNotPeekingRanchBox()) {
 				int ranchBoxID = 0;
 				int ranchMonID = MPRComm_0203C33C();
 				if (ranchMonID > 0) {
@@ -401,7 +401,7 @@ void BoxAppMan_LogInAction(BoxApplicationManager* boxAppMan, u32* state) {
 				boxAppMan->boxApp.customization.maxRanchBoxID = ranchBoxID;
 				BoxAppMan_TryPreviewCursorMon(boxAppMan);
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_0202F60C);
-				MPRComm_0203C3A4(ranchBoxID, 0, (BoxPokemon*)boxAppMan->mprFilter.unk_88);
+				MPRComm_SetPeekRanchBox(ranchBoxID, 0, boxAppMan->mprFilter.unk_88);
 				*state = 3;
 			}
 			break;
@@ -421,7 +421,7 @@ void BoxAppMan_LogInAction(BoxApplicationManager* boxAppMan, u32* state) {
 			break;
 		
 		case 4:
-			if (BoxApp_GetBoxMode(&boxAppMan->boxApp) == PC_MODE_RANCH_WITHDRAW && MPRComm_IsConnected() && !MPRComm_0203C404()) {
+			if (BoxApp_GetBoxMode(&boxAppMan->boxApp) == PC_MODE_RANCH_WITHDRAW && MPRComm_IsConnected() && !MPRComm_IsNotPeekingRanchBox()) {
 				break;
 			}
 			
@@ -2506,7 +2506,7 @@ static void BoxAppMan_RanchBoxJumpAction(BoxApplicationManager* boxAppMan, u32* 
 					boxAppMan->boxApp.customization.ranchBoxJump = jumpDirection;
 					BoxApp_LoadCustomizationsFor(&boxAppMan->boxApp, boxID);
 					boxAppMan->menuItem = originalBox;
-					MPRComm_0203C3A4(boxID, boxAppMan->menuItem, (BoxPokemon*)boxAppMan->mprFilter.unk_84);
+					MPRComm_SetPeekRanchBox(boxID, boxAppMan->menuItem, boxAppMan->mprFilter.unk_84);
 					BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_0202FE58);
 					*state = RANCH_JUMP_COMM_SEND;
 				} else {
@@ -2517,26 +2517,26 @@ static void BoxAppMan_RanchBoxJumpAction(BoxApplicationManager* boxAppMan, u32* 
 			break;
 		
 		case RANCH_JUMP_COMM_SEND:
-			if (!MPRComm_IsConnected() || MPRComm_0203C404()) {
+			if (!MPRComm_IsConnected() || MPRComm_IsNotPeekingRanchBox()) {
 				int rightBoxID = BoxApp_GetCurrentBox(&boxAppMan->boxApp) + 1;
 				if (rightBoxID > boxAppMan->boxApp.customization.maxRanchBoxID) {
 					rightBoxID = 0;
 				}
 				
-				MPRComm_0203C3A4(rightBoxID, boxAppMan->menuItem, (BoxPokemon*)boxAppMan->mprFilter.unk_80);
+				MPRComm_SetPeekRanchBox(rightBoxID, boxAppMan->menuItem, boxAppMan->mprFilter.unk_80);
 				*state = RANCH_JUMP_COMM_RECV;
 			}
 			break;
 		
 		case RANCH_JUMP_COMM_RECV:
-			if ((MPRComm_IsConnected() == 0) || (MPRComm_0203C404() != 0)) {
+			if ((MPRComm_IsConnected() == 0) || (MPRComm_IsNotPeekingRanchBox() != 0)) {
 				int currBoxID = BoxApp_GetCurrentBox(&boxAppMan->boxApp);
 				int leftBoxID = currBoxID - 1;
 				if (leftBoxID < 0) {
 					leftBoxID = boxAppMan->boxApp.customization.maxRanchBoxID;
 				}
 				
-				MPRComm_0203C3A4(leftBoxID, currBoxID, (BoxPokemon*)boxAppMan->mprFilter.unk_88);
+				MPRComm_SetPeekRanchBox(leftBoxID, currBoxID, boxAppMan->mprFilter.unk_88);
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_CloseMessageBox);
 				boxAppMan->boxApp.MPR_unk_120 = boxAppMan->mprFilter.unk_84;
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_ChangeToNewBox);
@@ -2545,7 +2545,7 @@ static void BoxAppMan_RanchBoxJumpAction(BoxApplicationManager* boxAppMan, u32* 
 			break;
 		
 		case RANCH_JUMP_COMM_WAIT:
-			if ((!MPRComm_IsConnected() || MPRComm_0203C404()) && BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
+			if ((!MPRComm_IsConnected() || MPRComm_IsNotPeekingRanchBox()) && BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
 				*state = RANCH_JUMP_END;
 			}
 			break;
@@ -4265,7 +4265,7 @@ static void BoxAppMan_RanchWithdrawAction(BoxApplicationManager* boxAppMan, u32*
 			break;
 		
 		case RANCH_WITHDRAW_WITHDRAW_OK:
-			if (MPRComm_0203C444() && BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
+			if (MPRComm_IsWithdrawComplete() && BoxGraphics_CheckAllTasksDone(boxAppMan->display)) {
 				GF_ASSERT(BoxApp_GetPreviewMonSource(&boxAppMan->boxApp) != PREVIEW_MON_IN_CURSOR);
 				
 				if (BoxApp_IsCursorFastMode(&boxAppMan->boxApp)) {
@@ -4799,7 +4799,7 @@ static void BoxAppMan_RanchBatchWithdrawAction(BoxApplicationManager* boxAppMan,
 			break;
 		
 		case RANCH_BATCH_WITHDRAW_UNK_9:
-			if (MPRComm_IsConnected() && !MPRComm_0203C444()) {
+			if (MPRComm_IsConnected() && !MPRComm_IsWithdrawComplete()) {
 				break;
 			}
 			*state = RANCH_BATCH_WITHDRAW_UNK_10;
@@ -4940,17 +4940,17 @@ static void BoxAppMan_DownloadRanchBoxesAction(BoxApplicationManager* boxAppMan,
 			}
 			
 			boxAppMan->mprFilter.unk_48 = TRUE;
-			MPRComm_0203C3A4(currentBoxID, currentBoxID, (BoxPokemon*)boxAppMan->mprFilter.unk_84);
+			MPRComm_SetPeekRanchBox(currentBoxID, currentBoxID, boxAppMan->mprFilter.unk_84);
 			*state = RANCH_BOX_DOWNLOAD_NEXT;
 			break;
 		
 		case RANCH_BOX_DOWNLOAD_NEXT:
-			if (MPRComm_0203C404()) {
+			if (MPRComm_IsNotPeekingRanchBox()) {
 				int nextBoxID = currentBoxID + 1;
 				if (nextBoxID > boxAppMan->boxApp.customization.maxRanchBoxID) {
 					nextBoxID = 0;
 				}
-				MPRComm_0203C3A4(nextBoxID, currentBoxID, (BoxPokemon*)boxAppMan->mprFilter.unk_80);
+				MPRComm_SetPeekRanchBox(nextBoxID, currentBoxID, boxAppMan->mprFilter.unk_80);
 				BoxAppMan_TryPreviewCursorMon(boxAppMan);
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_MPR_Unk_55);
 				BoxGraphics_TaskHandler(boxAppMan->display, FUNC_BoxGraphics_PreviewMon);
@@ -4959,18 +4959,18 @@ static void BoxAppMan_DownloadRanchBoxesAction(BoxApplicationManager* boxAppMan,
 			break;
 		
 		case RANCH_BOX_DOWNLOAD_PREV:
-			if (MPRComm_0203C404()) {
+			if (MPRComm_IsNotPeekingRanchBox()) {
 				int prevBoxID = currentBoxID - 1;
 				if (prevBoxID < 0) {
 					prevBoxID = boxAppMan->boxApp.customization.maxRanchBoxID;
 				}
-				MPRComm_0203C3A4(prevBoxID, currentBoxID, (BoxPokemon*)boxAppMan->mprFilter.unk_88);
+				MPRComm_SetPeekRanchBox(prevBoxID, currentBoxID, boxAppMan->mprFilter.unk_88);
 				*state = RANCH_BOX_DOWNLOAD_COMM_SYNC;
 			}
 			break;
 		
 		case RANCH_BOX_DOWNLOAD_COMM_SYNC:
-			if (MPRComm_0203C404()) {
+			if (MPRComm_IsNotPeekingRanchBox()) {
 				*state = RANCH_BOX_DOWNLOAD_END;
 			}
 			break;
@@ -5154,7 +5154,7 @@ static void BoxAppMan_ChangeToNewBoxAction(BoxApplicationManager* boxAppMan, u32
 				}
 				
 				if (MPRComm_IsConnected()) {
-					MPRComm_0203C3A4(targetBoxID, currentBoxID, (BoxPokemon*)box);
+					MPRComm_SetPeekRanchBox(targetBoxID, currentBoxID, box);
 				}
 				
 				*state = MOVE_BOX_WAIT_FOR_ANIMATION;
@@ -5178,7 +5178,7 @@ static void BoxAppMan_ChangeToNewBoxAction(BoxApplicationManager* boxAppMan, u32
 				if (BoxApp_GetBoxMode(&boxAppMan->boxApp) == PC_MODE_RANCH_WITHDRAW) {
 					int changeDirection = boxAppMan->menuItem;
 					
-					if (!MPRComm_IsConnected() || MPRComm_0203C404()) {
+					if (!MPRComm_IsConnected() || MPRComm_IsNotPeekingRanchBox()) {
 						GF_ASSERT(changeDirection == 1 || changeDirection == -1);
 						
 						if (changeDirection == 1) {

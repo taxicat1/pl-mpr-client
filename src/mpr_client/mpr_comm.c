@@ -70,33 +70,33 @@ static void ParentRecvPort13Callback(u16 port, u16 aid, u16* data, u16 length);
 
 // Very sensitive to order.
 static const BoxPokemon* sUpdatedMon = NULL;
-static int sDAT_0206AA88 = -1;
+static int sFilterNature = -1;
 static WMBssDesc sWMBssDesc  ATTRIBUTE_ALIGN(32);
 static u32 sDAT_021376D0 = 0;
 static u32 sClientDisplayConfig = 0xFFFFFFFF; // Bitmask of event unlocks
 static u8 sCommErrorFlag = FALSE;
 static int sPrevClientState = 35;
-static int sDAT_0206AA4C = -1;
+static int sFilterType = -1;
 static const SaveData* sSaveData = NULL;
-static int sDAT_0206AA58 = -1;
-static int sPeekRanchMonIndex = -1;
+static int sFilterSpecies = -1;
+static int sPeekRanchBoxID = -1;
 static vu32 sSharedDataBufferLen = 0;
 static int sClientRequestedState = 2;
 static s32 sWithdrawRanchMonIndex = -1;
-static int sDAT_0206AA7C = -1;
+static int sFilterMark = -1;
 static ParentCommState sCommState = COMM_STATE_IDLE;
 static int sUpdatedMonIndex = -1;
 static u8 sClientSubMenuFlag = FALSE;
-static int sDAT_0206AA70 = -1;
+static int sPeekRanchBoxPrevID = -1;
 static int sFocusedMonIndex = -1;
-static int sDAT_0206AA68 = -1;
+static int sFilterAbility = -1;
 static s32 sRanchDepositSpaceRemaining = -1;
 static s32 sDepositMonIndex = -1;
 static s32 sCurrPCBoxIndex = -1;
 static s32 sDAT_0206AA38 = -1;
 static ParentCommState sPrevCommState = COMM_STATE_PARENT_SEARCH;
-static s32 sDAT_0206AA50 = -1;
-static s32 sDAT_0206AA48 = -1;
+static s32 sFilterMove = -1;
+static s32 sFilterSortOrder = -1;
 static u8 sRecvBufferDebugFlag = FALSE;
 static u8 sParentRecvToSharedBufferFlag = FALSE;
 static u8 sDAT_021376C4 = 0;
@@ -104,7 +104,7 @@ static u8 sClientSaveComplete = FALSE;
 static u8 sParentSubMenuFlag = FALSE;
 static u8 sRecvBufferNewFlag = FALSE;
 static u32 sDAT_021376D4 = 0;
-static void* sDAT_021376CC = NULL; // Pointer to box data
+static void* sPeekRanchBoxOutPtr = NULL;
 static CommPortData sParentRecvComm[8];
 static CommPortData sClientSendComm[8];
 static char sParentRecvBuffer[TEXT_BUFFER_SIZE]  ATTRIBUTE_ALIGN(32);
@@ -414,25 +414,25 @@ u32 MPRComm_GetDisplayConfig(void) {
 }
 
 
-void MPRComm_SetSortAndFilterParams(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) {
+void MPRComm_SetSortAndFilterParams(int sortOrder, int filterSpecies, int filterType, int filterMove, int filterAbility, int filterNature, int filterMark) {
 	sParentRecvComm[12 - 8].dataTransmitted = 0;
 	
-	sDAT_0206AA48 = arg0;
-	sDAT_0206AA58 = arg1;
-	sDAT_0206AA4C = arg2;
-	sDAT_0206AA50 = arg3;
-	sDAT_0206AA68 = arg4;
-	sDAT_0206AA88 = arg5;
-	sDAT_0206AA7C = arg6;
+	sFilterSortOrder = sortOrder;
+	sFilterSpecies   = filterSpecies;
+	sFilterType      = filterType;
+	sFilterMove      = filterMove;
+	sFilterAbility   = filterAbility;
+	sFilterNature    = filterNature;
+	sFilterMark      = filterMark;
 }
 
 
-void MPRComm_0203C3A4(int arg0, int arg1, void* arg2) {
+void MPRComm_SetPeekRanchBox(int currBoxID, int prevBoxID, void* outBoxMons) {
 	sParentRecvComm[12 - 8].dataTransmitted = 0;
 	
-	sPeekRanchMonIndex = arg0;
-	sDAT_0206AA70 = arg1;
-	sDAT_021376CC = arg2;
+	sPeekRanchBoxID = currBoxID;
+	sPeekRanchBoxPrevID = prevBoxID;
+	sPeekRanchBoxOutPtr = outBoxMons;
 }
 
 
@@ -441,15 +441,15 @@ static BOOL CheckBoxDownloadDone(void) {
 		return FALSE;
 	}
 	
-	sPeekRanchMonIndex = -1;
-	sDAT_0206AA70 = -1;
+	sPeekRanchBoxID = -1;
+	sPeekRanchBoxPrevID = -1;
 	
 	return TRUE;
 }
 
 
-BOOL MPRComm_0203C404(void) {
-	return (sPeekRanchMonIndex < 0);
+BOOL MPRComm_IsNotPeekingRanchBox(void) {
+	return (sPeekRanchBoxID < 0);
 }
 
 
@@ -461,7 +461,7 @@ void MPRComm_0203C420(int arg0, int arg1) {
 }
 
 
-BOOL MPRComm_0203C444(void) {
+BOOL MPRComm_IsWithdrawComplete(void) {
 	if (sWithdrawRanchMonIndex >= 0) {
 		return FALSE;
 	}
@@ -668,7 +668,7 @@ void MPRComm_TickSystem(void) {
 					sSharedDataBufferLen = 0;
 					responseLen = 2;
 					
-					RecvDataFromParent(12, sDAT_021376CC, BOX_DATA_SIZE, NULL);
+					RecvDataFromParent(12, sPeekRanchBoxOutPtr, BOX_DATA_SIZE, NULL);
 					
 					sClientState = 10;
 				
@@ -792,16 +792,16 @@ void MPRComm_TickSystem(void) {
 				
 				case 24:
 					if (sClientRequestedState != 2) {
-						sDAT_0206AA48 = -1;
-						sDAT_0206AA58 = -1;
-						sDAT_0206AA4C = -1;
-						sDAT_0206AA50 = -1;
-						sDAT_0206AA68 = -1;
-						sDAT_0206AA88 = -1;
-						sDAT_0206AA7C = -1;
+						sFilterSortOrder = -1;
+						sFilterSpecies   = -1;
+						sFilterType      = -1;
+						sFilterMove      = -1;
+						sFilterAbility   = -1;
+						sFilterNature    = -1;
+						sFilterMark      = -1;
 						
-						sPeekRanchMonIndex = -1;
-						sDAT_0206AA70 = -1;
+						sPeekRanchBoxID = -1;
+						sPeekRanchBoxPrevID = -1;
 						sDAT_0206AA38 = -1;
 						sWithdrawRanchMonIndex = -1;
 						sFocusedMonIndex = -1;
@@ -810,29 +810,29 @@ void MPRComm_TickSystem(void) {
 						sClientState = 2;
 						responseLen = 8;
 					
-					} else if (sDAT_0206AA48 >= 0) {
+					} else if (sFilterSortOrder >= 0) {
 						responseLen = STD_TSNPrintf(sClientSendBuffer, 0x201, "PARAMS %d %d %d %d %d %d %d",
-							sDAT_0206AA48,
-							sDAT_0206AA58,
-							sDAT_0206AA4C,
-							sDAT_0206AA50,
-							sDAT_0206AA68,
-							sDAT_0206AA88,
-							sDAT_0206AA7C
+							sFilterSortOrder,
+							sFilterSpecies,
+							sFilterType,
+							sFilterMove,
+							sFilterAbility,
+							sFilterNature,
+							sFilterMark
 						);
 						
-						sDAT_0206AA48 = -1;
-						sDAT_0206AA58 = -1;
-						sDAT_0206AA4C = -1;
-						sDAT_0206AA50 = -1;
-						sDAT_0206AA68 = -1;
-						sDAT_0206AA88 = -1;
-						sDAT_0206AA7C = -1;
+						sFilterSortOrder = -1;
+						sFilterSpecies   = -1;
+						sFilterType      = -1;
+						sFilterMove      = -1;
+						sFilterAbility   = -1;
+						sFilterNature    = -1;
+						sFilterMark      = -1;
 						
 						sClientState = 25;
 					
-					} else if (sPeekRanchMonIndex >= 0) {
-						responseLen = STD_TSNPrintf(sClientSendBuffer, 0x201, "PEEK %d %d", sPeekRanchMonIndex, sDAT_0206AA70);
+					} else if (sPeekRanchBoxID >= 0) {
+						responseLen = STD_TSNPrintf(sClientSendBuffer, 0x201, "PEEK %d %d", sPeekRanchBoxID, sPeekRanchBoxPrevID);
 						sClientState = 26;
 					
 					} else if (sWithdrawRanchMonIndex >= 0) {
@@ -867,7 +867,7 @@ void MPRComm_TickSystem(void) {
 					break;
 				
 				case 27:
-					if (MPRComm_0203C444()) {
+					if (MPRComm_IsWithdrawComplete()) {
 						sClientState = 23;
 					}
 					break;
