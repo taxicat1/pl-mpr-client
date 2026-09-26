@@ -2,6 +2,8 @@
 
 #include "mpr_client/mpr_text.h"
 
+#include "game_version.h"
+
 #include "fs/local.h"
 
 typedef struct {
@@ -15,11 +17,44 @@ typedef struct {
 	charcode_t   charBlob[];
 } StringTable;
 
+static const u8* sStringTableBinary = LOCAL_FILE(mpr_string_table_EN_bin);
+
+
+void MPRText_SetLanguage(void) {
+	static BOOL setLanguage = FALSE;
+	
+	if (!setLanguage) {
+		switch (gGameLanguage) {
+			default:
+			case LANGUAGE_ENGLISH:
+				// Default
+				break;
+			
+			case LANGUAGE_GERMAN:
+				sStringTableBinary = LOCAL_FILE(mpr_string_table_DE_bin);
+				break;
+			
+			case LANGUAGE_ITALIAN:
+				sStringTableBinary = LOCAL_FILE(mpr_string_table_IT_bin);
+				break;
+			
+			case LANGUAGE_SPANISH:
+				sStringTableBinary = LOCAL_FILE(mpr_string_table_ES_bin);
+				break;
+			
+			case LANGUAGE_FRENCH:
+				sStringTableBinary = LOCAL_FILE(mpr_string_table_FR_bin);
+				break;
+		}
+		
+		setLanguage = TRUE;
+	}
+}
 
 static inline charcode_t* GetChars(int messageID) {
-	StringTable* tbl = (StringTable*)LOCAL_FILE(mpr_string_table_bin);
+	StringTable* tbl = (StringTable*)sStringTableBinary;
 	int offset = tbl->stringEntries[messageID].offset;
-	return (charcode_t*)(LOCAL_FILE(mpr_string_table_bin) + offset);
+	return (charcode_t*)(sStringTableBinary + offset);
 }
 
 
@@ -30,7 +65,5 @@ const charcode_t* MPRText_GetChars(int messageID) {
 
 String* MPRText_CopyChars(String* dest, int messageID) {
 	String_CopyChars(dest, GetChars(messageID));
-	
-	// BUG: Returning local variable address (but this is never used)
-	return (String*)&dest;
+	return dest;
 }

@@ -44,7 +44,8 @@ static u16 sDiamondPearlUnifiedTextBankLookup[] = {
 	TEXT_BANK_DP_ABILITY_DESCRIPTIONS,
 	TEXT_BANK_DP_POKEMON_TYPE_NAMES,
 	TEXT_BANK_DP_MOVE_DESCRIPTIONS,
-	TEXT_BANK_DP_MOVE_NAMES
+	TEXT_BANK_DP_MOVE_NAMES,
+	TEXT_BANK_DP_MONTH_NAMES
 };
 
 static u16 sPlatinumUnifiedTextBankLookup[] = {
@@ -79,7 +80,8 @@ static u16 sPlatinumUnifiedTextBankLookup[] = {
 	TEXT_BANK_PT_ABILITY_DESCRIPTIONS,
 	TEXT_BANK_PT_POKEMON_TYPE_NAMES,
 	TEXT_BANK_PT_MOVE_DESCRIPTIONS,
-	TEXT_BANK_PT_MOVE_NAMES
+	TEXT_BANK_PT_MOVE_NAMES,
+	TEXT_BANK_PT_MONTH_NAMES
 };
 
 static void MemCopyEntry(charcode_t* dst, const charcode_t* src, const MessageBankEntry* entry);

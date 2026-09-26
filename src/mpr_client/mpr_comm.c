@@ -217,26 +217,7 @@ static u32 ParentRecvGetDataTransmitted(u16 port) {
 
 
 static void ParentScanCallback(WMBssDesc* wmBssDesc) {
-	if (wmBssDesc->gameInfo.ggid != MPR_GGID_JA)  {
-		return;
-	}
-	
-	sWMBssDesc.length            = wmBssDesc->length;
-	sWMBssDesc.rssi              = wmBssDesc->rssi;
-	sWMBssDesc.bssid             = wmBssDesc->bssid;
-	sWMBssDesc.ssidLength        = wmBssDesc->ssidLength;
-	sWMBssDesc.ssid              = wmBssDesc->ssid;
-	sWMBssDesc.capaInfo          = wmBssDesc->capaInfo;
-	sWMBssDesc.rateSet           = wmBssDesc->rateSet;
-	sWMBssDesc.beaconPeriod      = wmBssDesc->beaconPeriod;
-	sWMBssDesc.dtimPeriod        = wmBssDesc->dtimPeriod;
-	sWMBssDesc.channel           = wmBssDesc->channel;
-	sWMBssDesc.cfpPeriod         = wmBssDesc->cfpPeriod;
-	sWMBssDesc.cfpMaxDuration    = wmBssDesc->cfpMaxDuration;
-	sWMBssDesc.gameInfoLength    = wmBssDesc->gameInfoLength;
-	sWMBssDesc.otherElementCount = wmBssDesc->otherElementCount;
-	sWMBssDesc.gameInfo          = wmBssDesc->gameInfo;
-	
+	memcpy(&sWMBssDesc, wmBssDesc, sizeof(WMBssDesc));
 	sCommState = COMM_STATE_PARENT_CONNECT;
 }
 
@@ -287,8 +268,32 @@ void MPRComm_Init(SaveData* saveData) {
 	sDAT_0206AA94.unk_00[0] = CHAR_EOS;
 	sSaveData = saveData;
 	
+	u32 ggid;
+	switch (gGameLanguage) {
+		default:
+		case LANGUAGE_ENGLISH:
+			ggid = MPR_GGID_EN;
+			break;
+		
+		case LANGUAGE_GERMAN:
+			ggid = MPR_GGID_DE;
+			break;
+		
+		case LANGUAGE_ITALIAN:
+			ggid = MPR_GGID_IT;
+			break;
+		
+		case LANGUAGE_SPANISH:
+			ggid = MPR_GGID_ES;
+			break;
+		
+		case LANGUAGE_FRENCH:
+			ggid = MPR_GGID_FR;
+			break;
+	}
+	
 	WH_Initialize();
-	WH_SetGgid(MPR_GGID_JA);
+	WH_SetGgid(ggid);
 	
 	sCommState = COMM_STATE_PARENT_SEARCH;
 	sCommErrorFlag = FALSE;

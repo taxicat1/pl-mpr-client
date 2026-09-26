@@ -42,6 +42,7 @@ void StringTemplate_SetAbilityName(StringTemplate* stringTemplate, u32 idx, Abil
 void StringTemplate_SetItemName(StringTemplate* stringTemplate, u32 idx, u32 item);
 void StringTemplate_SetPCBoxName(StringTemplate* stringTemplate, u32 idx, const PCBoxes* pcBoxes, u32 boxIdx);
 void StringTemplate_SetMetLocationName(StringTemplate* stringTemplate, u32 idx, u32 location);
+void StringTemplate_SetMonthName(StringTemplate* stringTemplate, u32 idx, u32 month);
 void StringTemplate_Format(const StringTemplate* stringTemplate, String* dst, const String* fmtString);
 
 #endif /* MPR_STRING_TEMPLATE_H */

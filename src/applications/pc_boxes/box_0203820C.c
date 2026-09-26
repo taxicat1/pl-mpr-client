@@ -580,7 +580,7 @@ static void BoxComparison_02038A3C(BoxComparisonManager* param0, int compareMonS
 				NULL);
 			
 			for (v5 = 0; v5 < 7; v5++) {
-				String_FormatInt(param0->boxDisplayText, v6[v5], 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+				String_FormatInt(param0->boxDisplayText, v6[v5], 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 				
 				Text_AddPrinterWithParamsAndColor(
 					window,

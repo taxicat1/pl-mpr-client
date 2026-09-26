@@ -161,12 +161,22 @@ Static main
 	Object build/src/mpr_client/mpr_menu.c.o
 	Object build/src/mpr_client/mpr_save.c.o
 	
-	Object build/fs_local/mpr_string_table.bin.o
+	Object build/src/mod_detect_version.c.o
+	
+	Object build/fs_local/mpr_string_table_DE.bin.o
+	Object build/fs_local/mpr_string_table_EN.bin.o
+	Object build/fs_local/mpr_string_table_ES.bin.o
+	Object build/fs_local/mpr_string_table_FR.bin.o
+	Object build/fs_local/mpr_string_table_IT.bin.o
 	Object build/fs_local/ds_back.ncg.o
 	Object build/fs_local/ds_back.ncl.o
 	Object build/fs_local/ds_back_1.nsc.o
 	Object build/fs_local/ds_back_2.nsc.o
-	Object build/fs_local/NARC_box_m_obj.ncg.o
+	Object build/fs_local/NARC_box_m_obj_DE.ncg.o
+	Object build/fs_local/NARC_box_m_obj_EN.ncg.o
+	Object build/fs_local/NARC_box_m_obj_ES.ncg.o
+	Object build/fs_local/NARC_box_m_obj_FR.ncg.o
+	Object build/fs_local/NARC_box_m_obj_IT.ncg.o
 	Object build/fs_local/warning_bg.ncg.o
 	Object build/fs_local/warning_bg.ncl.o
 	Object build/fs_local/box_wallpaper.ncer.o

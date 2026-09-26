@@ -112,7 +112,7 @@ typedef enum {
 #define NMS_SPRITE_BUTTON_START       NMS_SPRITE_BACK_BUTTON
 #define NMS_SPRITE_BUTTON_END         NMS_SPRITE_OK_BUTTON
 #define NMS_SPRITE_PAGE_BUTTON_START  NMS_SPRITE_UPPER_BUTTON
-#define NMS_SPRITE_PAGE_BUTTON_END    NMS_SPRITE_JP_UNUSED_BUTTON // NMS_SPRITE_OTHERS_BUTTON in localized
+#define NMS_SPRITE_PAGE_BUTTON_END    NMS_SPRITE_OTHERS_BUTTON
 
 typedef enum {
 	// There are two keyboards. when transitioning, both
@@ -267,6 +267,7 @@ typedef struct {
 	int  y;
 } DpadMovement;
 
+static void NamingScreen_SetLanguage(void);
 static BOOL NamingScreen_Init(ApplicationManager* appMan, int* state);
 static BOOL NamingScreen_Main(ApplicationManager* appMan, int* state);
 static BOOL NamingScreen_Exit(ApplicationManager* appMan, int* state);
@@ -337,18 +338,10 @@ static void* NamingScreen_PrintStringOnWindowAndGetPixelBuffer(Window* window, S
 static BOOL NamingScreen_ProcessTouchInputs(NamingScreen* namingScreen);
 
 static const NamingScreenSpriteAnim sSpriteAnimations[] = {
-	// [Localized values]
 	{ .x = 0x04, .y = 0x44, .anim = 0x03, .priority = 1 },
-	
-//	{ .x = 0x24, .y = 0x44, .anim = 0x08, .priority = 1 },
-	{ .x = 0x1C, .y = 0x44, .anim = 0x08, .priority = 1 },
-	
-//	{ .x = 0x44, .y = 0x44, .anim = 0x0D, .priority = 1 },
-	{ .x = 0x34, .y = 0x44, .anim = 0x0D, .priority = 1 },
-	
-//	{ .x = 0x00, .y = 0xC8, .anim = 0x12, .priority = 1 },
-	{ .x = 0x4C, .y = 0x44, .anim = 0x12, .priority = 1 },
-	
+	{ .x = 0x24, .y = 0x44, .anim = 0x08, .priority = 1 },
+	{ .x = 0x44, .y = 0x44, .anim = 0x0D, .priority = 1 },
+	{ .x = 0x00, .y = 0xC8, .anim = 0x12, .priority = 1 },
 	{ .x = 0x65, .y = 0x44, .anim = 0x14, .priority = 1 },
 	{ .x = 0x88, .y = 0x44, .anim = 0x17, .priority = 1 },
 	{ .x = 0xB0, .y = 0x44, .anim = 0x19, .priority = 1 },
@@ -357,13 +350,12 @@ static const NamingScreenSpriteAnim sSpriteAnimations[] = {
 };
 
 static const charcode_t sHomeRowAll[] = {
-	// [English values]
 	NMS_BUTTON_PAGE_UPPER,
-	NMS_BUTTON_PAGE_LOWER,     // NMS_BUTTON_PAGE_UPPER
+	NMS_BUTTON_PAGE_UPPER,
 	NMS_BUTTON_PAGE_LOWER,
-	NMS_BUTTON_PAGE_OTHERS,    // NMS_BUTTON_PAGE_LOWER
-	NMS_BUTTON_PAGE_JP_UNUSED, // NMS_BUTTON_PAGE_OTHERS
-	NMS_BUTTON_PAGE_JP_UNUSED, // NMS_BUTTON_PAGE_OTHERS
+	NMS_BUTTON_PAGE_LOWER,
+	NMS_BUTTON_PAGE_OTHERS,
+	NMS_BUTTON_PAGE_OTHERS,
 	NMS_CONTROL_SKIP,
 	NMS_CONTROL_SKIP,
 	NMS_BUTTON_BACK,
@@ -398,10 +390,9 @@ static const charcode_t* sHomeRowLayouts[] = {
 };
 
 static const u16 sHomeRowCursorXCoords[] = {
-	// [Localized values]
 	0x19,
-	0x31, // 0x39
-	0x49, // 0x59
+	0x39,
+	0x59,
 	0x61,
 	0x7A,
 	0x9E,
@@ -420,272 +411,257 @@ static const u8 sHomeRowCursorAnimIDs[] = {
 };
 
 static const charcode_t sCharCodesUpper0[] = {
-	// [English values]
-	CHAR_HIRAGANA_A,        // CHAR_A
-	CHAR_HIRAGANA_KA,       // CHAR_B
-	CHAR_HIRAGANA_SA,       // CHAR_C
-	CHAR_HIRAGANA_TA,       // CHAR_D
-	CHAR_HIRAGANA_NA,       // CHAR_E
-	CHAR_HIRAGANA_HA,       // CHAR_F
-	CHAR_HIRAGANA_MA,       // CHAR_G
-	CHAR_HIRAGANA_YA,       // CHAR_H
-	CHAR_HIRAGANA_RA,       // CHAR_I
-	CHAR_HIRAGANA_WA,       // CHAR_J
-	CHAR_HIRAGANA_SMALL_A,  // CHAR_SPACE
-	CHAR_HIRAGANA_SMALL_YA, // CHAR_COMMA
-	NMS_CONTROL_DAKU,       // CHAR_PERIOD
+	CHAR_A,
+	CHAR_B,
+	CHAR_C,
+	CHAR_D,
+	CHAR_E,
+	CHAR_F,
+	CHAR_G,
+	CHAR_H,
+	CHAR_I,
+	CHAR_J,
+	CHAR_SPACE,
+	CHAR_COMMA,
+	CHAR_PERIOD,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesUpper1[] = {
-	// [English values]
-	CHAR_HIRAGANA_I,         // CHAR_K
-	CHAR_HIRAGANA_KI,        // CHAR_L
-	CHAR_HIRAGANA_SHI,       // CHAR_M
-	CHAR_HIRAGANA_CHI,       // CHAR_N
-	CHAR_HIRAGANA_NI,        // CHAR_O
-	CHAR_HIRAGANA_HI,        // CHAR_P
-	CHAR_HIRAGANA_MI,        // CHAR_Q
-	CHAR_HIRAGANA_YU,        // CHAR_R
-	CHAR_HIRAGANA_RI,        // CHAR_S
-	CHAR_HIRAGANA_WO,        // CHAR_T
-	CHAR_HIRAGANA_SMALL_I,   // CHAR_SPACE
-	CHAR_HIRAGANA_SMALL_YU,  // CHAR_SINGLE_QUOTE_CLOSE
-	NMS_CONTROL_HANDAKU,     // CHAR_MINUS
+	CHAR_K,
+	CHAR_L,
+	CHAR_M,
+	CHAR_N,
+	CHAR_O,
+	CHAR_P,
+	CHAR_Q,
+	CHAR_R,
+	CHAR_S,
+	CHAR_T,
+	CHAR_SPACE,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_MINUS,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesUpper2[] = {
-	// [English values]
-	CHAR_HIRAGANA_U,        // CHAR_U
-	CHAR_HIRAGANA_KU,       // CHAR_V
-	CHAR_HIRAGANA_SU,       // CHAR_W
-	CHAR_HIRAGANA_TSU,      // CHAR_X
-	CHAR_HIRAGANA_NU,       // CHAR_Y
-	CHAR_HIRAGANA_FU,       // CHAR_Z
-	CHAR_HIRAGANA_MU,       // CHAR_SPACE
-	CHAR_HIRAGANA_YO,       // CHAR_SPACE
-	CHAR_HIRAGANA_RU,       // CHAR_SPACE
-	CHAR_HIRAGANA_N,        // CHAR_SPACE
-	CHAR_HIRAGANA_SMALL_U,  // CHAR_SPACE
-	CHAR_HIRAGANA_SMALL_YO, // CHAR_MALE
-	CHAR_WIDE_MINUS,        // CHAR_FEMALE
+	CHAR_U,
+	CHAR_V,
+	CHAR_W,
+	CHAR_X,
+	CHAR_Y,
+	CHAR_Z,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesUpper3[] = {
-	// [English values]
-	CHAR_HIRAGANA_E,       // CHAR_SPACE
-	CHAR_HIRAGANA_KE,      // CHAR_SPACE
-	CHAR_HIRAGANA_SE,      // CHAR_SPACE
-	CHAR_HIRAGANA_TE,      // CHAR_SPACE
-	CHAR_HIRAGANA_NE,      // CHAR_SPACE
-	CHAR_HIRAGANA_HE,      // CHAR_SPACE
-	CHAR_HIRAGANA_ME,      // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
-	CHAR_HIRAGANA_RE,      // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
-	CHAR_HIRAGANA_SMALL_E, // CHAR_SPACE
-	CHAR_HIRAGANA_SOKUON,  // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesUpper4[] = {
-	// [English values]
-	CHAR_HIRAGANA_O,        // CHAR_0
-	CHAR_HIRAGANA_KO,       // CHAR_1
-	CHAR_HIRAGANA_SO,       // CHAR_2
-	CHAR_HIRAGANA_TO,       // CHAR_3
-	CHAR_HIRAGANA_NO,       // CHAR_4
-	CHAR_HIRAGANA_HO,       // CHAR_5
-	CHAR_HIRAGANA_MO,       // CHAR_6
-	CHAR_WIDE_SPACE,        // CHAR_7
-	CHAR_HIRAGANA_RO,       // CHAR_8
-	CHAR_WIDE_SPACE,        // CHAR_9
-	CHAR_HIRAGANA_SMALL_O,  // CHAR_SPACE
-	CHAR_WIDE_SPACE,        // CHAR_SPACE
-	CHAR_JP_PERIOD,         // CHAR_SPACE
+	CHAR_0,
+	CHAR_1,
+	CHAR_2,
+	CHAR_3,
+	CHAR_4,
+	CHAR_5,
+	CHAR_6,
+	CHAR_7,
+	CHAR_8,
+	CHAR_9,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesLower0[] = {
-	// [English values]
-	CHAR_KATAKANA_A,        // CHAR_a
-	CHAR_KATAKANA_KA,       // CHAR_b
-	CHAR_KATAKANA_SA,       // CHAR_c
-	CHAR_KATAKANA_TA,       // CHAR_d
-	CHAR_KATAKANA_NA,       // CHAR_e
-	CHAR_KATAKANA_HA,       // CHAR_f
-	CHAR_KATAKANA_MA,       // CHAR_g
-	CHAR_KATAKANA_YA,       // CHAR_h
-	CHAR_KATAKANA_RA,       // CHAR_i
-	CHAR_KATAKANA_WA,       // CHAR_j
-	CHAR_KATAKANA_SMALL_A,  // CHAR_SPACE
-	CHAR_KATAKANA_SMALL_YA, // CHAR_COMMA
-	NMS_CONTROL_DAKU,       // CHAR_PERIOD
+	CHAR_a,
+	CHAR_b,
+	CHAR_c,
+	CHAR_d,
+	CHAR_e,
+	CHAR_f,
+	CHAR_g,
+	CHAR_h,
+	CHAR_i,
+	CHAR_j,
+	CHAR_SPACE,
+	CHAR_COMMA,
+	CHAR_PERIOD,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesLower1[] = {
-	// [English values]
-	CHAR_KATAKANA_I,        // CHAR_k
-	CHAR_KATAKANA_KI,       // CHAR_l
-	CHAR_KATAKANA_SHI,      // CHAR_m
-	CHAR_KATAKANA_CHI,      // CHAR_n
-	CHAR_KATAKANA_NI,       // CHAR_o
-	CHAR_KATAKANA_HI,       // CHAR_p
-	CHAR_KATAKANA_MI,       // CHAR_q
-	CHAR_KATAKANA_YU,       // CHAR_r
-	CHAR_KATAKANA_RI,       // CHAR_s
-	CHAR_KATAKANA_WO,       // CHAR_t
-	CHAR_KATAKANA_SMALL_I,  // CHAR_SPACE
-	CHAR_KATAKANA_SMALL_YU, // CHAR_SINGLE_QUOTE_CLOSE
-	NMS_CONTROL_HANDAKU,    // CHAR_MINUS
+	CHAR_k,
+	CHAR_l,
+	CHAR_m,
+	CHAR_n,
+	CHAR_o,
+	CHAR_p,
+	CHAR_q,
+	CHAR_r,
+	CHAR_s,
+	CHAR_t,
+	CHAR_SPACE,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_MINUS,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesLower2[] = {
-	// [English values]
-	CHAR_KATAKANA_U,        // CHAR_u
-	CHAR_KATAKANA_KU,       // CHAR_v
-	CHAR_KATAKANA_SU,       // CHAR_w
-	CHAR_KATAKANA_TSU,      // CHAR_x
-	CHAR_KATAKANA_NU,       // CHAR_y
-	CHAR_KATAKANA_FU,       // CHAR_z
-	CHAR_KATAKANA_MU,       // CHAR_SPACE
-	CHAR_KATAKANA_YO,       // CHAR_SPACE
-	CHAR_KATAKANA_RU,       // CHAR_SPACE
-	CHAR_KATAKANA_N,        // CHAR_SPACE
-	CHAR_KATAKANA_SMALL_U,  // CHAR_SPACE
-	CHAR_KATAKANA_SMALL_YO, // CHAR_MALE
-	CHAR_WIDE_MINUS,        // CHAR_FEMALE
+	CHAR_u,
+	CHAR_v,
+	CHAR_w,
+	CHAR_x,
+	CHAR_y,
+	CHAR_z,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesLower3[] = {
-	// [English values]
-	CHAR_KATAKANA_E,       // CHAR_SPACE
-	CHAR_KATAKANA_KE,      // CHAR_SPACE
-	CHAR_KATAKANA_SE,      // CHAR_SPACE
-	CHAR_KATAKANA_TE,      // CHAR_SPACE
-	CHAR_KATAKANA_NE,      // CHAR_SPACE
-	CHAR_KATAKANA_HE,      // CHAR_SPACE
-	CHAR_KATAKANA_ME,      // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
-	CHAR_KATAKANA_RE,      // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
-	CHAR_KATAKANA_SMALL_E, // CHAR_SPACE
-	CHAR_KATAKANA_SOKUON,  // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesLower4[] = {
-	// [English values]
-	CHAR_KATAKANA_O,       // CHAR_0
-	CHAR_KATAKANA_KO,      // CHAR_1
-	CHAR_KATAKANA_SO,      // CHAR_2
-	CHAR_KATAKANA_TO,      // CHAR_3
-	CHAR_KATAKANA_NO,      // CHAR_4
-	CHAR_KATAKANA_HO,      // CHAR_5
-	CHAR_KATAKANA_MO,      // CHAR_6
-	CHAR_WIDE_SPACE,       // CHAR_7
-	CHAR_KATAKANA_RO,      // CHAR_8
-	CHAR_WIDE_SPACE,       // CHAR_9
-	CHAR_KATAKANA_SMALL_O, // CHAR_SPACE
-	CHAR_WIDE_SPACE,       // CHAR_SPACE
-	CHAR_JP_PERIOD,        // CHAR_SPACE
+	CHAR_0,
+	CHAR_1,
+	CHAR_2,
+	CHAR_3,
+	CHAR_4,
+	CHAR_5,
+	CHAR_6,
+	CHAR_7,
+	CHAR_8,
+	CHAR_9,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesOthers0[] = {
-	// [English values]
-	CHAR_WIDE_A, // CHAR_COMMA
-	CHAR_WIDE_B, // CHAR_PERIOD
-	CHAR_WIDE_C, // CHAR_COLON
-	CHAR_WIDE_D, // CHAR_SEMICOLON
-	CHAR_WIDE_E, // CHAR_EXCLAMATION
-	CHAR_WIDE_F, // CHAR_QUESTION
-	CHAR_WIDE_G, // CHAR_SPACE
-	CHAR_WIDE_H, // CHAR_SPACE
-	CHAR_WIDE_I, // CHAR_SPACE
-	CHAR_WIDE_J, // CHAR_MALE
-	CHAR_WIDE_K, // CHAR_FEMALE
-	CHAR_WIDE_L, // CHAR_SPACE
-	CHAR_WIDE_M, // CHAR_SPACE
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_EXCLAMATION,
+	CHAR_QUESTION,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesOthers1[] = {
-	// [English values]
-	CHAR_WIDE_N, // CHAR_DOUBLE_QUOTE_OPEN
-	CHAR_WIDE_O, // CHAR_DOUBLE_QUOTE_CLOSE
-	CHAR_WIDE_P, // CHAR_SINGLE_QUOTE_OPEN
-	CHAR_WIDE_Q, // CHAR_SINGLE_QUOTE_CLOSE
-	CHAR_WIDE_R, // CHAR_PAREN_OPEN
-	CHAR_WIDE_S, // CHAR_PAREN_CLOSE
-	CHAR_WIDE_T, // CHAR_SPACE
-	CHAR_WIDE_U, // CHAR_SPACE
-	CHAR_WIDE_V, // CHAR_SPACE
-	CHAR_WIDE_W, // CHAR_SPACE
-	CHAR_WIDE_X, // CHAR_SPACE
-	CHAR_WIDE_Y, // CHAR_SPACE
-	CHAR_WIDE_Z, // CHAR_SPACE
+	CHAR_DOUBLE_QUOTE_OPEN,
+	CHAR_DOUBLE_QUOTE_CLOSE,
+	CHAR_SINGLE_QUOTE_OPEN,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_PAREN_OPEN,
+	CHAR_PAREN_CLOSE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesOthers2[] = {
-	// [English values]
-	CHAR_WIDE_a, // CHAR_ELLIPSIS
-	CHAR_WIDE_b, // CHAR_DOT
-	CHAR_WIDE_c, // CHAR_TILDE
-	CHAR_WIDE_d, // CHAR_AT_SIGN
-	CHAR_WIDE_e, // CHAR_HASH
-	CHAR_WIDE_f, // CHAR_PERCENT
-	CHAR_WIDE_g, // CHAR_PLUS
-	CHAR_WIDE_h, // CHAR_MINUS
-	CHAR_WIDE_i, // CHAR_ASTERISK
-	CHAR_WIDE_j, // CHAR_SLASH
-	CHAR_WIDE_k, // CHAR_EQUALS
-	CHAR_WIDE_l, // CHAR_SPACE
-	CHAR_WIDE_m, // CHAR_SPACE
+	CHAR_ELLIPSIS,
+	CHAR_DOT,
+	CHAR_TILDE,
+	CHAR_AT_SIGN,
+	CHAR_HASH,
+	CHAR_PERCENT,
+	CHAR_PLUS,
+	CHAR_MINUS,
+	CHAR_ASTERISK,
+	CHAR_SLASH,
+	CHAR_EQUALS,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesOthers3[] = {
-	// [English values]
-	CHAR_WIDE_n, // CHAR_DOUBLE_CIRCLE
-	CHAR_WIDE_o, // CHAR_CIRCLE
-	CHAR_WIDE_p, // CHAR_SQUARE
-	CHAR_WIDE_q, // CHAR_TRIANGLE
-	CHAR_WIDE_r, // CHAR_DIAMOND_OPEN
-	CHAR_WIDE_s, // CHAR_SPADE
-	CHAR_WIDE_t, // CHAR_HEART
-	CHAR_WIDE_u, // CHAR_DIAMOND
-	CHAR_WIDE_v, // CHAR_CLUB
-	CHAR_WIDE_w, // CHAR_STAR
-	CHAR_WIDE_x, // CHAR_EIGHT_NOTE
-	CHAR_WIDE_y, // CHAR_SPACE
-	CHAR_WIDE_z, // CHAR_SPACE
+	CHAR_DOUBLE_CIRCLE,
+	CHAR_CIRCLE,
+	CHAR_SQUARE,
+	CHAR_TRIANGLE,
+	CHAR_DIAMOND_OPEN,
+	CHAR_SPADE,
+	CHAR_HEART,
+	CHAR_DIAMOND,
+	CHAR_CLUB,
+	CHAR_STAR,
+	CHAR_EIGHT_NOTE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
 static const charcode_t sCharCodesOthers4[] = {
-	// [English values]
-	CHAR_WIDE_0,      // CHAR_SUN
-	CHAR_WIDE_1,      // CHAR_CLOUD
-	CHAR_WIDE_2,      // CHAR_UMBRELLA
-	CHAR_WIDE_3,      // CHAR_SILHOUETTE
-	CHAR_WIDE_4,      // CHAR_EMOTE_SMILE
-	CHAR_WIDE_5,      // CHAR_EMOTE_LAUGH
-	CHAR_WIDE_6,      // CHAR_EMOTE_UPSET
-	CHAR_WIDE_7,      // CHAR_EMOTE_FROWN
-	CHAR_WIDE_8,      // CHAR_ZZZ
-	CHAR_WIDE_9,      // CHAR_ARROW_CURVE_UP
-	CHAR_WIDE_PERIOD, // CHAR_ARROW_CURVE_DOWN
-	CHAR_WIDE_COMMA,  // CHAR_SPACE
-	CHAR_WIDE_SPACE,  // CHAR_SPACE
+	CHAR_SUN,
+	CHAR_CLOUD,
+	CHAR_UMBRELLA,
+	CHAR_SILHOUETTE,
+	CHAR_EMOTE_SMILE,
+	CHAR_EMOTE_LAUGH,
+	CHAR_EMOTE_UPSET,
+	CHAR_EMOTE_FROWN,
+	CHAR_ZZZ,
+	CHAR_ARROW_CURVE_UP,
+	CHAR_ARROW_CURVE_DOWN,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
@@ -775,12 +751,11 @@ static const charcode_t sCharCodesJpMisc4[] = {
 };
 
 static const charcode_t sCharCodesNumpad0[] = {
-	// [English values]
-	CHAR_WIDE_0,     // CHAR_0
-	CHAR_WIDE_1,     // CHAR_1
-	CHAR_WIDE_2,     // CHAR_2
-	CHAR_WIDE_3,     // CHAR_3
-	CHAR_WIDE_4,     // CHAR_4
+	CHAR_0,
+	CHAR_1,
+	CHAR_2,
+	CHAR_3,
+	CHAR_4,
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
@@ -797,12 +772,11 @@ static const charcode_t sCharCodesNumpad0[] = {
 };
 
 static const charcode_t sCharCodesNumpad1[] = {
-	// [English values]
-	CHAR_WIDE_5,     // CHAR_5
-	CHAR_WIDE_6,     // CHAR_6
-	CHAR_WIDE_7,     // CHAR_7
-	CHAR_WIDE_8,     // CHAR_8
-	CHAR_WIDE_9,     // CHAR_9
+	CHAR_5,
+	CHAR_6,
+	CHAR_7,
+	CHAR_8,
+	CHAR_9,
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
@@ -836,6 +810,278 @@ static const charcode_t sCharCodesNumpad345[] = {
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
 	CHAR_WIDE_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesUpper3_DE[] = {
+	CHAR_A_DIERESIS,
+	CHAR_O_DIERSIS,
+	CHAR_U_DIERESIS,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesLower3_DE[] = {
+	CHAR_a_DIERESIS,
+	CHAR_o_DIERSIS,
+	CHAR_u_DIERESIS,
+	CHAR_ESZETT,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther0_DE[] = {
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_EXCLAMATION,
+	CHAR_QUESTION,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther1_DE[] = {
+	CHAR_DOUBLE_QUOTE_OPEN,
+	CHAR_DOUBLE_QUOTE_CLOSE_INVERTED,
+	CHAR_DOUBLE_QUOTE_CLOSE,
+	CHAR_SINGLE_QUOTE_OPEN,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_PAREN_OPEN,
+	CHAR_PAREN_CLOSE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesUpper3_IT[] = {
+	CHAR_A_GRAVE,
+	CHAR_E_ACUTE,
+	CHAR_E_GRAVE,
+	CHAR_I_GRAVE,
+	CHAR_O_GRAVE,
+	CHAR_U_GRAVE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesLower3_IT[] = {
+	CHAR_a_GRAVE,
+	CHAR_e_ACUTE,
+	CHAR_e_GRAVE,
+	CHAR_i_GRAVE,
+	CHAR_o_GRAVE,
+	CHAR_u_GRAVE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther0_IT[] = {
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_EXCLAMATION,
+	CHAR_QUESTION,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther1_IT[] = {
+	CHAR_DOUBLE_QUOTE_OPEN,
+	CHAR_DOUBLE_QUOTE_CLOSE,
+	CHAR_SINGLE_QUOTE_OPEN,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_PAREN_OPEN,
+	CHAR_PAREN_CLOSE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesUpper3_ES[] = {
+	CHAR_A_ACUTE,
+	CHAR_E_ACUTE,
+	CHAR_I_ACUTE,
+	CHAR_N_TILDE,
+	CHAR_O_ACUTE,
+	CHAR_U_ACUTE,
+	CHAR_U_DIERESIS,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesLower3_ES[] = {
+	CHAR_a_ACUTE,
+	CHAR_e_ACUTE,
+	CHAR_i_ACUTE,
+	CHAR_n_TILDE,
+	CHAR_o_ACUTE,
+	CHAR_u_ACUTE,
+	CHAR_u_DIERESIS,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther0_ES[] = {
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_EXCLAMATION,
+	CHAR_QUESTION,
+	CHAR_EXCLAMATION_INVERTED,
+	CHAR_QUESTION_INVERTED,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther1_ES[] = {
+	CHAR_DOUBLE_QUOTE_OPEN,
+	CHAR_DOUBLE_QUOTE_CLOSE,
+	CHAR_SINGLE_QUOTE_OPEN,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_PAREN_OPEN,
+	CHAR_PAREN_CLOSE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesUpper3_FR[] = {
+	CHAR_A_GRAVE,
+	CHAR_C_OGONEK,
+	CHAR_E_ACUTE,
+	CHAR_E_GRAVE,
+	CHAR_U_GRAVE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesLower3_FR[] = {
+	CHAR_a_GRAVE,
+	CHAR_a_CIRCUMFLEX,
+	CHAR_c_OGONEK,
+	CHAR_e_ACUTE,
+	CHAR_e_GRAVE,
+	CHAR_e_CIRCUMFLEX,
+	CHAR_e_DIERESIS,
+	CHAR_i_CIRCUMFLEX,
+	CHAR_i_DIERESIS,
+	CHAR_o_CIRCUMFLEX,
+	CHAR_u_GRAVE,
+	CHAR_u_CIRCUMFLEX,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther0_FR[] = {
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_EXCLAMATION,
+	CHAR_QUESTION,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_MALE,
+	CHAR_FEMALE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_EOS
+};
+
+static const charcode_t sCharCodesOther1_FR[] = {
+	CHAR_DOUBLE_PAREN_OPEN,
+	CHAR_DOUBLE_PAREN_CLOSE,
+	CHAR_DOUBLE_QUOTE_OPEN,
+	CHAR_DOUBLE_QUOTE_CLOSE,
+	CHAR_SINGLE_QUOTE_OPEN,
+	CHAR_SINGLE_QUOTE_CLOSE,
+	CHAR_PAREN_OPEN,
+	CHAR_PAREN_CLOSE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
+	CHAR_SPACE,
 	CHAR_EOS
 };
 
@@ -1077,6 +1323,54 @@ const ApplicationManagerTemplate gNamingScreenAppTemplate = {
 static NamingScreen* sNamingScreenDummy;
 
 
+void NamingScreen_SetLanguage(void) {
+	static BOOL languageSet = FALSE;
+	
+	if (!languageSet) {
+		const charcode_t** upper3 = &sCharCodes[0][3];
+		const charcode_t** lower3 = &sCharCodes[1][3];
+		const charcode_t** other0 = &sCharCodes[2][0];
+		const charcode_t** other1 = &sCharCodes[2][1];
+		
+		switch (gGameLanguage) {
+			default:
+			case LANGUAGE_ENGLISH:
+				// Default
+				break;
+			
+			case LANGUAGE_GERMAN:
+				*upper3 = sCharCodesUpper3_DE;
+				*lower3 = sCharCodesLower3_DE;
+				*other0 = sCharCodesOther0_DE;
+				*other1 = sCharCodesOther1_DE;
+				break;
+			
+			case LANGUAGE_ITALIAN:
+				*upper3 = sCharCodesUpper3_IT;
+				*lower3 = sCharCodesLower3_IT;
+				*other0 = sCharCodesOther0_IT;
+				*other1 = sCharCodesOther1_IT;
+				break;
+			
+			case LANGUAGE_SPANISH:
+				*upper3 = sCharCodesUpper3_ES;
+				*lower3 = sCharCodesLower3_ES;
+				*other0 = sCharCodesOther0_ES;
+				*other1 = sCharCodesOther1_ES;
+				break;
+			
+			case LANGUAGE_FRENCH:
+				*upper3 = sCharCodesUpper3_FR;
+				*lower3 = sCharCodesLower3_FR;
+				*other0 = sCharCodesOther0_FR;
+				*other1 = sCharCodesOther1_FR;
+				break;
+		}
+		
+		languageSet = TRUE;
+	}
+}
+
 static BOOL NamingScreen_Init(ApplicationManager* appMan, int* state) {
 	NamingScreen* namingScreen;
 	
@@ -1108,6 +1402,7 @@ static BOOL NamingScreen_Init(ApplicationManager* appMan, int* state) {
 			namingScreen->battleStringsMsgLoader = MessageLoader_Init(MSG_LOADER_LOAD_ON_DEMAND, narc, TEXT_BANK_UNIFIED_BATTLE_STRINGS, HEAP_ID_NAMING_SCREEN_APP);
 			
 			SetAutorepeat(4, 8);
+			NamingScreen_SetLanguage();
 			NamingScreen_InitGraphicsBanks();
 			NamingScreen_InitBgs(namingScreen->bgConfig);
 			NamingScreen_CopyParamsFromArgs(namingScreen, (NamingScreenArgs*)ApplicationManager_GetArgs(appMan));
@@ -1305,7 +1600,7 @@ static NamingScreenAppState NamingScreen_ProcessInputs(NamingScreen* namingScree
 			namingScreen->state.changeChars = CC_STATE_LOAD_GRAPHICS;
 			namingScreen->currentCharsIdx++;
 			
-			if (namingScreen->currentCharsIdx > 3) {
+			if (namingScreen->currentCharsIdx >= 3) {
 				namingScreen->currentCharsIdx = 0;
 			}
 			
@@ -1387,8 +1682,7 @@ static BOOL NamingScreen_IsRawStringAllSpaces(charcode_t* rawChars) {
 			break;
 		}
 		
-		// NOTE: should be CHAR_SPACE for localization
-		if (rawChars[i] != CHAR_WIDE_SPACE) {
+		if (rawChars[i] != CHAR_SPACE) {
 			isAllSpaces = FALSE;
 		}
 	}
@@ -3332,19 +3626,10 @@ static void NamingScreen_PlaceCursorSprite(NamingScreen* namingScreen) {
 
 
 static const NamingScreenTouchHitbox sTouchHitboxes[] = {
-	// [Localized values]
-	
 	{ .x = 0x19, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x0, .cursorY = 0x0 },
-	
-//	{ .x = 0x39, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x2, .cursorY = 0x0 },
-	{ .x = 0x31, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x1, .cursorY = 0x0 },
-	
-//	{ .x = 0x59, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x4, .cursorY = 0x0 },
-	{ .x = 0x49, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x3, .cursorY = 0x0 },
-	
-//	{ .x = 0x00, .y = 0xC0, .sizeParam = 0x0, .cursorX = 0x4, .cursorY = 0x0 },
-	{ .x = 0x61, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x4, .cursorY = 0x0 },
-	
+	{ .x = 0x39, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x2, .cursorY = 0x0 },
+	{ .x = 0x59, .y = 0x3C, .sizeParam = 0x0, .cursorX = 0x4, .cursorY = 0x0 },
+	{ .x = 0x00, .y = 0xC0, .sizeParam = 0x0, .cursorX = 0x4, .cursorY = 0x0 },
 	{ .x = 0x9D, .y = 0x3C, .sizeParam = 0x1, .cursorX = 0x8, .cursorY = 0x0 },
 	{ .x = 0xC5, .y = 0x3C, .sizeParam = 0x1, .cursorX = 0xB, .cursorY = 0x0 },
 	{ .x = 0x1C, .y = 0x58, .sizeParam = 0x2, .cursorX = 0x0, .cursorY = 0x1 },
@@ -3432,7 +3717,7 @@ static BOOL NamingScreen_ProcessTouchInputs(NamingScreen* namingScreen) {
 			
 			switch (sTouchHitboxes[i].sizeParam) {
 				case 0:
-					dx = 24 - 1;
+					dx = 32 - 1;
 					dy = 22;
 					break;
 				

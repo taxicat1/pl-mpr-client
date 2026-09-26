@@ -18,16 +18,12 @@ RSF               := rom.rsf
 LSF               := main.lsf
 LCFTEMPLATE       := ARM9-TS.lcf.template
 RESPONSETEMPLATE  := mwldarm.response.template
-COMPARESHA        := rom.sha1
-
-# Key to create the signature is unavailable, so use a prebuilt signature binary
-SIG               := signature.bin
 
 
 # Build artifacts
 # ---------------
 
-SRLNAME    := Rom-client.JPN.srl
+SRLNAME    := Rom-client.EUR.srl
 BUILDDIR   := build
 SRL        := $(BUILDDIR)/$(SRLNAME)
 ELF        := $(BUILDDIR)/main.elf
@@ -51,7 +47,7 @@ endif
 # Tools
 # -----
 
-MWCCARMVER  := 2.0/sp2p2
+MWCCARMVER  := dsi/1.6sp2
 MWCCARMDIR  := tools/mwccarm/$(MWCCARMVER)
 MWCC        := $(WINE) $(MWCCARMDIR)/mwccarm.exe -lang=c99
 MWCXX       := $(WINE) $(MWCCARMDIR)/mwccarm.exe -lang=c++
@@ -65,12 +61,14 @@ MAKELCF     := $(WINE) $(SDKTOOLDIR)/makelcf.exe
 COMPSTATIC  := $(WINE) $(SDKTOOLDIR)/compstatic.exe
 MAKEROM     := $(WINE) $(SDKTOOLDIR)/makerom.exe
 
+PY      := py
+FIXCRC  := $(PY) tools/fix_crc.py
+
 SED         := sed
 CP          := cp
 TOUCH       := touch
 MKDIR       := mkdir
 RM          := rm -rf
-SHA1SUM     := sha1sum
 FIND        := find
 
 
@@ -86,7 +84,6 @@ endef
 # Makefile flags
 # --------------
 
-COMPARE  ?= 1
 VERBOSE  ?= 0
 
 ifeq ($(VERBOSE),1)
@@ -158,17 +155,15 @@ clean:
 # SRL rules
 # ---------
 
-$(SRL): $(OBJS) $(SBINLZ) $(RSF) $(SIG)
+$(SRL): $(OBJS) $(SBINLZ) $(RSF)
 	@echo "  MAKEROM"
 	$(V)$(MAKEROM) $(RSF) $@
 	
 	@echo "  ATTACHSIGN"
-	$(V)$(ATTACHSIGN) $(SRL) $(SIG) $(SRL)
+	$(V)$(ATTACHSIGN) -D $(SRL) $(SRL)
 	
-ifeq ($(COMPARE),1)
-	@echo "  COMPARE"
-	$(V)$(SHA1SUM) -c $(COMPARESHA)
-endif
+	@echo "  FIXCRC"
+	$(V)$(FIXCRC) $(SRL)
 
 $(SBINLZ): $(ELF)
 	@echo "  COMPSTATIC"

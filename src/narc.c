@@ -4,54 +4,91 @@
 #include "narc.h"
 
 #include "assert.h"
-#include "constants/versions.h"
+#include "game_version.h"
 #include "heap.h"
 
 #include "fs/narc_dp_fname.dat" // sNarcDPPaths
 #include "fs/narc_pt_fname.dat" // sNarcPtPaths
 
-const char** sNarcCurrentPaths = sNarcDPPaths;
+char** sNarcCurrentPaths = sNarcDPPaths;
+
+#define NARC_LIST_TERMINATOR  ((NarcID)(-1))
+
+typedef struct {
+	NarcID  narc;
+	char*   path;
+} NarcPathReplacement;
+
+static NarcPathReplacement sNonEnglishNarcsDP[] = {
+	{ NARC_INDEX_DP_BATTLE__GRAPHIC__B_PLIST_GRA,        "resource/XXX/b_plist/b_plist_gra.narc"             },
+	{ NARC_INDEX_DP_GRAPHIC__BAG_GRA,                    "resource/XXX/bag/bag_gra.narc"                     },
+	{ NARC_INDEX_DP_BATTLE__GRAPHIC__BATT_OBJ,           "resource/XXX/battle_graphic/batt_obj.narc"         },
+	{ NARC_INDEX_DP_GRAPHIC__BOX,                        "resource/XXX/box/box.narc"                         },
+	{ NARC_INDEX_DP_CONTEST__GRAPHIC__CONTEST_BG,        "resource/XXX/contest_graphic/contest_bg.narc"      },
+	{ NARC_INDEX_DP_CONTEST__GRAPHIC__CONTEST_OBJ,       "resource/XXX/contest_graphic/contest_obj.narc"     },
+	{ NARC_INDEX_DP_GRAPHIC__IMAGECLIP,                  "resource/XXX/dress_up_graphic/imageclip.narc"      },
+	{ NARC_INDEX_DP_GRAPHIC__MYSTERY,                    "resource/XXX/mysterycard/mystery.narc"             },
+	{ NARC_INDEX_DP_DATA__NAMEIN,                        "resource/XXX/nameinput/namein.narc"                },
+	{ NARC_INDEX_DP_GRAPHIC__NUTMIXER,                   "resource/XXX/nutmixer/nutmixer.narc"               },
+	{ NARC_INDEX_DP_DEMO__TITLE__OP_DEMO,                "resource/XXX/opening_demo/op_demo.narc"            },
+	{ NARC_INDEX_DP_GRAPHIC__PST_GRA,                    "resource/XXX/p_status/pst_gra.narc"                },
+	{ NARC_INDEX_DP_GRAPHIC__PLIST_GRA,                  "resource/XXX/pokelist/plist_gra.narc"              },
+	{ NARC_INDEX_DP_FIELDDATA__POKEMON_TRADE__FLD_TRADE, "resource/XXX/pokemon_trade/fld_trade.narc"         },
+	{ NARC_INDEX_DP_GRAPHIC__POKETCH,                    "resource/XXX/poketch/poketch.narc"                 },
+	{ NARC_INDEX_DP_DATA__SLOT,                          "resource/XXX/slot/slot.narc"                       },
+	{ NARC_INDEX_DP_DEMO__TITLE__TITLEDEMO,              "resource/XXX/title/titledemo.narc"                 },
+	{ NARC_INDEX_DP_GRAPHIC__TOUCH_SUBWINDOW,            "resource/XXX/touch_subwindow/touch_subwindow.narc" },
+	{ NARC_INDEX_DP_GRAPHIC__TRAINER_CASE,               "resource/XXX/trainer_case/trainer_case.narc"       },
+	{ NARC_INDEX_DP_BATTLE__GRAPHIC__VS_DEMO_GRA,        "resource/XXX/vs_demo/vs_demo_gra.narc"             },
+	
+	// Already in resource/eng/, only need to format the region code without supplying a new path
+	{ NARC_INDEX_DP_GRAPHIC__ZUKAN, NULL },
+	
+	{ NARC_LIST_TERMINATOR }
+};
+
+static NarcPathReplacement sNonEnglishNarcsPt[] = {
+	{ NARC_INDEX_PL_BATTLE__GRAPHIC__PL_B_PLIST_GRA,     "resource/XXX/b_plist/pl_b_plist_gra.narc"          },
+	{ NARC_INDEX_PL_GRAPHIC__PL_BAG_GRA,                 "resource/XXX/bag/pl_bag_gra.narc"                  },
+	{ NARC_INDEX_PL_BATTLE__GRAPHIC__PL_BATT_OBJ,        "resource/XXX/battle_graphic/pl_batt_obj.narc"      },
+	{ NARC_INDEX_PL_GRAPHIC__BOX,                        "resource/XXX/box/box.narc"                         },
+	{ NARC_INDEX_PL_CONTEST__GRAPHIC__CONTEST_BG,        "resource/XXX/contest_graphic/contest_bg.narc"      },
+	{ NARC_INDEX_PL_CONTEST__GRAPHIC__CONTEST_OBJ,       "resource/XXX/contest_graphic/contest_obj.narc"     },
+	{ NARC_INDEX_PL_GRAPHIC__IMAGECLIP,                  "resource/XXX/dress_up_graphic/imageclip.narc"      },
+	{ NARC_INDEX_PL_GRAPHIC__MYSTERY,                    "resource/XXX/mysterycard/mystery.narc"             },
+	{ NARC_INDEX_PL_DATA__NAMEIN,                        "resource/XXX/nameinput/namein.narc"                },
+	{ NARC_INDEX_PL_GRAPHIC__NUTMIXER,                   "resource/XXX/nutmixer/nutmixer.narc"               },
+	{ NARC_INDEX_PL_DEMO__TITLE__OP_DEMO,                "resource/XXX/opening_demo/op_demo.narc"            },
+	{ NARC_INDEX_PL_GRAPHIC__PL_PST_GRA,                 "resource/XXX/p_status/pl_pst_gra.narc"             },
+	{ NARC_INDEX_PL_GRAPHIC__PL_PLIST_GRA,               "resource/XXX/pokelist/pl_plist_gra.narc"           },
+	{ NARC_INDEX_PL_FIELDDATA__POKEMON_TRADE__FLD_TRADE, "resource/XXX/pokemon_trade/fld_trade.narc"         },
+	{ NARC_INDEX_PL_GRAPHIC__POKETCH,                    "resource/XXX/poketch/poketch.narc"                 },
+	{ NARC_INDEX_PL_DATA__SLOT,                          "resource/XXX/slot/slot.narc"                       },
+	{ NARC_INDEX_PL_DEMO__TITLE__TITLEDEMO,              "resource/XXX/title/titledemo.narc"                 },
+	{ NARC_INDEX_PL_GRAPHIC__TOUCH_SUBWINDOW,            "resource/XXX/touch_subwindow/touch_subwindow.narc" },
+	{ NARC_INDEX_PL_GRAPHIC__TRAINER_CASE,               "resource/XXX/trainer_case/trainer_case.narc"       },
+	{ NARC_INDEX_PL_BATTLE__GRAPHIC__VS_DEMO_GRA,        "resource/XXX/vs_demo/vs_demo_gra.narc"             },
+	
+	// Already in resource/eng/, only need to format the region code without supplying a new path
+	{ NARC_INDEX_PL_ARC__BATT_REC_GRA,               NULL },
+	{ NARC_INDEX_PL_FRONTIER__GRAPHIC__FRONTIER_BG,  NULL },
+	{ NARC_INDEX_PL_FRONTIER__GRAPHIC__FRONTIER_OBJ, NULL },
+	{ NARC_INDEX_PL_ARC__PMS_AIKOTOBA,               NULL },
+	{ NARC_INDEX_PL_GRAPHIC__SCRATCH,                NULL },
+	{ NARC_INDEX_PL_GRAPHIC__WLMNGM_TOOL,            NULL },
+	{ NARC_INDEX_PL_GRAPHIC__ZUKAN,                  NULL },
+	
+	{ NARC_LIST_TERMINATOR }
+};
 
 static const char* NarcIDToFilePath(NarcID narcID);
-static BOOL VersionTolerantOpenFile(FSFile* file, const char* path);
 static void ReadFromNarcMemberByPathAndIndex(void* dest, const char* path, int memberIndex, int offset, int bytesToRead);
 static void* AllocAndReadFromNarcMemberByPathAndIndex(const char* path, int memberIndex, HeapID heapID, int offset, int bytesToRead, BOOL allocAtEnd);
+static void NarcPathFormatLanguage(char* path);
 
 
 static const char* NarcIDToFilePath(NarcID narcID) {
-	switch (narcID) {
-		case NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL:
-		case NARC_INDEX_DP_POKETOOL__POKEGRA__POKEGRA:
-		case NARC_INDEX_DP_GRAPHIC__BAG_GRA:
-		case NARC_INDEX_DP_POKETOOL__ICONGRA__POKE_ICON:
-		case NARC_INDEX_DP_GRAPHIC__PLIST_GRA:
-		case NARC_INDEX_DP_MSGDATA__MSG:
-		case NARC_INDEX_DP_BATTLE__GRAPHIC__BATT_OBJ:
-		case NARC_INDEX_DP_POKETOOL__POKEANM__POKEANM:
-		case NARC_INDEX_DP_POKETOOL__POKEGRA__OTHERPOKE:
-		case NARC_INDEX_PL_POKETOOL__POKE_EDIT__PL_POKE_DATA:
-			return sNarcCurrentPaths[narcID];
-		
-		default:
-			return sNarcDPPaths[narcID];
-	}
-}
-
-
-static BOOL VersionTolerantOpenFile(FSFile* file, const char* path) {
-	if (FS_OpenFile(file, path)) {
-		return TRUE;
-	}
-	
-	if (strcmp(path, "poketool/personal/personal.narc") == 0) {
-		return FS_OpenFile(file, "poketool/personal_pearl/personal.narc");
-	}
-	
-	if (strcmp(path, "graphic/zukan.narc") != 0) {
-		return FALSE;
-	}
-	
-	return FS_OpenFile(file, "resource/eng/zukan/zukan.narc");
+	return sNarcCurrentPaths[narcID];
 }
 
 
@@ -66,10 +103,7 @@ static void ReadFromNarcMemberByPathAndIndex(void* dest, const char* path, int m
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, path);
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, path);
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -119,10 +153,7 @@ static void* AllocAndReadFromNarcMemberByPathAndIndex(const char* path, int memb
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, path);
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, path);
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -197,10 +228,7 @@ u16 NARC_GetFileCountByIndex(NarcID narcID, BOOL unused) {
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, NarcIDToFilePath(narcID));
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, NarcIDToFilePath(narcID));
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -211,7 +239,7 @@ u16 NARC_GetFileCountByIndex(NarcID narcID, BOOL unused) {
 	FS_ReadFile(&file, &btafStart, 4);
 	FS_ReadFile(&file, &fileCount, 2);
 	
-	// Bug: file is never closed!
+	FS_CloseFile(&file);
 	return fileCount;
 }
 
@@ -227,10 +255,7 @@ u32 NARC_GetMemberSizeByIndexPair(NarcID narcID, int memberIndex) {
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, NarcIDToFilePath(narcID));
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, NarcIDToFilePath(narcID));
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &chunkSize, 2);
@@ -258,7 +283,8 @@ u32 NARC_GetMemberSizeByIndexPair(NarcID narcID, int memberIndex) {
 	chunkSize = fileEnd - fileStart;
 	
 	GF_ASSERT(chunkSize != 0);
-	// BUG: file is never closed
+	
+	FS_CloseFile(&file);
 	
 	return chunkSize;
 }
@@ -273,10 +299,7 @@ NARC* NARC_ctor(NarcID narcID, HeapID heapID) {
 		narc->fatbStart = 0;
 		
 		FS_InitFile(&narc->file);
-		VersionTolerantOpenFile(&narc->file, NarcIDToFilePath(narcID));
-		if (!FS_IsFile(&narc->file)) {
-			// ?
-		}
+		FS_OpenFile(&narc->file, NarcIDToFilePath(narcID));
 		
 		FS_SeekFile(&narc->file, 12, FS_SEEK_SET);
 		FS_ReadFile(&narc->file, &narc->fatbStart, 2);
@@ -314,20 +337,100 @@ void NARC_ReadFromMember(NARC* narc, int memberIndex, u32 offset, u32 bytesToRea
 }
 
 
-void NARC_SetVersion(u8 gameVersion) {
-	switch (gameVersion) {
-		case VERSION_DIAMOND:
-			sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal/personal.narc";
-			sNarcCurrentPaths = sNarcDPPaths;
+static void NarcPathFormatLanguage(char* path) {
+	char a, b, c;
+	
+	switch (gGameLanguage) {
+		case LANGUAGE_ENGLISH:
+			a = 'e', b = 'n', c = 'g';
 			break;
 		
-		case VERSION_PEARL:
-			sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal_pearl/personal.narc";
-			sNarcCurrentPaths = sNarcDPPaths;
+		case LANGUAGE_GERMAN:
+			a = 'g', b = 'e', c = 'r';
 			break;
 		
-		case VERSION_PLATINUM:
-			sNarcCurrentPaths = sNarcPtPaths;
+		case LANGUAGE_ITALIAN:
+			a = 'i', b = 't', c = 'a';
 			break;
+		
+		case LANGUAGE_SPANISH:
+			a = 's', b = 'p', c = 'a';
+			break;
+		
+		case LANGUAGE_FRENCH:
+			a = 'f', b = 'r', c = 'a';
+			break;
+		
+		default:
+			return;
 	}
+	
+	path[9]  = a;
+	path[10] = b;
+	path[11] = c;
+}
+
+
+void NARC_SetVersion(void) {
+	static BOOL narcVersionSet = FALSE;
+	
+	if (!narcVersionSet) {
+		switch (gGameVersion) {
+			case VERSION_DIAMOND:
+				sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal/personal.narc";
+				sNarcCurrentPaths = sNarcDPPaths;
+				break;
+			
+			case VERSION_PEARL:
+				sNarcDPPaths[NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL] = "poketool/personal_pearl/personal.narc";
+				sNarcCurrentPaths = sNarcDPPaths;
+				break;
+			
+			case VERSION_PLATINUM:
+				sNarcCurrentPaths = sNarcPtPaths;
+				break;
+		}
+		
+		NarcPathReplacement* narcList = NULL;
+		
+		switch (gGameLanguage) {
+			case LANGUAGE_ENGLISH:
+				// Default
+				break;
+			
+			case LANGUAGE_GERMAN:
+			case LANGUAGE_ITALIAN:
+			case LANGUAGE_SPANISH:
+			case LANGUAGE_FRENCH:
+				switch (gGameVersion) {
+					case VERSION_DIAMOND:
+					case VERSION_PEARL:
+						narcList = sNonEnglishNarcsDP;
+						break;
+					
+					case VERSION_PLATINUM:
+						narcList = sNonEnglishNarcsPt;
+						break;
+					
+					default:
+						break;
+				}
+				break;
+			
+			default:
+				break;
+		}
+		
+		if (narcList != NULL) {
+			for (int i = 0; narcList[i].narc != NARC_LIST_TERMINATOR; i++) {
+				if (narcList[i].path != NULL) {
+					sNarcCurrentPaths[narcList[i].narc] = narcList[i].path;
+				}
+				
+				NarcPathFormatLanguage(sNarcCurrentPaths[narcList[i].narc]);
+			}
+		}
+	}
+	
+	narcVersionSet = TRUE;
 }

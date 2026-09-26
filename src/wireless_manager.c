@@ -83,12 +83,6 @@ static WMDataSet                    sDataSet      ATTRIBUTE_ALIGN(32);  /* Unuse
 static WMKeySetBuf                  sWMKeySetBuf  ATTRIBUTE_ALIGN(32);
 static WHTraceFunc                  sWHTraceFunc = NULL; // Intended to be set to a printf() function type for debugging
 
-// Required for matching BSS layout to prevent deadstripping of unused static variables
-void Dummy_Deadstrip_02133AE8(void);
-void Dummy_Deadstrip_02133AE8(void) {
-	sRand, sChannel, sChannelBusyRatio, sChannelBitmap, sParentWEPKeyGenerator, sDataSet;
-}
-
 #define WH_ASSERT(cond)  ((cond) || (OS_Terminate(), 0))  // ", 0" required to match in places
 
 #define WH_TRACE(...) do {          \

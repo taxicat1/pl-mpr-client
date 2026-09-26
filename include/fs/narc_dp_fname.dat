@@ -3,7 +3,7 @@
 
 #include "constants/narc.h"
 
-static const char* sNarcDPPaths[] = {
+static char* sNarcDPPaths[] = {
 	"battle/skill/waza_seq.narc",
 	"battle/skill/sub_seq.narc",
 	"poketool/personal/personal.narc",
@@ -73,7 +73,7 @@ static const char* sNarcDPPaths[] = {
 	"graphic/menu_gra.narc",
 	"arc/land_data.narc",
 	"itemtool/itemdata/nuts_data.narc",
-	"graphic/zukan.narc",
+	"resource/eng/zukan/zukan.narc",
 	"poketool/pokefoot/pokefoot.narc",
 	"fielddata/areadata/area_build_model/areabm_texset.narc",
 	"battle/graphic/b_plist_gra.narc",

@@ -138,7 +138,7 @@ void MPRMenuWindow_PrintString(BgConfig* bgConfig, Window* window, String* strin
 		Window_Remove(window);
 	}
 	
-	LoadMessageBoxGraphics(bgConfig, BG_LAYER_MAIN_1, 19, 6, 0, HEAP_ID_MAIN_MENU);
+	LoadMessageBoxGraphics(bgConfig, BG_LAYER_MAIN_1, 19, 6, MSGBOX_FRAME_DP(0), HEAP_ID_MAIN_MENU);
 	
 	MainMenuWindow menuWindow;
 	MainMenuUtil_InitWindow(&menuWindow, window, 5, TEXT_BANK_UNIFIED_MAIN_MENU_ALERTS, 19, 6);
@@ -823,8 +823,7 @@ static BOOL MPRMenuApp_Init(ApplicationManager* appMan, int* state) {
 	Sound_SetScene(SOUND_SCENE_NONE);
 	Sound_LoadSoundEffectsForScene(SOUND_SCENE_FIELD);
 	
-	// NOTE: in localized versions, 256 characters is not enough to display the warning message
-	mprMenu->string = String_Init(256, HEAP_ID_MAIN_MENU);
+	mprMenu->string = String_Init(350, HEAP_ID_MAIN_MENU);
 	mprMenu->dataChanged = FALSE;
 	
 	Font_InitManager(FONT_SUBSCREEN, HEAP_ID_MAIN_MENU);

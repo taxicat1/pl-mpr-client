@@ -1,0 +1,6 @@
+#ifndef MPR_MPR_CLIENT_MOD_DETECT_VERSION_H
+#define MPR_MPR_CLIENT_MOD_DETECT_VERSION_H
+
+void Mod_DetectVersionAndLanguage(void);
+
+#endif /* MPR_MPR_CLIENT_MOD_DETECT_VERSION_H */

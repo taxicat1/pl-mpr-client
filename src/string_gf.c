@@ -140,8 +140,7 @@ void String_FormatInt(String* dst, int num, u32 maxDigits, PaddingMode paddingMo
 				paddingMode = PADDING_MODE_ZEROES;
 				dst->data[dst->size++] = (digit < 10) ? digitSet[digit] : CHAR_WIDE_QUESTION;
 			} else if (paddingMode == PADDING_MODE_SPACES) {
-				// BUG: should be CHAR_NUM_SPACE for non-JP mode
-				dst->data[dst->size++] = (charsetMode == CHARSET_MODE_JP) ? CHAR_WIDE_SPACE : CHAR_SPACE;
+				dst->data[dst->size++] = (charsetMode == CHARSET_MODE_JP) ? CHAR_WIDE_SPACE : CHAR_NUM_SPACE;
 			}
 			
 			div /= 10;

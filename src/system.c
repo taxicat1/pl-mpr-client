@@ -12,6 +12,10 @@
 #include "narc.h"
 #include "graphics.h"
 
+#include "mpr_client/mpr_text.h"
+
+#include "mod_detect_version.h"
+
 #define MAIN_TASK_MAX         160
 #define VBLANK_TASK_MAX       16
 #define POST_VBLANK_TASK_MAX  32
@@ -24,14 +28,6 @@ static void HBlankIntr(void);
 static void SetHBlankEnabled(BOOL enabled);
 static void InitHeapSystem(void);
 static void ApplyButtonModeToInput(void);
-
-void Dummy_Unreferenced_02132A24(void);
-void Dummy_Unreferenced_02132A24(void) {
-	// ???
-	static struct {
-		u8 data[1020];
-	} Dummy_02132A24;
-}
 
 
 static void VBlankIntr(void) {
@@ -159,23 +155,9 @@ void InitSystem(void) {
 	
 	AccessOuterRomFS();
 	
-	// Detect parent game version
-	FSFile testFile;
-	u8 version = VERSION_NONE;
-	if (FS_OpenFile(&testFile, "poketool/personal/pl_personal.narc")) {
-		version = VERSION_PLATINUM;
-	} else if (FS_OpenFile(&testFile, "poketool/personal/personal.narc")) {
-		version = VERSION_DIAMOND;
-	} else if (FS_OpenFile(&testFile, "poketool/personal_pearl/personal.narc")) {
-		version = VERSION_PEARL;
-	}
-	
-	if (version != VERSION_NONE) {
-		FS_CloseFile(&testFile);
-	}
-	
-	GameVersion_Set(version);
-	NARC_SetVersion(version);
+	Mod_DetectVersionAndLanguage();
+	NARC_SetVersion();
+	MPRText_SetLanguage();
 	
 	u32 fsTableSize = FS_GetTableSize();
 	void* fsTable = OS_AllocFromMainArenaLo(fsTableSize, 4);

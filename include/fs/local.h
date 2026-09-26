@@ -9,12 +9,20 @@
 // Note declaring const is required to match, despite the objects being linked to .data
 #define LOCAL_FILE_DECL(file)  extern const u8 LOCAL_FILE(file)[], LOCAL_FILE_END(file)[]
 
-LOCAL_FILE_DECL(mpr_string_table_bin);
+LOCAL_FILE_DECL(mpr_string_table_DE_bin);
+LOCAL_FILE_DECL(mpr_string_table_EN_bin);
+LOCAL_FILE_DECL(mpr_string_table_ES_bin);
+LOCAL_FILE_DECL(mpr_string_table_FR_bin);
+LOCAL_FILE_DECL(mpr_string_table_IT_bin);
 LOCAL_FILE_DECL(ds_back_ncg);
 LOCAL_FILE_DECL(ds_back_ncl);
 LOCAL_FILE_DECL(ds_back_1_nsc);
 LOCAL_FILE_DECL(ds_back_2_nsc);
-LOCAL_FILE_DECL(NARC_box_m_obj_ncg);
+LOCAL_FILE_DECL(NARC_box_m_obj_DE_ncg);
+LOCAL_FILE_DECL(NARC_box_m_obj_EN_ncg);
+LOCAL_FILE_DECL(NARC_box_m_obj_ES_ncg);
+LOCAL_FILE_DECL(NARC_box_m_obj_FR_ncg);
+LOCAL_FILE_DECL(NARC_box_m_obj_IT_ncg);
 LOCAL_FILE_DECL(warning_bg_ncg);
 LOCAL_FILE_DECL(warning_bg_ncl);
 LOCAL_FILE_DECL(box_wallpaper_ncer);

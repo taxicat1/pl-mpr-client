@@ -86,27 +86,3 @@ void PoffinCase_UpdateMonContestStats(Poffin* poffin, Pokemon* mon) {
 		Pokemon_SetValue(mon, MON_DATA_FRIENDSHIP, &friendship);
 	}
 }
-
-
-// Remnant unused application template, replaced with dummy functions
-void Dummy_Unused_02061F60(void);
-void Dummy_Unused_02061F60(void) {
-	static const ApplicationManagerTemplate Dummy_02061F60 = {
-		.init      = DummyFunc_0200E1A4,
-		.main      = DummyFunc_0200E1AC,
-		.exit      = DummyFunc_0200E19C,
-		.overlayID = FS_OVERLAY_ID_NONE
-	};
-}
-
-
-// Remnant unused application template, replaced with dummy functions
-void Dummy_Unused_02061F70(void);
-void Dummy_Unused_02061F70(void) {
-	static const ApplicationManagerTemplate Dummy_02061F70 = {
-		.init      = DummyFunc_0200E1BC,
-		.main      = DummyFunc_0200E1C4,
-		.exit      = DummyFunc_0200E1B4,
-		.overlayID = FS_OVERLAY_ID_NONE
-	};
-}

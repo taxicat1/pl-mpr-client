@@ -466,17 +466,29 @@ static void UpdateForm(PokedexCommon* pokedexData, u16 species, Pokemon* mon) {
 
 
 static void UpdateLanguage(PokedexCommon* pokedexData, u16 species, u32 language) {
-	// BUG: DP assumed
-	PokedexDP* pokedexDataDP = (PokedexDP*)pokedexData;
-	
-	int bitIndex = PokedexLanguage_SpeciesAlternateLanguageIdx(species);
-	int languageIndex = PokedexLanguage_LanguageToIndex(language);
-	
-	if (bitIndex == DP_LANGUAGE_COUNT || languageIndex == NUM_LANGUAGES) {
-		return;
+	if (gIsDiamondPearl) {
+		PokedexDP* pokedexDataDP = (PokedexDP*)pokedexData;
+		
+		int bitIndex = PokedexLanguage_SpeciesAlternateLanguageIdx(species);
+		int languageIndex = PokedexLanguage_LanguageToIndex(language);
+		
+		if (bitIndex == DP_LANGUAGE_COUNT || languageIndex == NUM_LANGUAGES) {
+			return;
+		}
+		
+		pokedexDataDP->recordedLanguages[bitIndex] |= (1 << languageIndex);
+	} else {
+		PokedexPt* pokedexDataPt = (PokedexPt*)pokedexData;
+		
+		int bitIndex = species;
+		int languageIndex = PokedexLanguage_LanguageToIndex(language);
+		
+		if (languageIndex == NUM_LANGUAGES) {
+			return;
+		}
+		
+		pokedexDataPt->recordedLanguages[bitIndex] |= (1 << languageIndex);
 	}
-	
-	pokedexDataDP->recordedLanguages[bitIndex] |= (1 << languageIndex);
 }
 
 
@@ -486,8 +498,11 @@ void Pokedex_Init(PokedexCommon* pokedexData) {
 	
 	pokedexData->magic = DEX_MAGIC_NUMBER;
 	
-	// BUG: DP assumed
-	((PokedexDP*)pokedexData)->nationalDexObtained = FALSE;
+	if (gIsDiamondPearl) {
+		((PokedexDP*)pokedexData)->nationalDexObtained = FALSE;
+	} else {
+		((PokedexPt*)pokedexData)->nationalDexObtained = FALSE;
+	}
 	
 	memset(pokedexData->unownFormsSeen, 0xFF, sizeof(u8) * UNOWN_FORM_COUNT);
 	
@@ -544,8 +559,11 @@ void Pokedex_Capture(PokedexCommon* pokedexData, Pokemon* mon) {
 BOOL Pokedex_IsNationalDexObtained(const PokedexCommon* pokedex) {
 	CheckPokedexIntegrity(pokedex);
 	
-	// BUG: DP assumed
-	return ((PokedexDP*)pokedex)->nationalDexObtained;
+	if (gIsDiamondPearl) {
+		return ((PokedexDP*)pokedex)->nationalDexObtained;
+	} else {
+		return ((PokedexPt*)pokedex)->nationalDexObtained;
+	}
 }
 
 

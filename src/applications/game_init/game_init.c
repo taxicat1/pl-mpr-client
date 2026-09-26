@@ -153,6 +153,10 @@ static BOOL GameInitApp_Main(ApplicationManager* appMan, int* state) {
 }
 
 
+//#define TEST_LAUNCH_PC_BOX
+#ifdef TEST_LAUNCH_PC_BOX
+#include "applications/pc_boxes/box_app_manager.h"
+#endif
 static BOOL GameInitApp_Exit(ApplicationManager* appMan, int* state) {
 	GameInitContext* ctx = ApplicationManager_GetData(appMan);
 	HeapID heapID = ctx->heapID;
@@ -160,7 +164,18 @@ static BOOL GameInitApp_Exit(ApplicationManager* appMan, int* state) {
 	ApplicationManager_FreeData(appMan);
 	Heap_Destroy(heapID);
 	
+#ifdef TEST_LAUNCH_PC_BOX
+	static const ApplicationManagerTemplate sBoxAppTemplate = {
+		.init      = BoxAppMan_Init,
+		.main      = BoxAppMan_Main,
+		.exit      = BoxAppMan_Exit,
+		.overlayID = FS_OVERLAY_ID_NONE
+	};
+	
+	EnqueueApplication(FS_OVERLAY_ID(main_menu), &sBoxAppTemplate);
+#else
 	EnqueueApplication(FS_OVERLAY_ID(main_menu), &gMPRMenuAppTemplate);
+#endif
 	return TRUE;
 }
 

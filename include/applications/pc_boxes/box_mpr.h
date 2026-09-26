@@ -6,9 +6,10 @@
 #include "bg_window.h"
 #include "sprite.h"
 
-extern const int gTypeNamesInAlphabeticalOrder[];
-extern const int gNatureNamesInAlphabeticalOrder[];
+extern const int* gTypeNamesInAlphabeticalOrder;
+extern const int* gNatureNamesInAlphabeticalOrder;
 
+void BoxMPR_SetLanguage(void);
 void BoxMPR_020395E4(BoxApplication* boxApp, BoxMenuItem item);
 BOOL BoxMPR_02039618(MPRBoxDisplay** outMprDisplay, BoxApplicationDisplay* param1, const BoxApplication* param2, BgConfig* param3, SpriteList* param4);
 void BoxMPR_0203969C(MPRBoxDisplay* mprDisplay);

@@ -81,53 +81,284 @@ static void BoxMPR_0203AEC8(MPRBoxDisplay* mprDisplay);
 static void BoxMPR_0203B0C4(MPRBoxDisplay* mprDisplay);
 static void BoxMPR_0203B23C(u32 index, TouchScreenButtonState state, void* param);
 
-const int gTypeNamesInAlphabeticalOrder[] = {
+static const int sTypeNamesInAlphabeticalOrder_EN[] = {
+	TYPE_BUG,
 	TYPE_DARK,
-	TYPE_ROCK,
-	TYPE_PSYCHIC,
-	TYPE_FIGHTING,
-	TYPE_GRASS,
-	TYPE_ICE,
-	TYPE_GHOST,
-	TYPE_GROUND,
-	TYPE_ELECTRIC,
-	TYPE_POISON,
 	TYPE_DRAGON,
-	TYPE_NORMAL,
-	TYPE_STEEL,
-	TYPE_FLYING,
+	TYPE_ELECTRIC,
+	TYPE_FIGHTING,
 	TYPE_FIRE,
-	TYPE_WATER,
-	TYPE_BUG
+	TYPE_FLYING,
+	TYPE_GHOST,
+	TYPE_GRASS,
+	TYPE_GROUND,
+	TYPE_ICE,
+	TYPE_NORMAL,
+	TYPE_POISON,
+	TYPE_PSYCHIC,
+	TYPE_ROCK,
+	TYPE_STEEL,
+	TYPE_WATER
 };
 
-const int gNatureNamesInAlphabeticalOrder[] = {
+static const int sNatureNamesInAlphabeticalOrder_EN[] = {
 	NATURE_ADAMANT,
-	NATURE_RASH,
-	NATURE_TIMID,
+	NATURE_BASHFUL,
+	NATURE_BOLD,
+	NATURE_BRAVE,
 	NATURE_CALM,
-	NATURE_MILD,
-	NATURE_GENTLE,
-	NATURE_HARDY,
-	NATURE_QUIRKY,
-	NATURE_LONELY,
 	NATURE_CAREFUL,
 	NATURE_DOCILE,
-	NATURE_BOLD,
+	NATURE_GENTLE,
+	NATURE_HARDY,
 	NATURE_HASTY,
-	NATURE_BASHFUL,
+	NATURE_IMPISH,
+	NATURE_JOLLY,
+	NATURE_LAX,
+	NATURE_LONELY,
+	NATURE_MILD,
+	NATURE_MODEST,
+	NATURE_NAIVE,
+	NATURE_NAUGHTY,
+	NATURE_QUIET,
+	NATURE_QUIRKY,
+	NATURE_RASH,
+	NATURE_RELAXED,
 	NATURE_SASSY,
+	NATURE_SERIOUS,
+	NATURE_TIMID
+};
+
+static const int sTypeNamesInAlphabeticalOrder_DE[] = {
+	TYPE_GROUND,
+	TYPE_DRAGON,
+	TYPE_ICE,
+	TYPE_ELECTRIC,
+	TYPE_FIRE,
+	TYPE_FLYING,
+	TYPE_GHOST,
+	TYPE_ROCK,
+	TYPE_POISON,
+	TYPE_BUG,
+	TYPE_FIGHTING,
+	TYPE_NORMAL,
+	TYPE_GRASS,
+	TYPE_PSYCHIC,
+	TYPE_STEEL,
+	TYPE_DARK,
+	TYPE_WATER
+};
+
+static const int sNatureNamesInAlphabeticalOrder_DE[] = {
+	NATURE_SERIOUS,
+	NATURE_SASSY,
+	NATURE_NAUGHTY,
+	NATURE_JOLLY,
+	NATURE_ADAMANT,
+	NATURE_HASTY,
+	NATURE_RASH,
+	NATURE_QUIRKY,
+	NATURE_BOLD,
 	NATURE_LAX,
 	NATURE_RELAXED,
 	NATURE_MODEST,
-	NATURE_SERIOUS,
-	NATURE_NAIVE,
-	NATURE_NAUGHTY,
+	NATURE_MILD,
 	NATURE_BRAVE,
-	NATURE_JOLLY,
+	NATURE_NAIVE,
+	NATURE_IMPISH,
+	NATURE_HARDY,
 	NATURE_QUIET,
-	NATURE_IMPISH
+	NATURE_CAREFUL,
+	NATURE_DOCILE,
+	NATURE_TIMID,
+	NATURE_LONELY,
+	NATURE_CALM,
+	NATURE_BASHFUL,
+	NATURE_GENTLE
 };
+
+static const int sTypeNamesInAlphabeticalOrder_IT[] = {
+	TYPE_STEEL,
+	TYPE_WATER,
+	TYPE_DARK,
+	TYPE_BUG,
+	TYPE_DRAGON,
+	TYPE_ELECTRIC,
+	TYPE_GRASS,
+	TYPE_FIRE,
+	TYPE_ICE,
+	TYPE_FIGHTING,
+	TYPE_NORMAL,
+	TYPE_PSYCHIC,
+	TYPE_ROCK,
+	TYPE_GHOST,
+	TYPE_GROUND,
+	TYPE_POISON,
+	TYPE_FLYING
+};
+
+static const int sNatureNamesInAlphabeticalOrder_IT[] = {
+	NATURE_JOLLY,
+	NATURE_RASH,
+	NATURE_HARDY,
+	NATURE_BRAVE,
+	NATURE_NAUGHTY,
+	NATURE_CALM,
+	NATURE_CAREFUL,
+	NATURE_ADAMANT,
+	NATURE_DOCILE,
+	NATURE_LAX,
+	NATURE_QUIRKY,
+	NATURE_GENTLE,
+	NATURE_NAIVE,
+	NATURE_HASTY,
+	NATURE_MILD,
+	NATURE_MODEST,
+	NATURE_RELAXED,
+	NATURE_QUIET,
+	NATURE_BASHFUL,
+	NATURE_IMPISH,
+	NATURE_LONELY,
+	NATURE_SERIOUS,
+	NATURE_BOLD,
+	NATURE_TIMID,
+	NATURE_SASSY
+};
+
+static const int sTypeNamesInAlphabeticalOrder_ES[] = {
+	TYPE_STEEL,
+	TYPE_WATER,
+	TYPE_BUG,
+	TYPE_DRAGON,
+	TYPE_ELECTRIC,
+	TYPE_GHOST,
+	TYPE_FIRE,
+	TYPE_ICE,
+	TYPE_FIGHTING,
+	TYPE_NORMAL,
+	TYPE_GRASS,
+	TYPE_PSYCHIC,
+	TYPE_ROCK,
+	TYPE_DARK,
+	TYPE_GROUND,
+	TYPE_POISON,
+	TYPE_FLYING
+};
+
+static const int sNatureNamesInAlphabeticalOrder_ES[] = {
+	NATURE_HASTY,
+	NATURE_MILD,
+	NATURE_IMPISH,
+	NATURE_JOLLY,
+	NATURE_RASH,
+	NATURE_GENTLE,
+	NATURE_BRAVE,
+	NATURE_CAREFUL,
+	NATURE_DOCILE,
+	NATURE_ADAMANT,
+	NATURE_LAX,
+	NATURE_HARDY,
+	NATURE_SASSY,
+	NATURE_LONELY,
+	NATURE_NAIVE,
+	NATURE_QUIET,
+	NATURE_TIMID,
+	NATURE_MODEST,
+	NATURE_BOLD,
+	NATURE_NAUGHTY,
+	NATURE_RELAXED,
+	NATURE_QUIRKY,
+	NATURE_CALM,
+	NATURE_SERIOUS,
+	NATURE_BASHFUL
+};
+
+static const int sTypeNamesInAlphabeticalOrder_FR[] = {
+	TYPE_STEEL,
+	TYPE_FIGHTING,
+	TYPE_DRAGON,
+	TYPE_WATER,
+	TYPE_ELECTRIC,
+	TYPE_FIRE,
+	TYPE_ICE,
+	TYPE_BUG,
+	TYPE_NORMAL,
+	TYPE_GRASS,
+	TYPE_POISON,
+	TYPE_PSYCHIC,
+	TYPE_ROCK,
+	TYPE_GROUND,
+	TYPE_GHOST,
+	TYPE_DARK,
+	TYPE_FLYING
+};
+
+static const int sNatureNamesInAlphabeticalOrder_FR[] = {
+	NATURE_BOLD,
+	NATURE_QUIRKY,
+	NATURE_BRAVE,
+	NATURE_CALM,
+	NATURE_QUIET,
+	NATURE_DOCILE,
+	NATURE_MILD,
+	NATURE_RASH,
+	NATURE_GENTLE,
+	NATURE_HARDY,
+	NATURE_JOLLY,
+	NATURE_LAX,
+	NATURE_IMPISH,
+	NATURE_SASSY,
+	NATURE_NAUGHTY,
+	NATURE_MODEST,
+	NATURE_NAIVE,
+	NATURE_HASTY,
+	NATURE_CAREFUL,
+	NATURE_BASHFUL,
+	NATURE_RELAXED,
+	NATURE_ADAMANT,
+	NATURE_SERIOUS,
+	NATURE_LONELY,
+	NATURE_TIMID
+};
+
+const int* gTypeNamesInAlphabeticalOrder   = sTypeNamesInAlphabeticalOrder_EN;
+const int* gNatureNamesInAlphabeticalOrder = sNatureNamesInAlphabeticalOrder_EN;
+
+
+void BoxMPR_SetLanguage(void) {
+	static BOOL setLanguage = FALSE;
+	
+	if (!setLanguage) {
+		switch (gGameLanguage) {
+			default:
+			case LANGUAGE_ENGLISH:
+				// Default
+				break;
+			
+			case LANGUAGE_GERMAN:
+				gTypeNamesInAlphabeticalOrder   = sTypeNamesInAlphabeticalOrder_DE;
+				gNatureNamesInAlphabeticalOrder = sNatureNamesInAlphabeticalOrder_DE;
+				break;
+			
+			case LANGUAGE_ITALIAN:
+				gTypeNamesInAlphabeticalOrder   = sTypeNamesInAlphabeticalOrder_IT;
+				gNatureNamesInAlphabeticalOrder = sNatureNamesInAlphabeticalOrder_IT;
+				break;
+			
+			case LANGUAGE_SPANISH:
+				gTypeNamesInAlphabeticalOrder   = sTypeNamesInAlphabeticalOrder_ES;
+				gNatureNamesInAlphabeticalOrder = sNatureNamesInAlphabeticalOrder_ES;
+				break;
+			
+			case LANGUAGE_FRENCH:
+				gTypeNamesInAlphabeticalOrder   = sTypeNamesInAlphabeticalOrder_FR;
+				gNatureNamesInAlphabeticalOrder = sNatureNamesInAlphabeticalOrder_FR;
+				break;
+		}
+		
+		setLanguage = TRUE;
+	}
+}
 
 
 void BoxMPR_020395E4(BoxApplication* boxApp, BoxMenuItem item) {
@@ -153,8 +384,7 @@ BOOL BoxMPR_02039618(MPRBoxDisplay** outMprDisplay, BoxApplicationDisplay* param
 		mprDisplay->unk_0C = param4;
 		mprDisplay->unk_10 = 0;
 		
-		// NOTE: in localized versions, 32 chars is not enough for some of the text
-		mprDisplay->unk_50 = String_Init(32, HEAP_ID_BOX_GRAPHICS);
+		mprDisplay->unk_50 = String_Init(40, HEAP_ID_BOX_GRAPHICS);
 		mprDisplay->unk_64 = NULL;
 		mprDisplay->unk_6C = NULL;
 		
@@ -728,7 +958,7 @@ static void BoxMPR_0203A218(MPRBoxDisplay* mprDisplay, const int* buckets, int l
 	BoxMPR_02039978(mprDisplay, 6, NULL, 0x80, 0x18E, mprDisplay->unk_50);
 	
 	for (int i = 0; i < 6; i++) {
-		if (i + (mprFilter->activePage * 6) <= MPR_TEXT_SortAlpha10 - MPR_TEXT_SortAlpha1) {
+		if (i + (mprFilter->activePage * 6) <= MPR_TEXT_SortAlpha9 - MPR_TEXT_SortAlpha1) {
 			u32 v0 = ((i % 2) * 0x60) + 0x50;
 			u32 v1 = ((i / 2) * 0x20) + 0x1B8;
 			mprDisplay->unk_28[i] = BoxGraphics_02030908(mprDisplay->unk_0C, &spriteHeader, v0, v1, 0x31, NNS_G2D_VRAM_TYPE_2DSUB);

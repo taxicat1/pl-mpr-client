@@ -100,10 +100,8 @@ void NARC_dtor(NARC* narc);
 void NARC_ReadFromMember(NARC* narc, int memberIndex, u32 offset, u32 bytesToRead, void* dest);
 
 /*
- * Sets future NARCs to use file paths for the selected game version
- *
- * @param gameVersion:    game version to use
+ * Sets future NARCs to use file paths for the current game version
  */
-void NARC_SetVersion(u8 gameVersion);
+void NARC_SetVersion(void);
 
 #endif /* MPR_NARC_H */

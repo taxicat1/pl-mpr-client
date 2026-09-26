@@ -19,6 +19,7 @@ struct BoxButtonManager {
 	BoxApplicationDisplay* unk_44;
 };
 
+void BoxButton_SetLanguage(void);
 BOOL BoxButton_02033B50(BoxButtonManager* param0, BoxApplicationDisplay* param1, const BoxApplication* param2, SpriteList* param3);
 void BoxButton_02033BA0(BoxButtonManager* param0);
 void BoxButton_02033CE0(BoxButtonManager* param0);

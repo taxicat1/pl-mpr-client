@@ -10,5 +10,6 @@ extern BOOL gIsDiamondPearl;
 extern BOOL gIsPlatinum;
 
 void GameVersion_Set(u8 newVersion);
+void GameLanguage_Set(u8 newVersion);
 
 #endif /* MPR_GAME_VERSION_H */

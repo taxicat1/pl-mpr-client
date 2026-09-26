@@ -8,6 +8,7 @@
 #include "applications/naming_screen/naming_screen_main.h"
 #include "applications/pc_boxes/box_def.h"
 #include "applications/pc_boxes/box_0202F090.h"
+#include "applications/pc_boxes/box_02033B50.h"
 #include "applications/pc_boxes/box_mon_bucket_sorting.h"
 #include "applications/pc_boxes/box_menu.h"
 #include "applications/pc_boxes/box_mpr.h"
@@ -240,6 +241,10 @@ BOOL BoxAppMan_Init(ApplicationManager* appMan, int* state) {
 	if (boxAppMan != NULL) {
 		BoxAppMan_Load(boxAppMan, ApplicationManager_GetArgs(appMan));
 		BoxGraphics_Load(&boxAppMan->display, &boxAppMan->boxApp, boxAppMan);
+		
+		BoxButton_SetLanguage();
+		BoxMonBucketSorting_SetLanguage();
+		BoxMPR_SetLanguage();
 		
 		boxAppMan->cursorLocationHandlerState = 0;
 		boxAppMan->cursorLocationInputHandler = BoxAppMan_GetCursorLocationInputHandler(boxAppMan);
@@ -642,8 +647,6 @@ static BOOL BoxAppMan_RegisterBoxTouchActionOrTryTouchCompareButton(BoxApplicati
 									boxAppMan->touchScreenButtonPressed + (6 * boxAppMan->mprFilter.activePage),
 									speciesInAlphabeticalOrder);
 								
-								Heap_Free(speciesInAlphabeticalOrder);
-								
 								int bucket = boxAppMan->mprFilter.activeBucket;
 								int maxSpeciesIndex;
 								if (bucket == 9) {
@@ -655,10 +658,10 @@ static BOOL BoxAppMan_RegisterBoxTouchActionOrTryTouchCompareButton(BoxApplicati
 								
 								if (speciesIndex < maxSpeciesIndex) {
 									Sound_PlayEffect(SEQ_SE_DP_DECIDE);
-									
-									// BUG: use after free
 									boxAppMan->mprFilter.currSettings.species = speciesInAlphabeticalOrder[speciesIndex];
 								}
+								
+								Heap_Free(speciesInAlphabeticalOrder);
 							}
 							break;
 						
@@ -4555,7 +4558,7 @@ static void BoxAppMan_RanchBatchDepositAction(BoxApplicationManager* boxAppMan, 
 					break;
 				}
 				
-				StringTemplate_SetNumber(boxAppMan->messageVariableBuffer, 0, mprBatch->unk_02_5, 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
+				StringTemplate_SetNumber(boxAppMan->messageVariableBuffer, 0, mprBatch->unk_02_5, 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 				
 				int messageID;
 				if (mprBatch->unk_02_5 < mprBatch->unk_02_0) {
@@ -4859,7 +4862,7 @@ static void BoxAppMan_RanchBatchWithdrawAction(BoxApplicationManager* boxAppMan,
 			}
 			
 			{
-				StringTemplate_SetNumber(boxAppMan->messageVariableBuffer, 0, mprBatch->unk_02_5, 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
+				StringTemplate_SetNumber(boxAppMan->messageVariableBuffer, 0, mprBatch->unk_02_5, 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 				
 				int messageID;
 				if (mprBatch->unk_02_5 < mprBatch->unk_00_5) {
@@ -5798,7 +5801,7 @@ void PCBoxes_LoadCustomization(const PCBoxes* pcBoxes, BoxCustomization* customi
 		PCBoxes_BufferBoxName(pcBoxes, customization->boxID, customization->name);
 	} else {
 		MPRText_CopyChars(customization->ranchName, MPR_TEXT_RanchName);
-		StringTemplate_SetNumber(customization->ranchStringTemplate, 0, customization->boxID + 1, 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
+		StringTemplate_SetNumber(customization->ranchStringTemplate, 0, customization->boxID + 1, 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
 		StringTemplate_Format(customization->ranchStringTemplate, customization->name, customization->ranchName);
 	}
 }

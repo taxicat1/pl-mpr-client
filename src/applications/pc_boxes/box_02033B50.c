@@ -17,6 +17,39 @@
 
 #include "fs/local.h"
 
+static const u8* sBoxButtonGraphic = LOCAL_FILE(NARC_box_m_obj_EN_ncg);
+
+
+void BoxButton_SetLanguage(void) {
+	static BOOL setLanguage = FALSE;
+	
+	if (!setLanguage) {
+		switch (gGameLanguage) {
+			default:
+			case LANGUAGE_ENGLISH:
+				// Default
+				break;
+			
+			case LANGUAGE_GERMAN:
+				sBoxButtonGraphic = LOCAL_FILE(NARC_box_m_obj_DE_ncg);
+				break;
+			
+			case LANGUAGE_ITALIAN:
+				sBoxButtonGraphic = LOCAL_FILE(NARC_box_m_obj_IT_ncg);
+				break;
+			
+			case LANGUAGE_SPANISH:
+				sBoxButtonGraphic = LOCAL_FILE(NARC_box_m_obj_ES_ncg);
+				break;
+			
+			case LANGUAGE_FRENCH:
+				sBoxButtonGraphic = LOCAL_FILE(NARC_box_m_obj_FR_ncg);
+				break;
+		}
+		
+		setLanguage = TRUE;
+	}
+}
 
 BOOL BoxButton_02033B50(BoxButtonManager* param0, BoxApplicationDisplay* param1, const BoxApplication* param2, SpriteList* param3) {
 	param0->unk_44 = param1;
@@ -57,11 +90,11 @@ void BoxButton_02033BA0(BoxButtonManager* param0) {
 	const u8* v1 = NULL;
 	switch (BoxApp_GetBoxMode(param0->unk_40)) {
 		case PC_MODE_RANCH_DEPOSIT:
-			v1 = LOCAL_FILE(NARC_box_m_obj_ncg) + 0x24;
+			v1 = sBoxButtonGraphic + 0x24;
 			break;
 		
 		case PC_MODE_RANCH_WITHDRAW:
-			v1 = LOCAL_FILE(NARC_box_m_obj_ncg) + 0x1B00 + 0x24;
+			v1 = sBoxButtonGraphic + 0x1B00 + 0x24;
 			break;
 	}
 	

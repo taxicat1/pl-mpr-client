@@ -75,7 +75,7 @@ typedef enum {
 #define MOVES_MON_TYPE_ICON_Y    52
 
 #define MOVE_TYPE_ICON_X       151
-#define MOVE_TYPE_ICON_BASE_Y  43   // Localized: 42
+#define MOVE_TYPE_ICON_BASE_Y  42
 
 #define MOVE_CATEGORY_ICON_X  108
 #define MOVE_CATEGORY_ICON_Y  72
@@ -1197,23 +1197,12 @@ void PokemonSummaryScreen_UpdateTypeIcons(PokemonSummaryScreen* summaryScreen) {
 	
 	switch (summaryScreen->page) {
 		case SUMMARY_PAGE_INFO:
-			// Drawn left-aligned for Japanese layout, centered in localized
-/*<[
 			Sprite_SetDrawFlag2(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_1], TRUE);
 			
 			if (summaryScreen->monData.type1 == summaryScreen->monData.type2) {
 				Sprite_SetPositionXY(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_1], INFO_SOLO_MON_TYPE_ICON_X, INFO_MON_TYPE_ICON_Y);
 			} else {
 				Sprite_SetPositionXY(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_1], INFO_MON_TYPE_ICON_1_X, INFO_MON_TYPE_ICON_Y);
-				Sprite_SetDrawFlag2(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_2], TRUE);
-				Sprite_SetPositionXY(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_2], INFO_MON_TYPE_ICON_2_X, INFO_MON_TYPE_ICON_Y);
-			}
-]>*/
-			
-			Sprite_SetDrawFlag2(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_1], TRUE);
-			Sprite_SetPositionXY(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_1], INFO_MON_TYPE_ICON_1_X, INFO_MON_TYPE_ICON_Y);
-			
-			if (summaryScreen->monData.type1 != summaryScreen->monData.type2) {
 				Sprite_SetDrawFlag2(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_2], TRUE);
 				Sprite_SetPositionXY(summaryScreen->sprites[SUMMARY_SPRITE_MON_TYPE_ICON_2], INFO_MON_TYPE_ICON_2_X, INFO_MON_TYPE_ICON_Y);
 			}

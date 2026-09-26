@@ -3,7 +3,7 @@
 
 #include "constants/narc.h"
 
-static const char* sNarcPtPaths[] = {
+static char* sNarcPtPaths[] = {
 	"battle/skill/waza_seq.narc",
 	"battle/skill/sub_seq.narc",
 	"poketool/personal/pl_personal.narc",
@@ -73,7 +73,7 @@ static const char* sNarcPtPaths[] = {
 	"graphic/menu_gra.narc",
 	"fielddata/land_data/land_data.narc",
 	"itemtool/itemdata/nuts_data.narc",
-	"graphic/zukan.narc",
+	"resource/eng/zukan/zukan.narc",
 	"poketool/pokefoot/pokefoot.narc",
 	"fielddata/areadata/area_build_model/areabm_texset.narc",
 	"battle/graphic/pl_b_plist_gra.narc",
@@ -154,8 +154,8 @@ static const char* sNarcPtPaths[] = {
 	"poketool/poke_edit/pl_poke_data.narc",
 	"debug/cb_edit/d_test.narc",
 	"frontier/script/fr_script.narc",
-	"frontier/graphic/frontier_bg.narc",
-	"frontier/graphic/frontier_obj.narc",
+	"resource/eng/graphic/frontier_bg.narc",
+	"resource/eng/graphic/frontier_obj.narc",
 	"application/custom_ball/edit/pl_cb_data.narc",
 	"graphic/wifi_unionobj.narc",
 	"data/guru2.narc",
@@ -166,7 +166,7 @@ static const char* sNarcPtPaths[] = {
 	"arc/codein_gra.narc",
 	"arc/area_win_gra.narc",
 	"fielddata/encountdata/pl_enc_data.narc",
-	"arc/batt_rec_gra.narc",
+	"resource/eng/batt_rec/batt_rec_gra.narc",
 	"graphic/worldtimer.narc",
 	"arc/manene.narc",
 	"poketool/pokegra/pokegra.narc",
@@ -175,7 +175,7 @@ static const char* sNarcPtPaths[] = {
 	"poketool/pokegra/dp_height_o.narc",
 	"graphic/lobby_news.narc",
 	"arc/email_gra.narc",
-	"graphic/wlmngm_tool.narc",
+	"resource/eng/wifi_lobby_minigame/wlmngm_tool.narc",
 	"arc/demo_tengan_gra.narc",
 	"application/balloon/graphic/balloon_gra.narc",
 	"application/wifi_lobby/map_conv/wflby_map.narc",
@@ -188,17 +188,19 @@ static const char* sNarcPtPaths[] = {
 	"fielddata/tornworld/tw_arc.narc",
 	"fielddata/tornworld/tw_arc_attr.narc",
 	"data/tw_arc_etc.narc",
-	"graphic/scratch.narc",
+	"resource/eng/scratch/scratch.narc",
 	"particledata/pl_pokelist/pokelist_particle.narc",
 	"graphic/wifi_lobby_other.narc",
 	"graphic/footprint_board.narc",
 	"application/zukanlist/zkn_data/zukan_enc_platinum.narc",
 	"application/bucket/ballslow_data.narc",
 	"particledata/pl_etc/pl_etc_particle.narc",
-	"arc/pms_aikotoba.narc",
+	"resource/eng/pms_aikotoba/pms_aikotoba.narc",
 	"graphic/unionobj2d_onlyfront.narc",
 	"graphic/library_tv.narc",
-	"application/zukanlist/zkn_data/zukan_data_gira.narc"
+	"application/zukanlist/zkn_data/zukan_data_gira.narc",
+	
+	"graphic/winframe.narc" /* DP frames*/
 };
 
 #endif
