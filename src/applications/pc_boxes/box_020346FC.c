@@ -108,9 +108,7 @@ void BoxWindow_02034774(BoxWindowManager* param0) {
 void BoxWindow_020347C8(BoxWindowManager* param0) {
 	static const WindowTemplate v0[] = {
 		{ 1,  2, 21, 27,  2, 4, 539 },
-		
-	//	{ 1, 19,  3, 12, 16, 4, 593 }  //< Localized
-		{ 1, 21,  3, 10, 16, 4, 593 }
+		{ 1, 19,  3, 12, 16, 4, 593 }
 	};
 	
 	param0->unk_18 = Window_New(HEAP_ID_BOX_GRAPHICS, 2);
@@ -242,9 +240,7 @@ void BoxWindow_02034990(BoxWindowManager* param0, const BoxMenu* menu) {
 
 
 static void BoxWindow_02034A78(BoxWindowManager* param0, Window* param1, u8 markings, u32 markingID) {
-	// Localized:
-//	Window_BlitBitmapRectWithTransparency(param1, param0->unk_28->pRawData, markingID * 8, ((markings & (1 << markingID)) ? 0 : 8), 48, 16, 44, markingID * 16 + 4, 8, 8, 0xFF);
-	Window_BlitBitmapRectWithTransparency(param1, param0->unk_28->pRawData, markingID * 8, ((markings & (1 << markingID)) ? 0 : 8), 48, 16, 36, markingID * 16 + 4, 8, 8, 0xFF);
+	Window_BlitBitmapRectWithTransparency(param1, param0->unk_28->pRawData, markingID * 8, ((markings & (1 << markingID)) ? 0 : 8), 48, 16, 44, markingID * 16 + 4, 8, 8, 0xFF);
 }
 
 
@@ -253,14 +249,14 @@ static void BoxWindow_02034AC4(BoxWindowManager* param0, u32 param1) {
 	u32 v1, v2, v3, v4;
 	
 	v0 = Bg_GetTilemapBuffer(param0->unk_00, 1);
-	v0 += (3 * 32 + 21); //< Localized: v0 += (3 * 32 + 19);
+	v0 += (3 * 32 + 19);
 	v3 = 593;
 	v4 = 8 - param1;
 	v0 += (v4 * 2 * 32);
-	v3 += (v4 * 2 * 10); //< Localized:  v3 += (v4 * 2 * 12);
+	v3 += (v4 * 2 * 12);
 	
 	for (v2 = 0; v2 < (param1 * 2); v2++) {
-		for (v1 = 0; v1 < 10; v1++) { //< Localized: for (v1 = 0; v1 < 12; v1++) {
+		for (v1 = 0; v1 < 12; v1++) {
 			v0[v1] = (4 << 12) | v3;
 			v3++;
 		}
@@ -268,9 +264,7 @@ static void BoxWindow_02034AC4(BoxWindowManager* param0, u32 param1) {
 		v0 += 32;
 	}
 	
-	// Localized:
-//	BoxWindow_02034BFC(param0->unk_00, 1, 19, 3 + v4 * 2, 12, param1 * 2);
-	BoxWindow_02034BFC(param0->unk_00, 1, 21, 3 + v4 * 2, 10, param1 * 2);
+	BoxWindow_02034BFC(param0->unk_00, 1, 19, 3 + v4 * 2, 12, param1 * 2);
 }
 
 

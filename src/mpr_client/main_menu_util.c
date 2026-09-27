@@ -34,7 +34,6 @@ typedef struct {
 	MainMenuSpriteManager      spriteManager;
 	Sprite*                    mysteryGiftSprite;
 	int                        giftSpriteDelay;
-	u8                         unused_40[0xC98]; // Remnants of sprite buffer, sprite template, calback function
 } MainMenuUtilManager;
 
 static int MainMenuWindow_PrintText(MainMenuWindow* window, int textEntryID);
@@ -267,30 +266,4 @@ void MainMenuUtil_UpdateSpritesForAnimStatus(void) {
 	if (utilMan->spriteManager.spriteList != NULL) {
 		SpriteList_Update(utilMan->spriteManager.spriteList);
 	}
-}
-
-
-void Dummy_Unused_02062F54(void);
-void Dummy_Unused_02062F54(void) {
-	// Uncertain what this is. Unreferenced.
-	static const struct {
-		u8 data[16];
-	} Unk_Unused_02062F54 = {
-		{
-			0x14, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-		}
-	};
-}
-
-void Dummy_Unused_02062F64(void);
-void Dummy_Unused_02062F64(void) {
-	// Remnants of a table lookup for Mystery Gift data. Unused.
-	static const struct {
-		u8 data[26];
-	} sGiftTypeToPlttOffset_Unused_02062F64 = {
-		{
-			0x00, 0x00, 0x01, 0x01, 0x02, 0x01, 0x03, 0x02, 0x04, 0x03, 0x05, 0x02, 0x06, 0x02, 0x07, 0x00,
-			0x08, 0x05, 0x09, 0x05, 0x0A, 0x05, 0x0B, 0x04, 0xFF, 0x00
-		}
-	};
 }

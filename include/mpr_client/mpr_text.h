@@ -4,6 +4,7 @@
 #include "charcode.h"
 #include "string_gf.h"
 
+void MPRText_SetLanguage(void);
 const charcode_t* MPRText_GetChars(int messageID);
 String* MPRText_CopyChars(String* dest, int messageID);
 

@@ -160,8 +160,17 @@ void LoadMessageBoxGraphics(BgConfig* bgConfig, u8 bgLayer, u16 tileOffset, u8 p
 	NarcID narc;
 	if (gIsDiamondPearl) {
 		narc = NARC_INDEX_DP_GRAPHIC__WINFRAME;
+		if (messageBoxFrame >= MSGBOX_FRAME_DP_MAGIC) {
+			// Already DP, just remove the magic and get the frame ID
+			messageBoxFrame -= MSGBOX_FRAME_DP_MAGIC;
+		}
 	} else {
 		narc = NARC_INDEX_PL_GRAPHIC__PL_WINFRAME;
+		if (messageBoxFrame >= MSGBOX_FRAME_DP_MAGIC) {
+			// Remove the magic and get the frame ID, but change to the DP narc
+			messageBoxFrame -= MSGBOX_FRAME_DP_MAGIC;
+			narc = NARC_INDEX_PL_GRAPHIC__DP_WINFRAME;
+		}
 	}
 	
 	Graphics_LoadTilesToBgLayer(

@@ -385,7 +385,7 @@ static void BoxMonPreview_02034228(BoxMonPreview_UnkStruct0* param0) {
 
 static void BoxMonPreview_0203425C(Window* param0, BoxMonPreviewManager* param1, u32 param2, u32 param3) {
 	const String* v0;
-	u32 v1 = (param3 * 16) + 2;
+	u32 v1 = (param3 * 16);
 	
 	switch (param2) {
 		case 0:
@@ -585,7 +585,7 @@ static void BoxMonPreview_020344E0(BoxMonPreviewManager* param0) {
 	}
 	
 	if (preview->isEgg == FALSE) {
-		Text_AddPrinterWithParamsAndColor(&param0->unk_04[3], FONT_SYSTEM, preview->heldItemName, 0, 2, TEXT_SPEED_NO_TRANSFER, TEXT_COLOR(9, 6, 0), NULL);
+		Text_AddPrinterWithParamsAndColor(&param0->unk_04[3], FONT_SYSTEM, preview->heldItemName, 0, 0, TEXT_SPEED_NO_TRANSFER, TEXT_COLOR(9, 6, 0), NULL);
 		
 		if (preview->dexNum) {
 			FontSpecialChars_DrawPartyScreenText(param0->unk_18, 2, preview->dexNum, 3, 2, &(param0->unk_04[1]), 0, 0);
@@ -655,7 +655,7 @@ void BoxMonPreview_020346AC(BoxMonPreviewManager* param0) {
 			FONT_SYSTEM,
 			preview->heldItemName,
 			0,
-			2,
+			0,
 			TEXT_SPEED_NO_TRANSFER,
 			TEXT_COLOR(9, 6, 0),
 			NULL);

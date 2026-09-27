@@ -385,7 +385,7 @@ static const WindowTemplate sStaticWindowTemplates[] = {
 	},
 	[SUMMARY_WINDOW_BUTTON_PROMPT] = {
 		.bgLayer     = BG_LAYER_MAIN_1,
-		.tilemapLeft = 24,  // Localized: 26
+		.tilemapLeft = 26,
 		.tilemapTop  = 0,
 		.width       = 6,
 		.height      = 2,
@@ -397,7 +397,7 @@ static const WindowTemplate sStaticWindowTemplates[] = {
 static const WindowTemplate sExtraWindowTemplates_Info[] = {
 	[SUMMARY_WINDOW_DEX_NUM] = {
 		.bgLayer     = BG_LAYER_MAIN_1,
-		.tilemapLeft = 23,  // Localized: 24
+		.tilemapLeft = 24,
 		.tilemapTop  = 5,
 		.width       = 6,
 		.height      = 2,
@@ -424,25 +424,25 @@ static const WindowTemplate sExtraWindowTemplates_Info[] = {
 	},
 	[SUMMARY_WINDOW_OT_ID] = {
 		.bgLayer     = BG_LAYER_MAIN_1,
-		.tilemapLeft = 23,  // Localized: 25
+		.tilemapLeft = 25,
 		.tilemapTop  = 13,
-		.width       = 5,   // Localized: 4
+		.width       = 4,
 		.height      = 2,
 		.palette     = 15,
 		.baseTile    = 0x267
 	},
 	[SUMMARY_WINDOW_EXP] = {
 		.bgLayer     = BG_LAYER_MAIN_1,
-		.tilemapLeft = 23,  // Localized: 24
+		.tilemapLeft = 24,
 		.tilemapTop  = 17,
-		.width       = 7,   // Localized: 6
+		.width       = 6,
 		.height      = 2,
 		.palette     = 15,
 		.baseTile    = 0x271
 	},
 	[SUMMARY_WINDOW_EXP_NEXT_LV] = {
 		.bgLayer     = BG_LAYER_MAIN_1,
-		.tilemapLeft = 23,  // Localized: 24
+		.tilemapLeft = 24,
 		.tilemapTop  = 21,
 		.width       = 6,
 		.height      = 2,
@@ -872,7 +872,7 @@ void PokemonSummaryScreen_PrintLevel(PokemonSummaryScreen* summaryScreen) {
 		FontSpecialChars_DrawPartyScreenLevelText(summaryScreen->unk_684, 1, window, 0, 5);
 		
 		String* buf = MessageLoader_GetNewString(summaryScreen->msgLoader, POKEMON_SUMMARY_SCREEN_TemplateMonLevel);
-		StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->monData.level, 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+		StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->monData.level, 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 		StringTemplate_Format(summaryScreen->strFormatter, summaryScreen->string, buf);
 		String_Free(buf);
 		
@@ -953,7 +953,7 @@ static void PrintTextToStaticWindow(PokemonSummaryScreen* summaryScreen, Summary
 
 static void SetAndFormatNumberBuf(PokemonSummaryScreen* summaryScreen, u32 entryID, u32 number, u8 digits, u8 paddingMode) {
 	String* buf = MessageLoader_GetNewString(summaryScreen->msgLoader, entryID);
-	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, number, digits, paddingMode, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, number, digits, paddingMode, CHARSET_MODE_EN);
 	StringTemplate_Format(summaryScreen->strFormatter, summaryScreen->string, buf);
 	String_Free(buf);
 }
@@ -1104,18 +1104,14 @@ static void DrawInfoPageWindows(PokemonSummaryScreen* summaryScreen) {
 	}
 	
 	if (summaryScreen->monData.isShiny == FALSE) {
-		PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_DEX_NUM], SUMMARY_TEXT_BLACK, ALIGN_LEFT);
+		PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_DEX_NUM], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	} else {
-		PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_DEX_NUM], SUMMARY_TEXT_RED, ALIGN_LEFT);
+		PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_DEX_NUM], SUMMARY_TEXT_RED, ALIGN_CENTER);
 	}
 	
-	// In localized, this text is centered and therefore the width must be calculated
-	// In JA this text is left-justified
-/*
 	u32 speciesWidth = Font_CalcStringWidth(FONT_SYSTEM, summaryScreen->monData.speciesName, 0);
 	u32 speciesX = (summaryScreen->extraWindows[SUMMARY_WINDOW_SPECIES_NAME].width * 8 - speciesWidth) / 2;
-*/
-	u32 speciesX = 0;
+	
 	Text_AddPrinterWithParamsAndColor(
 		&summaryScreen->extraWindows[SUMMARY_WINDOW_SPECIES_NAME],
 		FONT_SYSTEM,
@@ -1126,12 +1122,9 @@ static void DrawInfoPageWindows(PokemonSummaryScreen* summaryScreen) {
 		SUMMARY_TEXT_BLACK,
 		NULL);
 	
-	// Localized:
-/*
 	u32 OTNameWidth = Font_CalcStringWidth(FONT_SYSTEM, summaryScreen->monData.OTName, 0);
 	u32 OTNameX = (summaryScreen->extraWindows[SUMMARY_WINDOW_OT_NAME].width * 8 - OTNameWidth) / 2;
-*/
-	u32 OTNameX = 0;
+	
 	if (summaryScreen->monData.OTGender == GENDER_MALE) {
 		Text_AddPrinterWithParamsAndColor(
 			&summaryScreen->extraWindows[SUMMARY_WINDOW_OT_NAME],
@@ -1155,13 +1148,13 @@ static void DrawInfoPageWindows(PokemonSummaryScreen* summaryScreen) {
 	}
 	
 	SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_TemplateOtId, summaryScreen->monData.OTID & 0xFFFF, 5, PADDING_MODE_ZEROES);
-	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_OT_ID], SUMMARY_TEXT_BLACK, ALIGN_LEFT);
+	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_OT_ID], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	
-	SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_TemplateExp, summaryScreen->monData.curExp, 7, PADDING_MODE_NONE);
-	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_EXP], SUMMARY_TEXT_BLACK, ALIGN_LEFT);
+	SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_TemplateExp, summaryScreen->monData.curExp, 7, PADDING_MODE_SPACES);
+	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_EXP], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	
-	SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_TemplateExpNextLv, summaryScreen->monData.nextLevelExp - summaryScreen->monData.curExp, 7, PADDING_MODE_NONE);
-	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_EXP_NEXT_LV], SUMMARY_TEXT_BLACK, ALIGN_LEFT);
+	SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_TemplateExpNextLv, summaryScreen->monData.nextLevelExp - summaryScreen->monData.curExp, 7, PADDING_MODE_SPACES);
+	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_EXP_NEXT_LV], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	
 	Window_ScheduleCopyToVRAM(&summaryScreen->extraWindows[SUMMARY_WINDOW_DEX_NUM]);
 	Window_ScheduleCopyToVRAM(&summaryScreen->extraWindows[SUMMARY_WINDOW_SPECIES_NAME]);
@@ -1470,7 +1463,7 @@ void PokemonSummaryScreen_PrintRibbonIndexAndMax(PokemonSummaryScreen* summarySc
 	Window_FillTilemap(&summaryScreen->extraWindows[SUMMARY_WINDOW_RIBBON_INDEX], 0);
 	
 	String* buf = MessageLoader_GetNewString(summaryScreen->msgLoader, POKEMON_SUMMARY_SCREEN_RibbonMaxNumber);
-	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->ribbonMax, 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->ribbonMax, 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	StringTemplate_Format(summaryScreen->strFormatter, summaryScreen->string, buf);
 	String_Free(buf);
 	
@@ -1496,7 +1489,7 @@ void PokemonSummaryScreen_PrintRibbonIndexAndMax(PokemonSummaryScreen* summarySc
 	
 	buf = MessageLoader_GetNewString(summaryScreen->msgLoader, POKEMON_SUMMARY_SCREEN_RibbonIndexNumber);
 	
-	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->ribbonCol + summaryScreen->ribbonRow * RIBBONS_PER_ROW + 1, 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(summaryScreen->strFormatter, 0, summaryScreen->ribbonCol + summaryScreen->ribbonRow * RIBBONS_PER_ROW + 1, 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	StringTemplate_Format(summaryScreen->strFormatter, summaryScreen->string, buf);
 	String_Free(buf);
 	
@@ -1588,20 +1581,20 @@ void PokemonSummaryScreen_PrintBattleMoveAttributes(PokemonSummaryScreen* summar
 	if (moveAttribute <= 1) {
 		MessageLoader_GetString(summaryScreen->msgLoader, POKEMON_SUMMARY_SCREEN_ThreeDashes, summaryScreen->string);
 	} else {
-		SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_MovePowerTemplate, moveAttribute, 3, PADDING_MODE_NONE);
+		SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_MovePowerTemplate, moveAttribute, 3, PADDING_MODE_SPACES);
 	}
 	
-	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_BATTLE_MOVE_POWER], SUMMARY_TEXT_BLACK, ALIGN_RIGHT); // Localized: ALIGN_LEFT
+	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_BATTLE_MOVE_POWER], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	
 	moveAttribute = MoveTable_LoadParam(move, MOVEATTRIBUTE_ACCURACY);
 	
 	if (moveAttribute == 0) {
 		MessageLoader_GetString(summaryScreen->msgLoader, POKEMON_SUMMARY_SCREEN_ThreeDashes, summaryScreen->string);
 	} else {
-		SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_MoveAccuracyTemplate, moveAttribute, 3, PADDING_MODE_NONE);
+		SetAndFormatNumberBuf(summaryScreen, POKEMON_SUMMARY_SCREEN_MoveAccuracyTemplate, moveAttribute, 3, PADDING_MODE_SPACES);
 	}
 	
-	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_BATTLE_MOVE_ACCURACY], SUMMARY_TEXT_BLACK, ALIGN_RIGHT); // Localized: ALIGN_LEFT
+	PrintStringToWindow(summaryScreen, &summaryScreen->extraWindows[SUMMARY_WINDOW_BATTLE_MOVE_ACCURACY], SUMMARY_TEXT_BLACK, ALIGN_CENTER);
 	
 	NarcID narc;
 	if (gIsDiamondPearl) {

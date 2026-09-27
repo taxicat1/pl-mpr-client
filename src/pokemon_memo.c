@@ -394,22 +394,18 @@ static void SetMetLocationTemplate(PokemonMemo* memo, int messageID) {
 	MessageLoader_GetString(memo->messageLoader, messageID, tmp);
 	
 	// Year is formatted as 20__
-	StringTemplate_SetNumber(memo->stringTemplate, 0, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(memo->stringTemplate, 0, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
+	StringTemplate_SetMonthName(memo->stringTemplate, 1, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL));
+	StringTemplate_SetNumber(memo->stringTemplate, 2, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	
-	// In localized, StringTemplate_SetMonthName is used here instead
-	StringTemplate_SetNumber(memo->stringTemplate, 1, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-	
-	StringTemplate_SetNumber(memo->stringTemplate, 2, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-	StringTemplate_SetNumber(memo->stringTemplate, 3, Pokemon_GetValue(memo->mon, MON_DATA_MET_LEVEL, NULL), 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(memo->stringTemplate, 3, Pokemon_GetValue(memo->mon, MON_DATA_MET_LEVEL, NULL), 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	
 	StringTemplate_SetMetLocationName(memo->stringTemplate, 4, Pokemon_GetValue(memo->mon, MON_DATA_MET_LOCATION, NULL));
 	
-	StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_EGG_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_EGG_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
+	StringTemplate_SetMonthName(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_EGG_MONTH, NULL));
+	StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_EGG_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	
-	// Same localized StringTemplate_SetMonthName for egg met dates
-	StringTemplate_SetNumber(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_EGG_MONTH, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-	
-	StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_EGG_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
 	StringTemplate_SetMetLocationName(memo->stringTemplate, 8, Pokemon_GetValue(memo->mon, MON_DATA_EGG_LOCATION, NULL));
 	
 	StringTemplate_Format(memo->stringTemplate, memo->metLocation.text, tmp);
@@ -425,13 +421,10 @@ static void SetAlternateMetLocationTemplate(PokemonMemo* memo, int messageID) {
 	MessageLoader_GetString(memo->messageLoader, messageID, tmp);
 	
 	// Year is formatted as 20__
-	StringTemplate_SetNumber(memo->stringTemplate, 0, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR,  NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
-	
-	// In localized, StringTemplate_SetMonthName is used here instead
-	StringTemplate_SetNumber(memo->stringTemplate, 1, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-	
-	StringTemplate_SetNumber(memo->stringTemplate, 2, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY,   NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-	StringTemplate_SetNumber(memo->stringTemplate, 3, Pokemon_GetValue(memo->mon, MON_DATA_MET_LEVEL, NULL), 3, PADDING_MODE_NONE, CHARSET_MODE_JP);
+	StringTemplate_SetNumber(memo->stringTemplate, 0, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR,  NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
+	StringTemplate_SetMonthName(memo->stringTemplate, 1, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL));
+	StringTemplate_SetNumber(memo->stringTemplate, 2, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY,   NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
+	StringTemplate_SetNumber(memo->stringTemplate, 3, Pokemon_GetValue(memo->mon, MON_DATA_MET_LEVEL, NULL), 3, PADDING_MODE_NONE, CHARSET_MODE_EN);
 	
 	switch (Pokemon_GetValue(memo->mon, MON_DATA_MET_GAME, NULL)) {
 		default:
@@ -484,21 +477,15 @@ static void SetEggMetLocationTemplate(PokemonMemo* memo, int messageID, PokemonM
 	
 	if (field == FIELD_EGG_MET) {
 		// Year is formatted as 20__
-		StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_EGG_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
-		
-		// In localized, StringTemplate_SetMonthName is used here instead
-		StringTemplate_SetNumber(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_EGG_MONTH, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-		
-		StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_EGG_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
+		StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_EGG_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
+		StringTemplate_SetMonthName(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_EGG_MONTH, NULL));
+		StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_EGG_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 		StringTemplate_SetMetLocationName(memo->stringTemplate, 8, Pokemon_GetValue(memo->mon, MON_DATA_EGG_LOCATION, NULL));
 	} else {
 		// Year is formatted as 20__
-		StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_JP);
-		
-		// In localized, StringTemplate_SetMonthName is used here instead
-		StringTemplate_SetNumber(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
-		
-		StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_JP);
+		StringTemplate_SetNumber(memo->stringTemplate, 5, Pokemon_GetValue(memo->mon, MON_DATA_MET_YEAR, NULL), 2, PADDING_MODE_ZEROES, CHARSET_MODE_EN);
+		StringTemplate_SetMonthName(memo->stringTemplate, 6, Pokemon_GetValue(memo->mon, MON_DATA_MET_MONTH, NULL));
+		StringTemplate_SetNumber(memo->stringTemplate, 7, Pokemon_GetValue(memo->mon, MON_DATA_MET_DAY, NULL), 2, PADDING_MODE_NONE, CHARSET_MODE_EN);
 		StringTemplate_SetMetLocationName(memo->stringTemplate, 8, Pokemon_GetValue(memo->mon, MON_DATA_MET_LOCATION, NULL));
 	}
 	

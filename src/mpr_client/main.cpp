@@ -67,29 +67,6 @@ static void WaitFrame(void);
 static void TrySystemReset(OSResetParameter param);
 static void SoftReset(OSResetParameter resetParam);
 
-#define RESET_COMBO       (PAD_BUTTON_START | PAD_BUTTON_SELECT | PAD_BUTTON_L | PAD_BUTTON_R)
-#define RETURN_EOO_COMBO  (PAD_BUTTON_START | PAD_BUTTON_SELECT)
-
-// Parameters for probing for DP
-#define DP_TEST_NARC                       NARC_INDEX_DP_DEMO__TITLE__TITLEDEMO
-#define DP_TEST_NARC_NUM_FILES             20
-
-#define DP_TEST_NARC_TEST_FILE_1_IDX       1
-#define DP_TEST_NARC_TEST_FILE_1_SIZE      0x6040
-#define DP_TEST_NARC_TEST_FILE_1_CHECKSUM  0xA4F4
-
-#define DP_TEST_NARC_TEST_FILE_2_IDX       3
-#define DP_TEST_NARC_TEST_FILE_2_SIZE      0x6040
-#define DP_TEST_NARC_TEST_FILE_2_CHECKSUM  0xA5C6
-
-// Parameters for probing for Pt
-#define PL_TEST_NARC                       NARC_INDEX_PL_DEMO__TITLE__TITLEDEMO
-#define PL_TEST_NARC_NUM_FILES             29
-
-#define PL_TEST_NARC_TEST_FILE_IDX         23
-#define PL_TEST_NARC_TEST_FILE_SIZE        0x2040
-#define PL_TEST_NARC_TEST_FILE_CHECKSUM    0xCD2B
-
 
 void NitroMain(void) {
 	InitSystem();
@@ -102,51 +79,6 @@ void NitroMain(void) {
 	sLockID = OS_GetLockID();
 	CARD_SetPulledOutCallback(CardPulledOutCallback);
 	InitApplication();
-	
-	Heap_Create(HEAP_ID_APPLICATION, HEAP_ID_MAIN_MENU, HEAP_SIZE_MAIN_MENU);
-	
-	gIsDiamondPearl = (NARC_GetFileCountByIndex(DP_TEST_NARC, FALSE) == DP_TEST_NARC_NUM_FILES);
-	
-	// Diamond title screen logo identification
-	if (gIsDiamondPearl) {
-		u32 size = NARC_GetMemberSizeByIndexPair(DP_TEST_NARC, DP_TEST_NARC_TEST_FILE_1_IDX);
-		gIsDiamondPearl = (size == DP_TEST_NARC_TEST_FILE_1_SIZE);
-		if (gIsDiamondPearl) {
-			void* data = NARC_AllocAndReadWholeMemberByIndexPair(DP_TEST_NARC, DP_TEST_NARC_TEST_FILE_1_IDX, HEAP_ID_MAIN_MENU);
-			gIsDiamondPearl = (MATH_CalcChecksum16(data, size) == DP_TEST_NARC_TEST_FILE_1_CHECKSUM);
-			Heap_Free(data);
-		}
-	}
-	
-	// Pearl title screen logo identification
-	if (gIsDiamondPearl) {
-		u32 size = NARC_GetMemberSizeByIndexPair(DP_TEST_NARC, DP_TEST_NARC_TEST_FILE_2_IDX);
-		gIsDiamondPearl = (size == DP_TEST_NARC_TEST_FILE_2_SIZE);
-		if (gIsDiamondPearl) {
-			void* data = NARC_AllocAndReadWholeMemberByIndexPair(DP_TEST_NARC, DP_TEST_NARC_TEST_FILE_2_IDX, HEAP_ID_MAIN_MENU);
-			gIsDiamondPearl = (MATH_CalcChecksum16(data, size) == DP_TEST_NARC_TEST_FILE_2_CHECKSUM);
-			Heap_Free(data);
-		}
-	}
-	
-	// Platinum title screen graphic identification
-	// If DP was identified, can skip this
-	if (gIsDiamondPearl) {
-		gIsPlatinum = FALSE;
-	} else {
-		gIsPlatinum = (NARC_GetFileCountByIndex(PL_TEST_NARC, FALSE) == PL_TEST_NARC_NUM_FILES);
-		if (gIsPlatinum) {
-			u32 size = NARC_GetMemberSizeByIndexPair(PL_TEST_NARC, PL_TEST_NARC_TEST_FILE_IDX);
-			gIsPlatinum = (size == PL_TEST_NARC_TEST_FILE_SIZE);
-			if (gIsPlatinum) {
-				void* data = NARC_AllocAndReadWholeMemberByIndexPair(PL_TEST_NARC, PL_TEST_NARC_TEST_FILE_IDX, HEAP_ID_MAIN_MENU);
-				gIsPlatinum = (MATH_CalcChecksum16(data, size) == PL_TEST_NARC_TEST_FILE_CHECKSUM);
-				Heap_Free(data);
-			}
-		}
-	}
-	
-	Heap_Destroy(HEAP_ID_MAIN_MENU);
 	
 	Fonts_Init();
 	Font_InitManager(FONT_SYSTEM,  HEAP_ID_APPLICATION);
@@ -212,17 +144,6 @@ void NitroMain(void) {
 		
 		if (gSystem.pressedKeys) {
 			MPRComm_SendKeyInput(gSystem.heldKeys);
-		}
-		
-		// MB_IsMultiBootChild() should always return true so this is unreachable
-		if (!MB_IsMultiBootChild() && (gSystem.heldKeys & RETURN_EOO_COMBO) == RETURN_EOO_COMBO) {
-			RebootAndLoadROM("data/eoo.dat");
-		}
-		
-		// BUG: They added !MB_IsMultiBootChild() to the wrong place, so this is written incorrectly and can never
-		//      trigger a soft reset even if MB_IsMultiBootChild() returns false
-		if (((gSystem.heldKeysRaw & RESET_COMBO) && !MB_IsMultiBootChild()) == RESET_COMBO && !gSystem.inhibitReset) {
-			SoftReset(RESET_CLEAN);
 		}
 		
 		RunApplication();

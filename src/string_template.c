@@ -148,13 +148,7 @@ void StringTemplate_SetString(StringTemplate* template, u32 idx, const String* a
 
 
 void StringTemplate_SetSpeciesName(StringTemplate* template, u32 idx, BoxPokemon* boxMon) {
-	u32 bank;
-	if (gIsDiamondPearl) {
-		bank = TEXT_BANK_DP_SPECIES_NAME;
-	} else {
-		bank = TEXT_BANK_PT_SPECIES_NAME;
-	}
-	MessageLoader* loader = InitMessageLoader(bank, template->heapID);
+	MessageLoader* loader = InitMessageLoader(TEXT_BANK_UNIFIED_SPECIES_NAME, template->heapID);
 	u32 species = BoxPokemon_GetValue(boxMon, MON_DATA_SPECIES, NULL);
 	
 	MessageLoader_GetString(loader, species, template->templateBuf);
@@ -182,26 +176,12 @@ void StringTemplate_SetNumber(StringTemplate* template, u32 idx, int num, u32 ma
 
 
 void StringTemplate_SetAbilityName(StringTemplate* template, u32 idx, Ability ability) {
-	// BUG: use unified access
-	u32 bank;
-	if (gIsDiamondPearl) {
-		bank = TEXT_BANK_DP_ABILITY_NAMES;
-	} else {
-		bank = TEXT_BANK_PT_ABILITY_NAMES;
-	}
-	SetArgFromArchive(template, idx, ability, bank);
+	SetArgFromArchive(template, idx, ability, TEXT_BANK_UNIFIED_ABILITY_NAMES);
 }
 
 
 void StringTemplate_SetItemName(StringTemplate* template, u32 idx, u32 item) {
-	// BUG: use unified access
-	u32 bank;
-	if (gIsDiamondPearl) {
-		bank = TEXT_BANK_DP_ITEM_NAMES;
-	} else {
-		bank = TEXT_BANK_PT_ITEM_NAMES;
-	}
-	SetArgFromArchive(template, idx, item, bank);
+	SetArgFromArchive(template, idx, item, TEXT_BANK_UNIFIED_ITEM_NAMES);
 }
 
 
@@ -212,27 +192,16 @@ void StringTemplate_SetPCBoxName(StringTemplate* template, u32 idx, const PCBoxe
 
 
 void StringTemplate_SetMetLocationName(StringTemplate* strTemplate, u32 idx, u32 location) {
-	// BUG: use unified access
-	static const u16 MetLocationBanksDP[] = {
-		TEXT_BANK_DP_LOCATION_NAMES,
-		TEXT_BANK_DP_SPECIAL_MET_LOCATION_NAMES,
-		TEXT_BANK_DP_MYSTERY_GIFT_EVENT_NAMES
-	};
-	
-	static const u16 MetLocationBanksPt[] = {
-		TEXT_BANK_PT_LOCATION_NAMES,
-		TEXT_BANK_PT_SPECIAL_MET_LOCATION_NAMES,
-		TEXT_BANK_PT_MYSTERY_GIFT_EVENT_NAMES
+	static const u16 MetLocationBanks[] = {
+		TEXT_BANK_UNIFIED_LOCATION_NAMES,
+		TEXT_BANK_UNIFIED_SPECIAL_MET_LOCATION_NAMES,
+		TEXT_BANK_UNIFIED_MYSTERY_GIFT_EVENT_NAMES
 	};
 	
 	int metLocationType = MetLoc_GetBankType(location);
 	int metLocationEntry = MetLoc_GetBankEntry(location);
-	u32 bank;
-	if (gIsDiamondPearl) {
-		bank = MetLocationBanksDP[metLocationType];
-	} else {
-		bank = MetLocationBanksPt[metLocationType];
-	}
+	u32 bank = MetLocationBanks[metLocationType];
+	
 	MessageLoader* loader = InitMessageLoader(bank, strTemplate->heapID);
 	
 	if (loader) {
@@ -246,27 +215,39 @@ void StringTemplate_SetMetLocationName(StringTemplate* strTemplate, u32 idx, u32
 			MessageLoader_Free(loader);
 			
 			if (gIsDiamondPearl) {
-				// BUG: use table immediately above
-				loader = InitMessageLoader(TEXT_BANK_DP_LOCATION_NAMES, strTemplate->heapID);
+				loader = InitMessageLoader(MetLocationBanks[0], strTemplate->heapID);
 				if (loader) {
 					MessageLoader_GetString(loader, LOCATION_NAME_MysteryZone, strTemplate->templateBuf);
 					SetStringTemplateArg(strTemplate, idx, strTemplate->templateBuf, NULL);
 					MessageLoader_Free(loader);
 				}
 			} else {
-				// BUG: use table immediately above
 				u32 bankID, msgID;
 				if (metLocationType == 0 && metLocationEntry == 0) {
-					bankID = TEXT_BANK_PT_SPECIAL_MET_LOCATION_NAMES;
+					bankID = MetLocationBanks[1];
 					msgID = SPECIAL_METLOC_NAME_MysteryZone;
 				} else {
-					bankID = TEXT_BANK_PT_MYSTERY_GIFT_EVENT_NAMES;
+					bankID = MetLocationBanks[2];
 					msgID = MYSTERY_GIFT_EVENT_NAME_FarawayPlace;
 				}
 				
 				SetArgFromArchive(strTemplate, idx, msgID, bankID);
 			}
 		}
+	}
+}
+
+
+void StringTemplate_SetMonthName(StringTemplate* strTemplate, u32 idx, u32 month) {
+	MessageLoader* loader = InitMessageLoader(TEXT_BANK_UNIFIED_MONTH_NAMES, strTemplate->heapID);
+	if (loader != NULL) {
+		if (month < 1 || month > 12) {
+			month = 1;
+		}
+		
+		MessageLoader_GetString(loader, month - 1, strTemplate->templateBuf);
+		SetStringTemplateArg(strTemplate, idx, strTemplate->templateBuf, NULL);
+		MessageLoader_Free(loader);
 	}
 }
 

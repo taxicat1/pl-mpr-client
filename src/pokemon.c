@@ -2219,28 +2219,6 @@ static u16 Pokemon_GetNatureStatValue(u8 monNature, u16 monStatValue, u8 statTyp
 }
 
 
-void Dummy_Unused_0205EA50(void);
-void Dummy_Unused_0205EA50(void) {
-	// For friendship modification in the base game. Unused.
-	static const struct {
-		s8 data[10][3];
-	} sFriendshipChangeTable_Unused_0205EA50 = {
-		{
-			{  5,  3,  2  },
-			{  5,  3,  2  },
-			{  1,  1,  0  },
-			{  3,  2,  1  },
-			{  1,  1,  0  },
-			{  1,  1,  1  },
-			{ -1, -1, -1  },
-			{ -5, -5, -10 },
-			{ -5, -5, -10 },
-			{  3,  2,  1  }
-		}
-	};
-}
-
-
 u8 Pokemon_GetGender(Pokemon* mon) {
 	return BoxPokemon_GetGender(&mon->box);
 }
@@ -3087,20 +3065,6 @@ BOOL Pokemon_SetRotomForm(Pokemon* mon, int form, int moveSlot) {
 }
 
 
-void Dummy_Unused_0205EA3C(void);
-void Dummy_Unused_0205EA3C(void) {
-	// For giving wild Pokemon held items in the base game. Unused.
-	static const struct {
-		u16 data[2][2];
-	} sHeldItemChance_0205EA3C = {
-		{
-			{ 45, 95 },
-			{ 20, 80 }
-		}
-	};
-}
-
-
 void Pokemon_LoadLevelUpMovesOf(int monSpecies, int monForm, u16* monLevelUpMoves) {
 	monSpecies = Pokemon_GetFormNarcIndex(monSpecies, monForm);
 	NARC_ReadWholeMemberByIndexPair(monLevelUpMoves, NARC_INDEX_DP_POKETOOL__PERSONAL__WOTBL, monSpecies);
@@ -3360,36 +3324,6 @@ static int Pokemon_GetFormNarcIndex(int monSpecies, int monForm) {
 	}
 	
 	return monSpecies;
-}
-
-
-void Dummy_Unused_0205EA6E(void);
-void Dummy_Unused_0205EA6E(void) {
-	// For banning species from the Battle Frontier. Unused.
-	static const struct {
-		u16 data[18];
-	} sBattleFrontierBanList_0205EA6E = {
-		{
-			SPECIES_MEWTWO,
-			SPECIES_MEW,
-			SPECIES_HO_OH,
-			SPECIES_LUGIA,
-			SPECIES_CELEBI,
-			SPECIES_KYOGRE,
-			SPECIES_GROUDON,
-			SPECIES_RAYQUAZA,
-			SPECIES_JIRACHI,
-			SPECIES_DEOXYS,
-			SPECIES_DIALGA,
-			SPECIES_PALKIA,
-			SPECIES_GIRATINA,
-			SPECIES_PHIONE,
-			SPECIES_MANAPHY,
-			SPECIES_DARKRAI,
-			SPECIES_SHAYMIN,
-			SPECIES_ARCEUS
-		}
-	};
 }
 
 

@@ -12,23 +12,7 @@ typedef enum {
 
 static void WirelessDriver_InitCallback(void* unused, WVRResult result);
 
-// Unused BSS
-void Dummy_Unused_02133AC8(void);
-void Dummy_Unused_02133AC8(void) {
-	static struct {
-		u8 data[4];
-	} unused_02133AC8[6];
-}
-
 static volatile WirelessDriverState sWirelessDriverStatus;
-
-// Unused BSS
-void Dummy_Unused_02133AC0(void);
-void Dummy_Unused_02133AC0(void) {
-	static struct {
-		u8 data[4];
-	} unused_02133AC0;
-}
 
 
 static void WirelessDriver_InitCallback(void* unused, WVRResult result) {

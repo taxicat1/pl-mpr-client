@@ -13,45 +13,12 @@
 const char** sNarcCurrentPaths = sNarcDPPaths;
 
 static const char* NarcIDToFilePath(NarcID narcID);
-static BOOL VersionTolerantOpenFile(FSFile* file, const char* path);
 static void ReadFromNarcMemberByPathAndIndex(void* dest, const char* path, int memberIndex, int offset, int bytesToRead);
 static void* AllocAndReadFromNarcMemberByPathAndIndex(const char* path, int memberIndex, HeapID heapID, int offset, int bytesToRead, BOOL allocAtEnd);
 
 
 static const char* NarcIDToFilePath(NarcID narcID) {
-	switch (narcID) {
-		case NARC_INDEX_DP_POKETOOL__PERSONAL__PERSONAL:
-		case NARC_INDEX_DP_POKETOOL__POKEGRA__POKEGRA:
-		case NARC_INDEX_DP_GRAPHIC__BAG_GRA:
-		case NARC_INDEX_DP_POKETOOL__ICONGRA__POKE_ICON:
-		case NARC_INDEX_DP_GRAPHIC__PLIST_GRA:
-		case NARC_INDEX_DP_MSGDATA__MSG:
-		case NARC_INDEX_DP_BATTLE__GRAPHIC__BATT_OBJ:
-		case NARC_INDEX_DP_POKETOOL__POKEANM__POKEANM:
-		case NARC_INDEX_DP_POKETOOL__POKEGRA__OTHERPOKE:
-		case NARC_INDEX_PL_POKETOOL__POKE_EDIT__PL_POKE_DATA:
-			return sNarcCurrentPaths[narcID];
-		
-		default:
-			return sNarcDPPaths[narcID];
-	}
-}
-
-
-static BOOL VersionTolerantOpenFile(FSFile* file, const char* path) {
-	if (FS_OpenFile(file, path)) {
-		return TRUE;
-	}
-	
-	if (strcmp(path, "poketool/personal/personal.narc") == 0) {
-		return FS_OpenFile(file, "poketool/personal_pearl/personal.narc");
-	}
-	
-	if (strcmp(path, "graphic/zukan.narc") != 0) {
-		return FALSE;
-	}
-	
-	return FS_OpenFile(file, "resource/eng/zukan/zukan.narc");
+	return sNarcCurrentPaths[narcID];
 }
 
 
@@ -66,10 +33,7 @@ static void ReadFromNarcMemberByPathAndIndex(void* dest, const char* path, int m
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, path);
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, path);
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -119,10 +83,7 @@ static void* AllocAndReadFromNarcMemberByPathAndIndex(const char* path, int memb
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, path);
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, path);
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -197,10 +158,7 @@ u16 NARC_GetFileCountByIndex(NarcID narcID, BOOL unused) {
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, NarcIDToFilePath(narcID));
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, NarcIDToFilePath(narcID));
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &btafStart, 2);
@@ -211,7 +169,7 @@ u16 NARC_GetFileCountByIndex(NarcID narcID, BOOL unused) {
 	FS_ReadFile(&file, &btafStart, 4);
 	FS_ReadFile(&file, &fileCount, 2);
 	
-	// Bug: file is never closed!
+	FS_CloseFile(&file);
 	return fileCount;
 }
 
@@ -227,10 +185,7 @@ u32 NARC_GetMemberSizeByIndexPair(NarcID narcID, int memberIndex) {
 	u16 fileCount = 0;
 	
 	FS_InitFile(&file);
-	VersionTolerantOpenFile(&file, NarcIDToFilePath(narcID));
-	if (!FS_IsFile(&file)) {
-		// ?
-	}
+	FS_OpenFile(&file, NarcIDToFilePath(narcID));
 	
 	FS_SeekFile(&file, 12, FS_SEEK_SET);
 	FS_ReadFile(&file, &chunkSize, 2);
@@ -258,7 +213,8 @@ u32 NARC_GetMemberSizeByIndexPair(NarcID narcID, int memberIndex) {
 	chunkSize = fileEnd - fileStart;
 	
 	GF_ASSERT(chunkSize != 0);
-	// BUG: file is never closed
+	
+	FS_CloseFile(&file);
 	
 	return chunkSize;
 }
@@ -273,10 +229,7 @@ NARC* NARC_ctor(NarcID narcID, HeapID heapID) {
 		narc->fatbStart = 0;
 		
 		FS_InitFile(&narc->file);
-		VersionTolerantOpenFile(&narc->file, NarcIDToFilePath(narcID));
-		if (!FS_IsFile(&narc->file)) {
-			// ?
-		}
+		FS_OpenFile(&narc->file, NarcIDToFilePath(narcID));
 		
 		FS_SeekFile(&narc->file, 12, FS_SEEK_SET);
 		FS_ReadFile(&narc->file, &narc->fatbStart, 2);

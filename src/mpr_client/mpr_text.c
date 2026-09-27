@@ -30,7 +30,5 @@ const charcode_t* MPRText_GetChars(int messageID) {
 
 String* MPRText_CopyChars(String* dest, int messageID) {
 	String_CopyChars(dest, GetChars(messageID));
-	
-	// BUG: Returning local variable address (but this is never used)
-	return (String*)&dest;
+	return dest;
 }

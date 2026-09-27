@@ -160,6 +160,7 @@ Static main
 	Object build/src/mpr_client/mpr_comm.c.o
 	Object build/src/mpr_client/mpr_menu.c.o
 	Object build/src/mpr_client/mpr_save.c.o
+	Object build/src/mod_detect_version.c.o
 	
 	Object build/fs_local/mpr_string_table.bin.o
 	Object build/fs_local/ds_back.ncg.o
