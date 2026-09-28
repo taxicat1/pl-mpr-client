@@ -46,6 +46,6 @@ void Mod_DetectVersion(void) {
 	gIsDiamondPearl = FALSE;
 	
 	if (Mod_IsSupportedPkmnGame()) {
-		Mod_DetectVersion();
+		Mod_InternalDetectVersion();
 	}
 }
