@@ -340,12 +340,16 @@ static void LoadWarningGraphics(MPRMenuApp* mprMenu) {
 	int j, i;
 	for (i = 0; i < 32; i++) {
 		for (j = 0; j < 32; j++) {
-			// 16 x 4 tiles hardcoded
+			// 16 x 4 tiles hardcoded => changed to 8 x 8 tiles
 			// Correctly:
 			//int width  = *(u32*)(LOCAL_FILE(warning_bg_ncg) + 24);
 			//int height = *(u32*)(LOCAL_FILE(warning_bg_ncg) + 28);
 			
-			u32 offset = ((i % 4) * 16) + ((j + ((i / 4) * 8)) % 16);
+			// (Still not doing it properly because knowing the dimensions at compile time means no divmod calls)
+			const unsigned int width = 8;
+			const unsigned int height = 8;
+			
+			u32 offset = ((i % height) * width) + ((j + ((i / height) * 8)) % width);
 			Bg_FillTilemapRect(mprMenu->bgConfig, 1, offset, j, i, 1, 1, LOCAL_FILE(warning_bg_ncg)[2100 + offset] + 7);
 		}
 	}
