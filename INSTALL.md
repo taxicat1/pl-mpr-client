@@ -11,4 +11,4 @@
 
 3. Run `make` in the root of repository, optionally with `-j` to accelerate the process.
 
-4. The output file will be `build/Rom-client.JPN.srl`.
+4. The output file will be `build/Rom-client.USA.srl`.
